@@ -1,3 +1,8 @@
+%Authors
+%Christopher Bell
+%Philip Mollerus
+%Version 6/17/2021
+
 GUI
 
 %+++++++++++++++++++++DESCTIPTION OF PROGRAM+++++++++++++++++++++++++
