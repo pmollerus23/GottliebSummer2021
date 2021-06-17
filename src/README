@@ -1,1 +1,7 @@
-####
+This program is executed from the "runnableExp" script
+
+Designed for use in conjunction with EyeLink(???) hardware + software
+
+This is a MATLAB script using PsychToolBox (PTB-3) version 3.0.17.11
+
+Only intended for use by JLG - Columbia University
