@@ -25,7 +25,7 @@ Screen('Flip', window);
 KbStrokeWait;
 response = 0;
 responseText = 'incorrect';
-numTrials = 72;
+numTrials = 12;
 abortedTrials = zeros(numTrials,1);
 abortedTrials2 = zeros(numTrials,1);
 
@@ -44,7 +44,17 @@ for j=1: 10%numTrials
     end
     % while isEyeInside
     
-    Screen('DrawTexture', window, dispImageCross, [], crossPos);
+     if randSpeedVec(blockIndex + j) == 1
+            %cross for slow trial
+            crossForTrial = dispImageBlueCross;
+            timeToWaitResponse = 2;
+            
+        elseif randSpeedVec(blockIndex + j) == 2
+            crossForTrial = dispImageRedCross;
+            timeToWaitResponse = 0.8;
+        end
+    
+    Screen('DrawTexture', window, crossForTrial, [], crossPos);
     Screen('TextSize', window, 30);
     DrawFormattedText(window, 'Choose the reward amount using the left and right arrow keys', 'center',...
         screenYpixels * 0.25, [0 0 0]);
@@ -52,7 +62,7 @@ for j=1: 10%numTrials
     %if block decides which incentive will be presented to the user
     % 2 = 2 preseted, 3 = 3 presented... etc
     if trialData(j, 5)==1
-        incentiveForTrial = disTwoIncentive;
+        incentiveForTrial = disOneIncentive;
     elseif trialData(j, 5)==2
         incentiveForTrial= disTwoIncentive;
     elseif trialData(j, 5)==3
@@ -70,11 +80,11 @@ for j=1: 10%numTrials
     %decide which side of screen to draw highest incentive in, 1 = higher
     %incentive in users right, 2 = higher incentive on users left
     if  trialData(j, 4)==1
-        Screen('DrawTexture', window, disOneIncentive, [], leftRectPos);
+        Screen('DrawTexture', window, disOneEasyIncentive, [], leftRectPos);
         Screen('DrawTexture', window, incentiveForTrial, [], rightRectPos);
     elseif  trialData(j, 4)==2
         Screen('DrawTexture', window, incentiveForTrial, [], leftRectPos);
-        Screen('DrawTexture', window, disOneIncentive, [], rightRectPos);
+        Screen('DrawTexture', window, disOneEasyIncentive, [], rightRectPos);
     end
     
     
@@ -152,12 +162,12 @@ for j=1: 10%numTrials
         positionOfT(j,1) = occupiedByT;
         
         
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
+        Screen('DrawTexture', window, crossForTrial, [], centerRect);
         %present task screen for 2 seconds
         [~,start1, ~] =  Screen('Flip', window);
         WaitSecs(0.2);
         
-        timeToWait = 2;
+        %timeToWait = 2;
         startTime = GetSecs;
         timeInLoop = 0;
         flag = 0;
@@ -166,7 +176,7 @@ for j=1: 10%numTrials
         %THIS KbWait DECIDES IF THE TRIALS IS ABORTED OR NOT, THE KbWait
         %SPECIFIES A TIME TO BE WAITED, IF THAT TIME IS EXCEEDED IT SKIPS
         %THE FOLLOWING IF BLOCK AND EXECUTES CODE TO ABORT THE TRIAL
-        KbWait([], [], start1 + timeToWait);
+        KbWait([], [], start1 + timeToWaitResponse);
         timeWaited = GetSecs;
         respTime(j,1) = timeWaited-start1;
         
@@ -212,7 +222,7 @@ for j=1: 10%numTrials
                 keyPress(j,1) = 0;
             end
             
-            Screen('DrawTexture', window, dispImageCross, [], centerRect);
+            Screen('DrawTexture', window, crossForTrial, [], centerRect);
             Screen('Flip', window);
             WaitSecs(3-respTime(j,1));
             
@@ -280,7 +290,7 @@ for j=1: 10%numTrials
         %DIFFICULT TASK CODE HERE
         %======================================
         
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
+        Screen('DrawTexture', window, crossForTrial, [], centerRect);
         
         
         
@@ -377,12 +387,12 @@ for j=1: 10%numTrials
         [~,start1, ~] =  Screen('Flip', window);
         WaitSecs(0.2);
         
-        timeToWait = 2;
+        %timeToWait = 2;
         startTime = GetSecs;
         timeInLoop = 0;
         flag = 0;
         
-        KbWait([], [], start1 + timeToWait);
+        KbWait([], [], start1 + timeToWaitResponse);
         timeWaited = GetSecs;
         respTime(j,1) = timeWaited-start1;
         
@@ -426,7 +436,7 @@ for j=1: 10%numTrials
                 keyPress(j,1) = 0;
             end
             
-            Screen('DrawTexture', window, dispImageCross, [], centerRect);
+            Screen('DrawTexture', window, crossForTrial, [], centerRect);
             Screen('Flip', window);
             WaitSecs(3-respTime(j,1));
             
@@ -494,7 +504,7 @@ for j=1: 10%numTrials
     %if statment handles trial abortion and saves data for trial to be re
     %ran at end
     if ~isEyeInside
-        numTrials = numTrials + 1;
+         numTrials = numTrials + 1;
         countAbortFree = countAbortFree + 1;
         randTarray(numTrials) = randTarray(j);
         orientationTArray(numTrials) = orientationTArray(j);
@@ -505,14 +515,25 @@ for j=1: 10%numTrials
         trialData(numTrials, 3) = orientationTArray(j);
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
+        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;
         abortedTrials2(j) = 1;
         isEyeInside = true;
+        respTimeInc(numTrials) = 0;
+        rewardChoice(numTrials) = 0;
+        fatigueRating(numTrials) = 0;
+        keyPress(numTrials) = 0;
+        correctOrIncorrect(numTrials) = 0;
+        respTime(numTrials) = 0;
+        
+        
+        
+        
         DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
-        
         
         
     end
@@ -521,10 +542,6 @@ for j=1: 10%numTrials
     
 end
 trialData(:, 6) = abortedTrials;
-completedFree = 1;
-trialChoice = 0;
-
-
 
 finalTrialData.practiceFree.results.responseTimeIncentive =respTimeInc;
 finalTrialData.practiceFree.results.rewardChoice = rewardChoice;
@@ -538,7 +555,7 @@ finalTrialData.practiceFree.results.dataDescription = {'Column 1 represents the 
     'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
     'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};
 
-finalTrialData.practiceFree.trialData.description = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
+finalTrialData.practiceFree.trialData.description = {'Column 1 represents the trial number(1-12 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
     'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'};
 
 

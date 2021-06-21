@@ -1,27 +1,28 @@
-response = 0;
+ response = 0;
 responseText = 'incorrect';
 
 isEyeInside = true;
-numTrials = 72;
+numTrials = 12;
 fatigueRating = nan(numTrials,1);
 abortedTrials = zeros(numTrials,1);
 abortedTrials2 = zeros(numTrials,1);
+randSpeedVecData = zeros(numTrials, 1);
 
 correctOrIncorrect = zeros(numTrials,1);
 keyPress = zeros(numTrials,1);
 j = 1;
 
 
-%%% 4. Calibrate the eye tracker
-Eyelink('command','calibration_area_proportion = 0.5 0.5');
-Eyelink('command','validation_area_proportion = 0.48 0.48');
-EyelinkDoTrackerSetup(el);
-WaitSecs(0.1);
-
-eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left eye)
-if eye_used == el.BINOCULAR % if both eyes are tracked
-    eye_used = el.LEFT_EYE; % use left eye
-end
+% %%% 4. Calibrate the eye tracker
+% Eyelink('command','calibration_area_proportion = 0.5 0.5');
+% Eyelink('command','validation_area_proportion = 0.48 0.48');
+% EyelinkDoTrackerSetup(el);
+% WaitSecs(0.1);
+% 
+% eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left eye)
+% if eye_used == el.BINOCULAR % if both eyes are tracked
+%     eye_used = el.LEFT_EYE; % use left eye
+% end
 
 %========================================================================
 %this is the main experimental loop. the loop itterates a specified number
@@ -34,17 +35,17 @@ end
 
 while j <= numTrials
     %%% 5. Mark events, messages, etc. in dataviwer trial
-    Eyelink('Message', 'TRIAL_%d', numTrials);
-    % This supplies the title at the bottom of the eyetracker display
-    Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
-    WaitSecs(0.001);
-    
-    %%% 6. START RECORDING each trial
-    Eyelink('StartRecording');
-    error=Eyelink('CheckRecording');
-    if(error~=0)
-        isEyeInside = false;
-    end
+%     Eyelink('Message', 'TRIAL_%d', numTrials);
+%     % This supplies the title at the bottom of the eyetracker display
+%     Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
+%     WaitSecs(0.001);
+%     
+%     %%% 6. START RECORDING each trial
+%     Eyelink('StartRecording');
+%     error=Eyelink('CheckRecording');
+%     if(error~=0)
+%         isEyeInside = false;
+%     end
     
     
     if j == 1
@@ -54,8 +55,23 @@ while j <= numTrials
         WaitSecs(2);
     end
     %while isEyeInside
+    
+        %Conditional for trial speed (including fixation cross signal
+        %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
+        if randSpeedVec(blockIndex + j) == 1
+            %cross for slow trial
+            crossForTrial = dispImageBlueCross;
+            timeToWaitResponse = 2;
+            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+            
+        elseif randSpeedVec(blockIndex + j) == 2
+            crossForTrial = dispImageRedCross;
+            timeToWaitResponse = 0.8;
+            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+
+        end
         
-        Screen('DrawTexture', window, dispImageCross, [], crossPos);
+        Screen('DrawTexture', window, crossForTrial, [], crossPos);
         Screen('TextSize', window, 30);
         DrawFormattedText(window, 'The reward amount is fixed.', 'center',...
             screenYpixels * 0.25, [0 0 0]);
@@ -66,7 +82,7 @@ while j <= numTrials
         % 2 = 2, 3 =3... etc
         if trialData(j, 5)==1
             trialData(j, 5) = 2;
-            incentiveForTrial = disTwoIncentive;
+            incentiveForTrial = disOneIncentive;
         elseif trialData(j, 5)==2
             incentiveForTrial= disTwoIncentive;
         elseif trialData(j, 5)==3
@@ -105,7 +121,7 @@ while j <= numTrials
         %DIFFICULT TASK CODE HERE
         %======================================
         
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
+        Screen('DrawTexture', window, crossForTrial, [], centerRect);
         
         
         
@@ -203,7 +219,6 @@ while j <= numTrials
        [~,start1, ~] =  Screen('Flip', window);
         WaitSecs(0.2);
         
-        timeToWait = 2;
         startTime = GetSecs;
         timeInLoop = 0;
         flag = 0;
@@ -216,7 +231,7 @@ while j <= numTrials
         %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
         %CODE WILL TRIGGER TO ABORT THE TRIAL
        
-      KbWait([], [], start1 + timeToWait);
+      KbWait([], [], start1 + timeToWaitResponse);
       timeWaited = GetSecs;
       respTime(j,1) = timeWaited-start1;
 
@@ -260,7 +275,7 @@ while j <= numTrials
                     keyPress(j,1) = 0;
                 end
                 
-                Screen('DrawTexture', window, dispImageCross, [], centerRect);
+                Screen('DrawTexture', window, crossForTrial, [], centerRect);
                 Screen('Flip', window);
                 %OFSET STIMULUS REWARD PRESENTATION
                 WaitSecs(3-respTime(j,1));
@@ -303,7 +318,7 @@ while j <= numTrials
         
         %code to ask user for self fatigue assessment every 10 trials
         decideConfRating = mod(j,10);
-        if decideConfRating == 0 || j ==1
+        if decideConfRating == 0 || j == 1
             
             DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
             [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
@@ -330,6 +345,8 @@ while j <= numTrials
         trialData(numTrials, 3) = orientationTArray(j);
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
+        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;
         abortedTrials2(j) = 1;
@@ -344,29 +361,39 @@ while j <= numTrials
         
     end
     
-    %%% 7. END RECORDING each trial
-    Eyelink('StopRecording');
+%     %%% 7. END RECORDING each trial
+%     Eyelink('StopRecording');
     
     j =j + 1;
 
 end
+
 trialData(:, 6) = abortedTrials;
+if countForceBlocks == 1
+    finalTrialData.force.results.correctOrIncorrect = correctOrIncorrect;
+    finalTrialData.force.results.respTime = respTime;
+    finalTrialData.force.results.abortedTrials = abortedTrials;
+    finalTrialData.force.results.fatigueRating = fatigueRating;
+    finalTrialData.force.results.keyPress = keyPress;
+elseif countForceBlocks ~= 1
+    finalTrialData.force.results.correctOrIncorrect = vertcat(finalTrialData.force.results.correctOrIncorrect, correctOrIncorrect);
+    finalTrialData.force.results.respTime = vertcat(finalTrialData.force.results.respTime, respTime);
+    finalTrialData.force.results.abortedTrials = vertcat(finalTrialData.force.results.abortedTrials, abortedTrials);
+    finalTrialData.force.results.fatigueRating = vertcat(finalTrialData.force.results.fatigueRating, fatigueRating);
+    finalTrialData.force.results.keyPress = vertcat(finalTrialData.force.results.keyPress, keyPress);
+    
+end
+countForceBlocks = countForceBlocks + 1;
 
 
-finalTrialData.force.results.correctOrIncorrect = correctOrIncorrect;
-finalTrialData.force.results.respTime = respTime;
-finalTrialData.force.results.abortedTrials = abortedTrials;
-finalTrialData.force.results.fatigueRating = fatigueRating;
-finalTrialData.force.results.keyPress = keyPress;
-
-finalTrialData.force.results.allTrialsData = horzcat([respTime, abortedTrials, fatigueRating, keyPress, correctOrIncorrect]);
-finalTrialData.force.results.dataDescription = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
-    'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
-
-finalTrialData.force.trialData.description = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
-    'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'}; 
-
-finalTrialData.force.trialData.data = trialData;
+% finalTrialData.force.results.allTrialsData = horzcat([finalTrialData.force.results.respTime, finalTrialData.force.results.abortedTrials, finalTrialData.force.results.fatigueRating, finalTrialData.force.results.keyPress, finalTrialData.force.results.correctOrIncorrect]);
+% finalTrialData.force.results.dataDescription = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
+%     'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
+% 
+% finalTrialData.force.trialData.description = {'Column 1 represents the trial number(1-12 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
+%     'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'}; 
+% 
+% finalTrialData.force.trialData.data = trialData;
 
 
 

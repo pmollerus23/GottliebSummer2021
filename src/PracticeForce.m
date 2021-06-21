@@ -23,7 +23,7 @@ response = 0;
 responseText = 'incorrect';
 
 isEyeInside = true;
-numTrials = 72;
+numTrials = 12;
 fatigueRating = nan(numTrials,1);
 abortedTrials = zeros(numTrials,1);
 abortedTrials2 = zeros(numTrials,1);
@@ -42,8 +42,21 @@ for j=1: 10%num_practice %numTrials
         WaitSecs(2);
     end
     %while isEyeInside
+    
+         if randSpeedVec(blockIndex + j) == 1
+            %cross for slow trial
+            crossForTrial = dispImageBlueCross;
+            timeToWaitResponse = 2;
+            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+            
+        elseif randSpeedVec(blockIndex + j) == 2
+            crossForTrial = dispImageRedCross;
+            timeToWaitResponse = 0.8;
+            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+
+         end
         
-        Screen('DrawTexture', window, dispImageCross, [], crossPos);
+        Screen('DrawTexture', window, crossForTrial, [], crossPos);
         Screen('TextSize', window, 30);
         DrawFormattedText(window, 'The reward amount is fixed.', 'center',...
             screenYpixels * 0.25, [0 0 0]);
@@ -51,7 +64,7 @@ for j=1: 10%num_practice %numTrials
         %calculate random incentive amounts for trial
         if trialData(j, 5)==1
             trialData(j, 5) = 2;
-            incentiveForTrial = disTwoIncentive;
+            incentiveForTrial = disOneIncentive;
         elseif trialData(j, 5)==2
             incentiveForTrial= disTwoIncentive;
         elseif trialData(j, 5)==3
@@ -88,7 +101,7 @@ for j=1: 10%num_practice %numTrials
         %DIFFICULT TASK CODE HERE
         %======================================
         
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
+        Screen('DrawTexture', window, crossForTrial, [], centerRect);
         
         
         
@@ -186,12 +199,12 @@ for j=1: 10%num_practice %numTrials
        [~,start1, ~] =  Screen('Flip', window);
         WaitSecs(0.2);
         
-        timeToWait = 2;
+        %timeToWait = 2;
         startTime = GetSecs;
         timeInLoop = 0;
         flag = 0;
        
-      KbWait([], [], start1 + timeToWait);
+      KbWait([], [], start1 + timeToWaitResponse);
       timeWaited = GetSecs;
       respTime(j,1) = timeWaited-start1;
 
@@ -235,7 +248,7 @@ for j=1: 10%num_practice %numTrials
                     keyPress(j,1) = 0;
                 end
                 
-                Screen('DrawTexture', window, dispImageCross, [], centerRect);
+                Screen('DrawTexture', window, crossForTrial, [], centerRect);
                 Screen('Flip', window);
                 WaitSecs(3-respTime(j,1));
 
@@ -305,9 +318,15 @@ for j=1: 10%num_practice %numTrials
         trialData(numTrials, 3) = orientationTArray(j);
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
+        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;
         abortedTrials2(j) = 1;
+        correctOrIncorrect(numTrials) = 0;
+        respTime(numTrials) = 0;
+        fatigueRating(numTrials) = 0;
+        keyPress(numTrials) = 0;
         isEyeInside = true;
         DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
         Screen('Flip', window);
@@ -328,7 +347,7 @@ finalTrialData.practiceForce.results.allTrialsData = horzcat([respTime, abortedT
 finalTrialData.practiceForce.results.dataDescription = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
     'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
 
-finalTrialData.practiceForce.trialData.description = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
+finalTrialData.practiceForce.trialData.description = {'Column 1 represents the trial number(1-12 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
     'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'}; 
 
 finalTrialData.practiceForce.trialData.data = trialData;

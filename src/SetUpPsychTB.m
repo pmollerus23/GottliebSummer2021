@@ -120,8 +120,15 @@ Screen('TextSize', window, 40);
 KbQueueCreate(deviceIndices);
 KbQueueStart(deviceIndices); % start recording key presses
 
+%Reading images for fixation cross types
 imageCross = imread('CrossP.png');
 dispImageCross = Screen('MakeTexture', window, imageCross);
+
+imageRedCross = imread('RedCross.png');
+dispImageRedCross = Screen('MakeTexture', window, imageRedCross);
+
+imageBlueCross = imread('BlueCross.png');
+dispImageBlueCross = Screen('MakeTexture', window, imageBlueCross);
 
 imageNormalT = imread('Picture2TT.png');
 dispImageT = Screen('MakeTexture', window, imageNormalT);
@@ -161,6 +168,7 @@ FRTD = Screen('MakeTexture', window, imageFreeTaskInstrD);
 
 %Reading images for each incentive level
 imageIncentive1 = imread('Reward1.1.png');
+imageIncentive1EASY = imread('Reward1.2.png');
 imageIncentive2 = imread('Reward2.1.png');
 imageIncentive3 = imread('Reward3.1.png');
 imageIncentive4 = imread('Reward4.1.png');
@@ -168,6 +176,7 @@ imageIncentive5 = imread('Reward5.1.png');
 imageIncentive6 = imread('Reward6.1.png');
 
 disOneIncentive = Screen('MakeTexture', window, imageIncentive1);
+disOneEasyIncentive = Screen('MakeTexture', window, imageIncentive1EASY);
 disTwoIncentive = Screen('MakeTexture', window, imageIncentive2);
 disThreeIncentive = Screen('MakeTexture', window, imageIncentive3);
 disFourIncentive = Screen('MakeTexture', window, imageIncentive4);
