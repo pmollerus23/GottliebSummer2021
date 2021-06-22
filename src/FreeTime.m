@@ -58,7 +58,12 @@ while j <= numTrials
            screenYpixels * 0.25, [0 0 0]); 
         Screen('Flip', window);
         WaitSecs(2);
-    end
+     end
+    
+     DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
+     
    % while isEyeInside
         %Conditional for trial speed (including fixation cross signal
         %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
@@ -276,10 +281,15 @@ while j <= numTrials
   
    if flag == 0
         isEyeInside = false;
-        text = 'TOO LATE';
-         DrawFormattedText(window, text,'center' , yCenter, black);
-         Screen('Flip', window);
-        WaitSecs(2);
+%         text1 = 'TOO LATE';
+%          DrawFormattedText(window, text1,'center' , yCenter, black);
+%          Screen('Flip', window);
+%         WaitSecs(2);
+%         
+%         text2 = 'TRY AGAIN';
+%         DrawFormattedText(window, text2,'center' , yCenter, black);
+%          Screen('Flip', window);
+%         WaitSecs(2);
         
     end
     
@@ -497,13 +507,11 @@ while j <= numTrials
   %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
     if flag == 0
         isEyeInside = false;
-        text = 'TOO LATE';
-        DrawFormattedText(window, text,'center' , yCenter, black);
-                Screen('Flip', window);
+%         text = 'TOO LATE';
+%         DrawFormattedText(window, text,'center' , yCenter, black);
+%                 Screen('Flip', window);
 
-        WaitSecs(2)
-
-        
+      
     end
     
 
@@ -566,14 +574,14 @@ while j <= numTrials
         correctOrIncorrect(numTrials) = 0;
         respTime(numTrials) = 0;
         
-        
-        
+        %Signaling for aborted trials
+        DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
         
         DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
-        
-        
         
     end
     

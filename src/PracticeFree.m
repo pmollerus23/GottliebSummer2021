@@ -42,6 +42,12 @@ for j=1: 10%numTrials
         Screen('Flip', window);
         WaitSecs(2);
     end
+    
+    %Signaling for trial starting
+     DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
+    
     % while isEyeInside
     
      if randSpeedVec(blockIndex + j) == 1
@@ -245,10 +251,10 @@ for j=1: 10%numTrials
         
         if flag == 0
             isEyeInside = false;
-            text = 'TOO LATE';
-            DrawFormattedText(window, text,'center' , yCenter, black);
-            Screen('Flip', window);
-            WaitSecs(2);
+%             text = 'TOO LATE';
+%             DrawFormattedText(window, text,'center' , yCenter, black);
+%             Screen('Flip', window);
+%             WaitSecs(2);
             
         end
         
@@ -459,11 +465,11 @@ for j=1: 10%numTrials
         
         if flag == 0
             isEyeInside = false;
-            text = 'TOO LATE';
-            DrawFormattedText(window, text,'center' , yCenter, black);
-            Screen('Flip', window);
-            
-            WaitSecs(2)
+%             text = 'TOO LATE';
+%             DrawFormattedText(window, text,'center' , yCenter, black);
+%             Screen('Flip', window);
+%             
+%             WaitSecs(2)
             
             
         end
@@ -531,6 +537,11 @@ for j=1: 10%numTrials
 %         
 %         
 %         
+        %Signaling for aborted trials
+        DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
+        
         DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);

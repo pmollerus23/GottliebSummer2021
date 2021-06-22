@@ -15,7 +15,8 @@ GUI
 %orientation, etc
 %SetupTChoice
 SetUpPsychTB;
-%SetUpEyeLink;
+
+SetUpEyeLink;
 counter = 0;
 countForceBlocks = 1;
 countFreeBlocks = 1;
@@ -68,6 +69,31 @@ while trialCount <= 12
     end
     trialCount = trialCount + 1;
 end
+
+
+
+    % catch error: This is executed in case something goes wrong in the
+    % 'try' part due to programming error etc.:
+    if strcmp(elstate,'on')
+        Eyelink('StopRecording');
+        Eyelink('closefile');
+       
+        % download data file
+        try
+            fprintf('Receiving data file ''%s''\n', fileName);
+            status=Eyelink('ReceiveFile',fileName);
+            if status > 0
+                fprintf('ReceiveFile status %d\n', status);
+            end
+            if 2==exist(fileName, 'file')
+                fprintf('Data file ''%s'' can be found in ''%s''\n', fileName, pwd );
+            end
+        catch rdf
+            fprintf('Problem receiving data file ''%s''\n', fileName );
+            rdf;
+        end
+    end
+    
 
 %finalize all data and collect data on how long the experiment took a
 %participant

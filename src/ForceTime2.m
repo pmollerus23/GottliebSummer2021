@@ -54,6 +54,11 @@ while j <= numTrials
         Screen('Flip', window);
         WaitSecs(2);
     end
+    
+     DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
+    
     %while isEyeInside
     
         %Conditional for trial speed (including fixation cross signal
@@ -300,7 +305,7 @@ while j <= numTrials
   %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
     if flag == 0
         isEyeInside = false;
-        text = 'TOO LATE';
+%         text = 'TOO LATE';
         
     end
     
@@ -356,6 +361,12 @@ while j <= numTrials
         fatigueRating(numTrials) = 0;
         keyPress(numTrials) = 0;
         isEyeInside = true;
+        
+        %Signaling for aborted trials
+        DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+        Screen('Flip', window);
+        WaitSecs(2);
+        
         DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
