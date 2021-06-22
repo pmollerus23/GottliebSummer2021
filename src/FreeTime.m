@@ -65,10 +65,12 @@ while j <= numTrials
         if randSpeedVec(blockIndex + j) == 1
             %cross for slow trial
             crossForTrial = dispImageBlueCross;
+            randSpeedVecData = 1;
             timeToWaitResponse = 2;
             
         elseif randSpeedVec(blockIndex + j) == 2
             crossForTrial = dispImageRedCross;
+            randSpeedVecData = 2;
             timeToWaitResponse = 0.8;
         end
         
@@ -583,6 +585,8 @@ while j <= numTrials
 end
 
 trialData(:, 6) = abortedTrials;
+trialData(:, 7) = randSpeedVecData;
+
 
 if countFreeBlocks == 1
     finalTrialData.free.results.responseTimeIncentive =respTimeInc;
@@ -592,6 +596,7 @@ if countFreeBlocks == 1
     finalTrialData.free.results.abortedTrials = abortedTrials;
     finalTrialData.free.results.fatigueRating = fatigueRating;
     finalTrialData.free.results.keyPress = keyPress;
+    finalTrialData.free.trialData.allTrialData = trialData;
 elseif countFreeBlocks ~= 1
     finalTrialData.free.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
     finalTrialData.free.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
@@ -600,7 +605,8 @@ elseif countFreeBlocks ~= 1
     finalTrialData.free.results.abortedTrials = vertcat(finalTrialData.free.results.abortedTrials, abortedTrials);
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
-    
+    finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.force.trialData.allTrialData, trialData);
+
 end
 
 countFreeBlocks = countFreeBlocks + 1;
