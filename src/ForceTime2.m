@@ -62,12 +62,12 @@ while j <= numTrials
             %cross for slow trial
             crossForTrial = dispImageBlueCross;
             timeToWaitResponse = 2;
-            randSpeedVecData = 1;
+            randSpeedVecData(j) = 1;
             
         elseif randSpeedVec(blockIndex + j) == 2
             crossForTrial = dispImageRedCross;
             timeToWaitResponse = 0.8;
-            randSpeedVecData = 2;
+            randSpeedVecData(j) = 2;
 
 
         end
@@ -346,7 +346,7 @@ while j <= numTrials
         trialData(numTrials, 3) = orientationTArray(j);
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
-        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+      %  randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
         randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;

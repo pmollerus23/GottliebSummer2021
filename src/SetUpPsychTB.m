@@ -17,9 +17,9 @@ screen = Screen('Screens');
 screenNumber = max(screen);
  
 
-%[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
+[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
  
-[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
+%[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 [xCenter, yCenter] = RectCenter(windowRect);
 numDisp = 1;
