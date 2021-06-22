@@ -45,17 +45,23 @@ practiceForceComplete = false;
 practiceFreeComplete = false;
 while trialCount <= 12 
     if randForceFreeVec(trialCount) == 1
+        if ~practiceForceComplete
+            SetUpTrialData;
+            %practice trials to familiarize participant to task with 10 trials
+            PracticeForce;
+            practiceForceComplete = true;
+        end
         SetUpTrialData;
-        %practice trials to familiarize participant to task with 10 trials
-        PracticeForce;
-        SetUpTrialData; 
         ForceTime2;
         
         
     elseif randForceFreeVec(trialCount) == 2
-        SetUpTrialData;
-        %practice trials to familiarize participant to task with 10 trials
-        PracticeFree
+        if ~practiceFreeComplete
+            SetUpTrialData;
+            %practice trials to familiarize participant to task with 10 trials
+            PracticeFree
+            practiceFreeComplete = true;
+        end
         SetUpTrialData;
         FreeTime
         

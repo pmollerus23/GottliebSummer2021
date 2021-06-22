@@ -84,8 +84,8 @@ rewardChoice = nan(numTrials,1);
 respTimeInc = nan(numTrials,1);
 orientationOfT = nan(numTrials, 1);
 positionOfT = nan(numTrials,1);
-correctOrIncorrect = nan(numTrials, 1);
-respTime= nan(numTrials ,1);
+correctOrIncorrect = zeros(numTrials, 1);
+respTime= zeros(numTrials ,1);
 RestrictKeysForKbCheck([]);
 RestrictKeysForKbCheck([upKey, downKey, leftKey, rightKey])
 

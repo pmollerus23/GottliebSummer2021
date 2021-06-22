@@ -503,42 +503,42 @@ for j=1: 10%numTrials
     
     %if statment handles trial abortion and saves data for trial to be re
     %ran at end
-    if ~isEyeInside
-         numTrials = numTrials + 1;
-        countAbortFree = countAbortFree + 1;
-        randTarray(numTrials) = randTarray(j);
-        orientationTArray(numTrials) = orientationTArray(j);
-        cardinalVec(numTrials) = cardinalVec(j);
-        incentiveVec(numTrials) = incentiveVec(j);
-        trialData(numTrials,1) = j;
-        trialData(numTrials, 2) = randTarray(j);
-        trialData(numTrials, 3) = orientationTArray(j);
-        trialData(numTrials, 4) = cardinalVec(j);
-        trialData(numTrials, 5) = incentiveVec(j);
-        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
-        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
-        abortedTrials(numTrials) = 0;
-        abortedTrials(j) = 1;
-        abortedTrials2(j) = 1;
-        isEyeInside = true;
-        respTimeInc(numTrials) = 0;
-        rewardChoice(numTrials) = 0;
-        fatigueRating(numTrials) = 0;
-        keyPress(numTrials) = 0;
-        correctOrIncorrect(numTrials) = 0;
-        respTime(numTrials) = 0;
-        
-        
-        
-        
+     if ~isEyeInside
+%          numTrials = numTrials + 1;
+%         countAbortFree = countAbortFree + 1;
+%         randTarray(numTrials) = randTarray(j);
+%         orientationTArray(numTrials) = orientationTArray(j);
+%         cardinalVec(numTrials) = cardinalVec(j);
+%         incentiveVec(numTrials) = incentiveVec(j);
+%         trialData(numTrials,1) = j;
+%         trialData(numTrials, 2) = randTarray(j);
+%         trialData(numTrials, 3) = orientationTArray(j);
+%         trialData(numTrials, 4) = cardinalVec(j);
+%         trialData(numTrials, 5) = incentiveVec(j);
+%         randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+%         randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+%         abortedTrials(numTrials) = 0;
+%         abortedTrials(j) = 1;
+%         abortedTrials2(j) = 1;
+          isEyeInside = true;
+%         respTimeInc(numTrials) = 0;
+%         rewardChoice(numTrials) = 0;
+%         fatigueRating(numTrials) = 0;
+%         keyPress(numTrials) = 0;
+%         correctOrIncorrect(numTrials) = 0;
+%         respTime(numTrials) = 0;
+%         
+%         
+%         
+%         
         DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
-        
-        
+%         
+%         
     end
-    
-    
+%     
+%     
     
 end
 trialData(:, 6) = abortedTrials;
@@ -568,14 +568,3 @@ finalTrialData.practiceFree.trialData.data = trialData;
 %save('V1mollerusBell\finalTrialData.mat','finalTrialData');
 
 % load('finalDataFree.mat');
-
-
-
-
-
-
-
-
-
-
-

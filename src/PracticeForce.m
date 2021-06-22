@@ -24,7 +24,7 @@ responseText = 'incorrect';
 
 isEyeInside = true;
 numTrials = 12;
-fatigueRating = nan(numTrials,1);
+fatigueRating = zeros(numTrials,1);
 abortedTrials = zeros(numTrials,1);
 abortedTrials2 = zeros(numTrials,1);
 
@@ -307,31 +307,31 @@ for j=1: 10%num_practice %numTrials
     %this if statment houses code that takes the data for the setup in the
     %aborted trial and moves it to the end
     if ~isEyeInside
-        numTrials = numTrials + 1;
-        countAbortForced = countAbortForced + 1;
-        randTarray(numTrials) = randTarray(j);
-        orientationTArray(numTrials) = orientationTArray(j);
-        cardinalVec(numTrials) = cardinalVec(j);
-        incentiveVec(numTrials) = incentiveVec(j);
-        trialData(numTrials,1) = j;
-        trialData(numTrials, 2) = randTarray(j);
-        trialData(numTrials, 3) = orientationTArray(j);
-        trialData(numTrials, 4) = cardinalVec(j);
-        trialData(numTrials, 5) = incentiveVec(j);
-        randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
-        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
-        abortedTrials(numTrials) = 0;
-        abortedTrials(j) = 1;
-        abortedTrials2(j) = 1;
-        correctOrIncorrect(numTrials) = 0;
-        respTime(numTrials) = 0;
-        fatigueRating(numTrials) = 0;
-        keyPress(numTrials) = 0;
+%         numTrials = numTrials + 1;
+%         countAbortForced = countAbortForced + 1;
+%         randTarray(numTrials) = randTarray(j);
+%         orientationTArray(numTrials) = orientationTArray(j);
+%         cardinalVec(numTrials) = cardinalVec(j);
+%         incentiveVec(numTrials) = incentiveVec(j);
+%         trialData(numTrials,1) = j;
+%         trialData(numTrials, 2) = randTarray(j);
+%         trialData(numTrials, 3) = orientationTArray(j);
+%         trialData(numTrials, 4) = cardinalVec(j);
+%         trialData(numTrials, 5) = incentiveVec(j);
+%         randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+%         randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+%         abortedTrials(numTrials) = 0;
+%         abortedTrials(j) = 1;
+%         abortedTrials2(j) = 1;
+%         correctOrIncorrect(numTrials) = 0;
+%         respTime(numTrials) = 0;
+%         fatigueRating(numTrials) = 0;
+%         keyPress(numTrials) = 0;
         isEyeInside = true;
         DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
-        
+%         
     end
 end
 trialData(:, 6) = abortedTrials;
@@ -343,7 +343,7 @@ finalTrialData.practiceForce.results.abortedTrials = abortedTrials;
 finalTrialData.practiceForce.results.fatigueRating = fatigueRating;
 finalTrialData.practiceForce.results.keyPress = keyPress;
 
-finalTrialData.practiceForce.results.allTrialsData = horzcat([respTime, abortedTrials2, fatigueRating, keyPress, correctOrIncorrect]);
+finalTrialData.practiceForce.results.allTrialsData = vertcat([respTime, abortedTrials2, fatigueRating, keyPress, correctOrIncorrect]);
 finalTrialData.practiceForce.results.dataDescription = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
     'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
 
