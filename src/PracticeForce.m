@@ -328,7 +328,7 @@ for j=1: 10%num_practice %numTrials
 %         fatigueRating(numTrials) = 0;
 %         keyPress(numTrials) = 0;
         isEyeInside = true;
-        DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
+        DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
 %         

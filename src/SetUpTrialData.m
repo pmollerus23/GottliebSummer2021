@@ -12,8 +12,6 @@ blockIndex = (counter * 12);
 
 counter = counter + 1;
 
-
-
 %creation of randomized array for T location
 ones = zeros(9,1) + 1;
 twos = zeros(9,1) + 2;

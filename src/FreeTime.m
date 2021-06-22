@@ -567,7 +567,7 @@ while j <= numTrials
         
         
         
-        DrawFormattedText(window, 'TRIAL ABORTED','center' , yCenter, black);
+        DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
         
