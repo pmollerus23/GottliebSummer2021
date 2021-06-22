@@ -62,12 +62,13 @@ while j <= numTrials
             %cross for slow trial
             crossForTrial = dispImageBlueCross;
             timeToWaitResponse = 2;
-            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+            randSpeedVecData = 1;
             
         elseif randSpeedVec(blockIndex + j) == 2
             crossForTrial = dispImageRedCross;
             timeToWaitResponse = 0.8;
-            randSpeedVecData(j,1) = randSpeedVec(blockIndex + j);
+            randSpeedVecData = 2;
+
 
         end
         
@@ -369,18 +370,24 @@ while j <= numTrials
 end
 
 trialData(:, 6) = abortedTrials;
+trialData(:, 7) = randSpeedVecData;
+
 if countForceBlocks == 1
     finalTrialData.force.results.correctOrIncorrect = correctOrIncorrect;
     finalTrialData.force.results.respTime = respTime;
     finalTrialData.force.results.abortedTrials = abortedTrials;
     finalTrialData.force.results.fatigueRating = fatigueRating;
     finalTrialData.force.results.keyPress = keyPress;
+    finalTrialData.force.trialData.allTrialData = trialData;
+
 elseif countForceBlocks ~= 1
     finalTrialData.force.results.correctOrIncorrect = vertcat(finalTrialData.force.results.correctOrIncorrect, correctOrIncorrect);
     finalTrialData.force.results.respTime = vertcat(finalTrialData.force.results.respTime, respTime);
     finalTrialData.force.results.abortedTrials = vertcat(finalTrialData.force.results.abortedTrials, abortedTrials);
     finalTrialData.force.results.fatigueRating = vertcat(finalTrialData.force.results.fatigueRating, fatigueRating);
     finalTrialData.force.results.keyPress = vertcat(finalTrialData.force.results.keyPress, keyPress);
+    finalTrialData.force.trialData.allTrialData = vertcat(finalTrialData.force.trialData.allTrialData, trialData);
+
     
 end
 countForceBlocks = countForceBlocks + 1;
@@ -404,5 +411,5 @@ countForceBlocks = countForceBlocks + 1;
 
 %save('V1mollerusBell\finalDataForce.mat','finalData');
 
-completedForced = 1;
-trialChoice = 1;
+% completedForced = 1;
+% trialChoice = 1;
