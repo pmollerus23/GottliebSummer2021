@@ -14,16 +14,16 @@ randSpeedVecData = zeros(numTrials, 1);
 
 j = 1;
 
-%%% 4. Calibrate the eye tracker
-% Eyelink('command','calibration_area_proportion = 0.5 0.5');
-% Eyelink('command','validation_area_proportion = 0.48 0.48');
-% EyelinkDoTrackerSetup(el);
-% WaitSecs(0.1);
-% 
-% eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left eye)
-% if eye_used == el.BINOCULAR % if both eyes are tracked
-%     eye_used = el.LEFT_EYE; % use left eye
-% end
+%% 4. Calibrate the eye tracker
+Eyelink('command','calibration_area_proportion = 0.5 0.5');
+Eyelink('command','validation_area_proportion = 0.48 0.48');
+EyelinkDoTrackerSetup(el);
+WaitSecs(0.1);
+
+eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left eye)
+if eye_used == el.BINOCULAR % if both eyes are tracked
+    eye_used = el.LEFT_EYE; % use left eye
+end
 
 %========================================================================
 %this loop itterates the specified number of trials. every iteration, a
@@ -40,18 +40,18 @@ j = 1;
 
 while j <= numTrials
     
-    %%% 5. Mark events, messages, etc. in dataviwer trial
-%     Eyelink('Message', 'TRIAL_%d', numTrials);
-%     % This supplies the title at the bottom of the eyetracker display
-%     Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
-%     WaitSecs(0.001);
-%     
-%     %%% 6. START RECORDING each trial
-%     Eyelink('StartRecording');
-%     error=Eyelink('CheckRecording');
-%     if(error~=0)
-%         isEyeInside = false;
-%     end
+    %% 5. Mark events, messages, etc. in dataviwer trial
+    Eyelink('Message', 'TRIAL_%d', numTrials);
+    % This supplies the title at the bottom of the eyetracker display
+    Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
+    WaitSecs(0.001);
+    
+    %%% 6. START RECORDING each trial
+    Eyelink('StartRecording');
+    error=Eyelink('CheckRecording');
+    if(error~=0)
+        isEyeInside = false;
+    end
   
      if j == 1
        DrawFormattedText(window, 'Free Choice Trials', 'center',...
@@ -63,7 +63,14 @@ while j <= numTrials
      DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
-     
+        
+        Screen('DrawTexture', window, dispImageCross, [], crossPos);
+        Screen('Flip', window);
+    
+    fixation1 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
+    
+        WaitSecs(3);
+        
    % while isEyeInside
         %Conditional for trial speed (including fixation cross signal
         %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
@@ -196,6 +203,9 @@ while j <= numTrials
             Screen('DrawTexture', window, crossForTrial, [], centerRect);
              %present task screen for 2 seconds
        [~,start1, ~] =  Screen('Flip', window);
+       
+       fixation2 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
+       
         WaitSecs(0.2);
         
         %timeToWait = 2;
@@ -426,6 +436,9 @@ while j <= numTrials
             
               %present task screen for 2 seconds
        [~,start1, ~] =  Screen('Flip', window);
+       
+       fixation2 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
+       
         WaitSecs(0.2);
         
        % timeToWait = 2;
@@ -549,7 +562,8 @@ while j <= numTrials
        %++++++IMPORTANT+++++++++++++++++++
     %this if statment houses code that takes the data for the setup in the
     %aborted trial and moves it to the end
-    if ~isEyeInside
+    if ~isEyeInside || ~fixation1 || ~fixation2
+        
         numTrials = numTrials + 1;
         countAbortFree = countAbortFree + 1;
         randTarray(numTrials) = randTarray(j);
@@ -575,19 +589,36 @@ while j <= numTrials
         respTime(numTrials) = 0;
         
         %Signaling for aborted trials
+        if ~isEyeInside
+            
         DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
         
-        DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
-        Screen('Flip', window);
-        WaitSecs(2);
+        elseif ~fixation1
+            
+            DrawFormattedText(window, 'BROKE FIXATION AT START','center' , yCenter, black);
+            Screen('Flip', window);
+            WaitSecs(2);
+        elseif ~fixation2
+            DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
+            Screen('Flip', window);
+            WaitSecs(2);
+        end  
+            DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
+            Screen('Flip', window);
+            WaitSecs(2);
+            
+        isEyeInside = true;
+        fixation1 = true;
+        fixation2 = true;
+        
         
     end
     
     
-%     %%% 7. END RECORDING each trial
-%     Eyelink('StopRecording');
+    %%% 7. END RECORDING each trial
+    Eyelink('StopRecording');
     
     j = j + 1;
 end

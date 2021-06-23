@@ -11,7 +11,7 @@ twoKey = KbName('2@' );
 threeKey = KbName('3#');
 
 
-%et_state=1; %0 = no ET
+et_state=1; %0 = no ET
 PsychDefaultSetup(2);
 screen = Screen('Screens');
 screenNumber = max(screen);
@@ -22,6 +22,8 @@ screenNumber = max(screen);
 %[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 [xCenter, yCenter] = RectCenter(windowRect);
+rad = 70;
+
 numDisp = 1;
 numT = 0;
 

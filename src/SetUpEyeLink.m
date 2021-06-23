@@ -1,12 +1,12 @@
 % catch error: This is executed in case something goes wrong in the
 % 'try' part due to programming error etc.:
-if strcmp(elstate,'on')
-    Eyelink('StopRecording');
-    Eyelink('closefile');
-    
-    % download data file
-    %%% This after Psychtoolbox setup
-    et_state=0; %0 = no ET
+% if strcmp(elstate,'on')
+%     Eyelink('StopRecording');
+%     Eyelink('closefile');
+%     
+%     % download data file
+%     %%% This after Psychtoolbox setup
+    et_state=1; %0 = no ET
     
     if et_state==1
         disp('Setting up Eyelink');
@@ -79,17 +79,17 @@ if strcmp(elstate,'on')
     fileName=sprintf('%s.edf', edfFile); % Data file name
     % Eyelink('Openfile',fileName);
     
-    try
-        fprintf('Receiving data file ''%s''\n', fileName);
-        status=Eyelink('ReceiveFile',fileName);
-        if status > 0
-            fprintf('ReceiveFile status %d\n', status);
-        end
-        if 2==exist(fileName, 'file')
-            fprintf('Data file ''%s'' can be found in ''%s''\n', fileName, pwd );
-        end
-    catch rdf
-        fprintf('Problem receiving data file ''%s''\n', fileName );
-        rdf;
-    end
-end
+%     try
+%         fprintf('Receiving data file ''%s''\n', fileName);
+%         status=Eyelink('ReceiveFile',fileName);
+%         if status > 0
+%             fprintf('ReceiveFile status %d\n', status);
+%         end
+%         if 2==exist(fileName, 'file')
+%             fprintf('Data file ''%s'' can be found in ''%s''\n', fileName, pwd );
+%         end
+%     catch rdf
+%         fprintf('Problem receiving data file ''%s''\n', fileName );
+%         rdf;
+%     end
+% end
