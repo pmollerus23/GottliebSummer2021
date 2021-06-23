@@ -37,7 +37,7 @@ end
 %weather or not their response was correct. this loop
 %handles trial abortions and retries aborted at the end.
 %========================================================================
-
+fixation_pos = crossPos;
 while j <= numTrials
     
     %% 5. Mark events, messages, etc. in dataviwer trial
@@ -52,94 +52,201 @@ while j <= numTrials
     if(error~=0)
         isEyeInside = false;
     end
-  
-     if j == 1
-       DrawFormattedText(window, 'Free Choice Trials', 'center',...
-           screenYpixels * 0.25, [0 0 0]); 
-        Screen('Flip', window);
-        WaitSecs(2);
-     end
     
-     DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
-        Screen('Flip', window);
-        WaitSecs(2);
-        
-        Screen('DrawTexture', window, dispImageCross, [], crossPos);
-        Screen('Flip', window);
-    
-    fixation1 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
-    
-        WaitSecs(3);
-        
-   % while isEyeInside
-        %Conditional for trial speed (including fixation cross signal
-        %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
-        if randSpeedVec(blockIndex + j) == 1
-            %cross for slow trial
-            crossForTrial = dispImageBlueCross;
-            randSpeedVecData(j) = 1;
-            timeToWaitResponse = 2;
-            
-        elseif randSpeedVec(blockIndex + j) == 2
-            crossForTrial = dispImageRedCross;
-            randSpeedVecData(j) = 2;
-            timeToWaitResponse = 0.8;
-        end
-        
-        Screen('DrawTexture', window, crossForTrial, [], crossPos);
-        Screen('TextSize', window, 30);
-        DrawFormattedText(window, 'Choose the reward amount using the left and right arrow keys', 'center',...
+    if j == 1
+        DrawFormattedText(window, 'Free Choice Trials', 'center',...
             screenYpixels * 0.25, [0 0 0]);
+        Screen('Flip', window);
+        WaitSecs(2);
+    end
+    
+    DrawFormattedText(window, 'NEXT TRIAL STARTING','center' , yCenter, black);
+    Screen('Flip', window);
+    WaitSecs(2);
+    
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
+    Screen('Flip', window);
+    
+    
+    WaitSecs(3);
+    
+    % while isEyeInside
+    %Conditional for trial speed (including fixation cross signal
+    %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
+    if randSpeedVec(blockIndex + j) == 1
+        %cross for slow trial
+        crossForTrial = dispImageBlueCross;
+        randSpeedVecData(j) = 1;
+        timeToWaitResponse = 2;
         
-         %calculate random incentive amounts for trial 1 = 2 is the only
-        %unique case because there cannot be 2 1 incentives presented the
-        %rest follow the order
-        % 2 = 2, 3 =3... etc
-        if trialData(j, 5)==1
-            incentiveForTrial = disOneIncentive;
-        elseif trialData(j, 5)==2
-            incentiveForTrial= disTwoIncentive;
-        elseif trialData(j, 5)==3
-            incentiveForTrial= disThreeIncentive;
-        elseif trialData(j, 5)==4
-            incentiveForTrial= disFourIncentive;
-        elseif trialData(j, 5)==5
-            incentiveForTrial= disFiveIncentive;
-        elseif trialData(j, 5)==6
-            incentiveForTrial= disSixIncentive;
+    elseif randSpeedVec(blockIndex + j) == 2
+        crossForTrial = dispImageRedCross;
+        randSpeedVecData(j) = 2;
+        timeToWaitResponse = 0.8;
+    end
+    
+    Screen('DrawTexture', window, crossForTrial, [], crossPos);
+    Screen('TextSize', window, 30);
+    DrawFormattedText(window, 'Choose the reward amount using the left and right arrow keys', 'center',...
+        screenYpixels * 0.25, [0 0 0]);
+    
+    %calculate random incentive amounts for trial 1 = 2 is the only
+    %unique case because there cannot be 2 1 incentives presented the
+    %rest follow the order
+    % 2 = 2, 3 =3... etc
+    if trialData(j, 5)==1
+        incentiveForTrial = disOneIncentive;
+    elseif trialData(j, 5)==2
+        incentiveForTrial= disTwoIncentive;
+    elseif trialData(j, 5)==3
+        incentiveForTrial= disThreeIncentive;
+    elseif trialData(j, 5)==4
+        incentiveForTrial= disFourIncentive;
+    elseif trialData(j, 5)==5
+        incentiveForTrial= disFiveIncentive;
+    elseif trialData(j, 5)==6
+        incentiveForTrial= disSixIncentive;
+    end
+    
+    incentiveAmt(j) = incentiveVec(j);
+    
+    
+    %make random position of incentives for presentation, if trual data
+    %= 1, the larger incentive will be presented on the right and if it
+    %is 2 the larger incentive will be presented on the users left
+    if  trialData(j, 4)==1
+        Screen('DrawTexture', window, disOneEasyIncentive, [], leftRectPos);
+        Screen('DrawTexture', window, incentiveForTrial, [], rightRectPos);
+    elseif  trialData(j, 4)==2
+        Screen('DrawTexture', window, incentiveForTrial, [], leftRectPos);
+        Screen('DrawTexture', window, disOneEasyIncentive, [], rightRectPos);
+    end
+    
+    
+    
+    %Starting response time interval
+    [~,actualFlipTime,~,~]= Screen('Flip', window);
+    
+    %Clearing and initializing keyboard config for trial(i)
+    
+    [secs, ~,~] = KbWait;
+    
+    %Storing response interval time
+    respTimeInc(j,1) = secs - actualFlipTime;
+    
+    [pressed, firstPress] = KbQueueCheck(deviceIndices);
+    
+    
+    WaitSecs(0.25);
+    
+    
+    
+    %%%%%%%%%fixation before trial
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
+    Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', '2');
+        WaitSecs(0.001);
+    end
+    
+    % Wait until fixation in fixation cross (abort trial after 200ms)
+    T_delay = 0.5; %rand time delay
+    nofixflag=1;
+    startrt=GetSecs;
+    while (GetSecs-startrt)<=T_delay %|| nofixflag==1
+        if Eyelink('NewFloatSampleAvailable') > 0
+            % get the sample in the form of an event structure
+            evt = Eyelink('NewestFloatSample');
+            if eye_used ~= -1 % do we know which eye to use yet?
+                % if we do, get current gaze position from sample
+                x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                y = evt.gy(eye_used+1);
+                
+                % do we have valid data and is the pupil visible?
+                if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                    eyemx=x;
+                    eyemy=y;
+                    % if no fixation
+                    if (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150) %%change fixation_pos
+                        nofixflag=0;
+                        break
+                    elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                        nofixflag=1; %no fixation so we go to abort trial
+                        % Mark events, messages, etc. in dataviwer trial
+                        
+                        WaitSecs(0.001);
+                    end
+                end
+            end
         end
+    end
+    
+    if nofixflag==0
         
-        incentiveAmt(j) = incentiveVec(j);
+        T_delay = randi([3 5],1);
+        nofixtimeflag=1;
+        startrt=GetSecs;
+        totalFixTime =0;
+        totalFixTimeout=0;
+        Novalid=0;
         
-        
-        %make random position of incentives for presentation, if trual data
-        %= 1, the larger incentive will be presented on the right and if it
-        %is 2 the larger incentive will be presented on the users left
-        if  trialData(j, 4)==1
-            Screen('DrawTexture', window, disOneEasyIncentive, [], leftRectPos);
-            Screen('DrawTexture', window, incentiveForTrial, [], rightRectPos);
-        elseif  trialData(j, 4)==2
-            Screen('DrawTexture', window, incentiveForTrial, [], leftRectPos);
-            Screen('DrawTexture', window, disOneEasyIncentive, [], rightRectPos);
+        while (GetSecs-startrt)<=T_delay  && Novalid==0
+            if Eyelink('NewFloatSampleAvailable') > 0
+                % get the sample in the form of an event structure
+                evt = Eyelink('NewestFloatSample');
+                if eye_used ~= -1 % do we know which eye to use yet?
+                    % if we do, get current gaze position from sample
+                    
+                    x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                    y = evt.gy(eye_used+1);
+                    
+                    % do we have valid data and is the pupil visible?
+                    if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                        eyemx=x;
+                        eyemy=y;
+                        % if no fixation
+                        if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
+                            totalFixTime = totalFixTime + 50;
+                            totalFixTimeout=0;
+                            if totalFixTime >= fixTime-250
+                                nofixtimeflag=0;
+                                
+                            end
+                        elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                            totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                            
+                            totalFixTime = 0;
+                            if totalFixTimeout >= 250
+                                nofixtimeflag =1;
+                                Novalid=1;
+                            end
+                            
+                            % Mark events, messages, etc. in dataviwer trial
+                            
+                            WaitSecs(0.001);
+                        end
+                    end
+                end
+            end
         end
-        
-        
-        
-        %Starting response time interval
-        [~,actualFlipTime,~,~]= Screen('Flip', window);
-        
-        %Clearing and initializing keyboard config for trial(i)
-        
-        [secs, ~,~] = KbWait;
-        
-        %Storing response interval time
-        respTimeInc(j,1) = secs - actualFlipTime;
-        
-        [pressed, firstPress] = KbQueueCheck(deviceIndices);
-        
-        
-        WaitSecs(0.25);
-        
+    end
+    
+    if nofixtimeflag==0
+        %%%%the serach screen
+        T_delay = timeToWaitResponse; %%take your search time
+        nofixtimeflag=1;
+        startrt=GetSecs;
+        totalFixTime =0;
+        totalFixTimeout=0;
+        Novalid=0;
         %Conditional for easy task choice
         if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
             
@@ -150,8 +257,8 @@ while j <= numTrials
             %======================================
             
             
-        %determine orientation of t presented 1 means the t is upright 0
-        %means the t is upsidedown
+            %determine orientation of t presented 1 means the t is upright 0
+            %means the t is upsidedown
             if trialData(j, 3) == 1
                 orientationT = dispImageT;
                 
@@ -166,9 +273,9 @@ while j <= numTrials
             down = 0;
             
             %drawing T to screen given value in random T location matrix
-        % a value of 1 indicates the right most value position of the
-        % circle, a value of 2 indicates a up rihgt diagonal orientation
-        % and then continues to increase counter clock wise
+            % a value of 1 indicates the right most value position of the
+            % circle, a value of 2 indicates a up rihgt diagonal orientation
+            % and then continues to increase counter clock wise
             if trialData(j, 2) == 1
                 Screen('DrawTexture', window, orientationT, [], rightMostRect);
             elseif trialData(j, 2) == 2
@@ -201,135 +308,232 @@ while j <= numTrials
             
             
             Screen('DrawTexture', window, crossForTrial, [], centerRect);
-             %present task screen for 2 seconds
-       [~,start1, ~] =  Screen('Flip', window);
-       
-       fixation2 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
-       
-        WaitSecs(0.2);
-        
-        %timeToWait = 2;
-        startTime = GetSecs;
-        timeInLoop = 0;
-        flag = 0;
-       
-        
-          %++++++++++++IMPORTANT++++++++++++++
-        %THIS KbWait DECIDES IF THE TRIALS IS ABORTED OR NOT, THE KbWait
-        %SPECIFIES A TIME TO BE WAITED, IF THAT TIME IS EXCEEDED IT SKIPS
-        %THE FOLLOWING IF BLOCK AND EXECUTES CODE TO ABORT THE TRIAL. IF
-        %A KEY BOARD INPUT IS DETECTED, IT WILL ENTER THE IF BLOCK AND
-        %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
-        %CODE WILL TRIGGER TO ABORT THE TRIAL
-      KbWait([], [], start1 + timeToWaitResponse);
-      timeWaited = GetSecs;
-      respTime(j,1) = timeWaited-start1;
-
-       clear Press;
-        [pressed, Press] = KbQueueCheck(deviceIndices);
+            %present task screen for 2 seconds
+            [~,start1, ~] =  Screen('Flip', window);
             
-            if Press(upKey) > 0 || Press(downKey)>0
-                %code to tell user how many points they gained
-                rewardAmtText = num2str(trialData(j, 5));
-                plus = '+';
-                responseText = [plus ' ' rewardAmtText];
-                flag = 1;
-                % code to find if user input was correct
+            %WaitSecs(0.2);
+            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            while (GetSecs-startrt)<=T_delay  && Novalid==0
+                if Eyelink('NewFloatSampleAvailable') > 0
+                    % get the sample in the form of an event structure
+                    evt = Eyelink('NewestFloatSample');
+                    if eye_used ~= -1 % do we know which eye to use yet?
+                        % if we do, get current gaze position from sample
+                        
+                        x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                        y = evt.gy(eye_used+1);
+                        
+                        % do we have valid data and is the pupil visible?
+                        if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                            eyemx=x;
+                            eyemy=y;
+                            % if no fixation
+                            if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
+                                totalFixTime = totalFixTime + 50;
+                                totalFixTimeout=0;
+                                if totalFixTime >= fixTime-250
+                                    nofixtimeflag=0;
+                                    
+                                end
+                            elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                                totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                                
+                                totalFixTime = 0;
+                                if totalFixTimeout >= 250
+                                    nofixtimeflag =1;
+                                    Novalid=1;
+                                end
+                                
+                                % Mark events, messages, etc. in dataviwer trial
+                                
+                                WaitSecs(0.001);
+                            end
+                        end
+                    end
+                end
+            end
+            
+            if nofixtimeflag==0
+                %timeToWait = 2;
+                startTime = GetSecs;
+                timeInLoop = 0;
+                flag = 0;
                 
-                %user presses up arrow and t is up so correct
-                if Press(upKey) > 0 && trialData(j, 3) == up
-                    text = 'correct';
-                    response = 1;
-                    keyPress(j,1) = 1;
-                   responseText = '+ 1';
+                
+                %++++++++++++IMPORTANT++++++++++++++
+                %THIS KbWait DECIDES IF THE TRIALS IS ABORTED OR NOT, THE KbWait
+                %SPECIFIES A TIME TO BE WAITED, IF THAT TIME IS EXCEEDED IT SKIPS
+                %THE FOLLOWING IF BLOCK AND EXECUTES CODE TO ABORT THE TRIAL. IF
+                %A KEY BOARD INPUT IS DETECTED, IT WILL ENTER THE IF BLOCK AND
+                %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
+                %CODE WILL TRIGGER TO ABORT THE TRIAL
+                KbWait([], [], start1 + timeToWaitResponse);
+                timeWaited = GetSecs;
+                respTime(j,1) = timeWaited-start1;
+                
+                clear Press;
+                [pressed, Press] = KbQueueCheck(deviceIndices);
+                
+                if Press(upKey) > 0 || Press(downKey)>0
+                    %code to tell user how many points they gained
+                    rewardAmtText = num2str(trialData(j, 5));
+                    plus = '+';
+                    responseText = [plus ' ' rewardAmtText];
+                    flag = 1;
+                    % code to find if user input was correct
                     
+                    %user presses up arrow and t is up so correct
+                    if Press(upKey) > 0 && trialData(j, 3) == up
+                        text = 'correct';
+                        response = 1;
+                        keyPress(j,1) = 1;
+                        responseText = '+ 1';
+                        
+                        
+                        
+                        %user presses down arrow and t is down so correct
+                    elseif Press(downKey) > 0 && trialData(j, 3) == down
+                        text = 'correct';
+                        response = 1;
+                        keyPress(j,1) = 0;
+                        responseText = '+ 1';
+                        
+                        
+                        %user presses up arrow and t is down so incorrect
+                    elseif Press(upKey) > 0 && trialData(j, 3) == down
+                        text = 'incorrect';
+                        responseText = '+ 0';
+                        response = 0;
+                        keyPress(j,1) = 1;
+                        
+                        %user presses down arrow and t is up so incorrect
+                    elseif Press(downKey) > 0 && trialData(j, 3) == up
+                        text = 'incorrect';
+                        responseText = '+ 0';
+                        response = 0;
+                        keyPress(j,1) = 0;
+                    end
                     
+                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('Flip', window);
+                    WaitSecs(3-respTime(j,1));
                     
-                    %user presses down arrow and t is down so correct
-                elseif Press(downKey) > 0 && trialData(j, 3) == down
-                    text = 'correct';
-                    response = 1;
-                    keyPress(j,1) = 0;
-                    responseText = '+ 1';
-                    
-                    
-                    %user presses up arrow and t is down so incorrect
-                elseif Press(upKey) > 0 && trialData(j, 3) == down
-                    text = 'incorrect';
-                    responseText = '+ 0';
-                    response = 0;
-                    keyPress(j,1) = 1;
-                    
-                    %user presses down arrow and t is up so incorrect
-                elseif Press(downKey) > 0 && trialData(j, 3) == up
-                    text = 'incorrect';
-                    responseText = '+ 0';
-                    response = 0;
-                    keyPress(j,1) = 0;
+                    %record response data
+                    correctOrIncorrect(j,1) = response;
+                    %print feedback from decesion in trial to screen
+                    DrawFormattedText(window, text,'center' , yCenter, black);
+                    DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
+                    Screen('Flip', window);
+                    WaitSecs(2)
+                    % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
                 end
                 
-               Screen('DrawTexture', window, crossForTrial, [], centerRect);
-                Screen('Flip', window);
-                WaitSecs(3-respTime(j,1));
-
+                
+                
+                
+                %++++++THIS CODE CONTROLLS WEATHER OR NOT THE TRIAL IS ABORTED, IF THE
+                %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
+                
+                
+                if flag == 0
+                    isEyeInside = false;
+                    %         text1 = 'TOO LATE';
+                    %          DrawFormattedText(window, text1,'center' , yCenter, black);
+                    %          Screen('Flip', window);
+                    %         WaitSecs(2);
+                    %
+                    %         text2 = 'TRY AGAIN';
+                    %         DrawFormattedText(window, text2,'center' , yCenter, black);
+                    %          Screen('Flip', window);
+                    %         WaitSecs(2);
+                    
+                end
+                
+                
                 %record response data
                 correctOrIncorrect(j,1) = response;
                 %print feedback from decesion in trial to screen
-                DrawFormattedText(window, text,'center' , yCenter, black);
-                DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
-                Screen('Flip', window);
-                WaitSecs(2)
-               % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
-            end
-            
-        
-        
-        
-  %++++++THIS CODE CONTROLLS WEATHER OR NOT THE TRIAL IS ABORTED, IF THE
-  %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
-
-  
-   if flag == 0
-        isEyeInside = false;
-%         text1 = 'TOO LATE';
-%          DrawFormattedText(window, text1,'center' , yCenter, black);
-%          Screen('Flip', window);
-%         WaitSecs(2);
-%         
-%         text2 = 'TRY AGAIN';
-%         DrawFormattedText(window, text2,'center' , yCenter, black);
-%          Screen('Flip', window);
-%         WaitSecs(2);
-        
-    end
-    
-
-        %record response data
-        correctOrIncorrect(j,1) = response;
-        %print feedback from decesion in trial to screen
-        Screen('DrawTexture', window, crossForTrial, [], centerRect);
-
-        Screen('Flip', window);
-        
-        WaitSecs(2);
-            
-            
-            
-            %code for confidence assessment EVERY 10 TRIALS
-            decideConfRating = mod(j,10);
-            if decideConfRating == 0
-                
-                DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
-                [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
-                fatigueRating(j) = trial_datum;
-                
                 Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                
                 Screen('Flip', window);
-                WaitSecs(1);
+                
+                WaitSecs(2);
+                
+                
+                
+                %code for confidence assessment EVERY 10 TRIALS
+                decideConfRating = mod(j,10);
+                if decideConfRating == 0
+                    
+                    DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
+                    [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
+                    fatigueRating(j) = trial_datum;
+                    
+                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('Flip', window);
+                    WaitSecs(1);
+                    
+                end
+                
+                
+            elseif ~isEyeInside || nofixtimeflag==1
+                
+                numTrials = numTrials + 1;
+                countAbortFree = countAbortFree + 1;
+                randTarray(numTrials) = randTarray(j);
+                orientationTArray(numTrials) = orientationTArray(j);
+                cardinalVec(numTrials) = cardinalVec(j);
+                incentiveVec(numTrials) = incentiveVec(j);
+                trialData(numTrials,1) = j;
+                trialData(numTrials, 2) = randTarray(j);
+                trialData(numTrials, 3) = orientationTArray(j);
+                trialData(numTrials, 4) = cardinalVec(j);
+                trialData(numTrials, 5) = incentiveVec(j);
+                % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+                randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+                abortedTrials(numTrials) = 0;
+                abortedTrials(j) = 1;
+                abortedTrials2(j) = 1;
+                isEyeInside = true;
+                respTimeInc(numTrials) = 0;
+                rewardChoice(numTrials) = 0;
+                fatigueRating(numTrials) = 0;
+                keyPress(numTrials) = 0;
+                correctOrIncorrect(numTrials) = 0;
+                respTime(numTrials) = 0;
+                
+                %Signaling for aborted trials
+                if ~isEyeInside
+                    
+                    DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+                    Screen('Flip', window);
+                    WaitSecs(2);
+                    
+                elseif nofixtimeflag==1
+                    
+                    DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING SEARCH','center' , yCenter, black);
+                    Screen('Flip', window);
+                    WaitSecs(2);
+                    %         elseif ~fixation2
+                    %             DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
+                    %             Screen('Flip', window);
+                    %             WaitSecs(2);
+                end
+                DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
+                Screen('Flip', window);
+                WaitSecs(2);
+                
+                isEyeInside = true;
+                fixation1 = true;
+                fixation2 = true;
                 
             end
             
-            
+            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             %Conditional for difficult task choice
         elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
@@ -434,135 +638,227 @@ while j <= numTrials
             end
             
             
-              %present task screen for 2 seconds
-       [~,start1, ~] =  Screen('Flip', window);
-       
-       fixation2 = rd_eyeLink('fixholdcheck', window, {xCenter, yCenter, rad});
-       
-        WaitSecs(0.2);
-        
-       % timeToWait = 2;
-        startTime = GetSecs;
-        timeInLoop = 0;
-        flag = 0;
-       
-        
-         %++++++++++++IMPORTANT++++++++++++++
-        %THIS KbWait DECIDES IF THE TRIALS IS ABORTED OR NOT, THE KbWait
-        %SPECIFIES A TIME TO BE WAITED, IF THAT TIME IS EXCEEDED IT SKIPS
-        %THE FOLLOWING IF BLOCK AND EXECUTES CODE TO ABORT THE TRIAL. IF
-        %A KEY BOARD INPUT IS DETECTED, IT WILL ENTER THE IF BLOCK AND
-        %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
-        %CODE WILL TRIGGER TO ABORT THE TRIAL
-      KbWait([], [], start1 + timeToWaitResponse);
-      timeWaited = GetSecs;
-      respTime(j,1) = timeWaited-start1;
-
-       clear Press;
-        [pressed, Press] = KbQueueCheck(deviceIndices);
+            %present task screen for 2 seconds
+            [~,start1, ~] =  Screen('Flip', window);
             
-            if Press(upKey) > 0 || Press(downKey)>0
-                %code to tell user how many points they gained
-                rewardAmtText = num2str(trialData(j, 5));
-                plus = '+';
-                responseText = [plus ' ' rewardAmtText];
-                flag = 1;
-                % code to find if user input was correct
+            
+            WaitSecs(0.2);
+            while (GetSecs-startrt)<=T_delay  && Novalid==0
+                if Eyelink('NewFloatSampleAvailable') > 0
+                    % get the sample in the form of an event structure
+                    evt = Eyelink('NewestFloatSample');
+                    if eye_used ~= -1 % do we know which eye to use yet?
+                        % if we do, get current gaze position from sample
+                        
+                        x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                        y = evt.gy(eye_used+1);
+                        
+                        % do we have valid data and is the pupil visible?
+                        if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                            eyemx=x;
+                            eyemy=y;
+                            % if no fixation
+                            if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
+                                totalFixTime = totalFixTime + 50;
+                                totalFixTimeout=0;
+                                if totalFixTime >= fixTime-250
+                                    nofixtimeflag=0;
+                                    
+                                end
+                            elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                                totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                                
+                                totalFixTime = 0;
+                                if totalFixTimeout >= 250
+                                    nofixtimeflag =1;
+                                    Novalid=1;
+                                end
+                                
+                                % Mark events, messages, etc. in dataviwer trial
+                                
+                                WaitSecs(0.001);
+                            end
+                        end
+                    end
+                end
+            end
+            
+            if nofixtimeflag == 0
                 
-                %user presses up arrow and t is up so correct
-                if Press(upKey) > 0 && trialData(j, 3) == up
-                    text = 'correct';
-                    response = 1;
-                    keyPress(j,1) = 1;
+                % timeToWait = 2;
+                startTime = GetSecs;
+                timeInLoop = 0;
+                flag = 0;
+                
+                
+                %++++++++++++IMPORTANT++++++++++++++
+                %THIS KbWait DECIDES IF THE TRIALS IS ABORTED OR NOT, THE KbWait
+                %SPECIFIES A TIME TO BE WAITED, IF THAT TIME IS EXCEEDED IT SKIPS
+                %THE FOLLOWING IF BLOCK AND EXECUTES CODE TO ABORT THE TRIAL. IF
+                %A KEY BOARD INPUT IS DETECTED, IT WILL ENTER THE IF BLOCK AND
+                %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
+                %CODE WILL TRIGGER TO ABORT THE TRIAL
+                KbWait([], [], start1 + timeToWaitResponse);
+                timeWaited = GetSecs;
+                respTime(j,1) = timeWaited-start1;
+                
+                clear Press;
+                [pressed, Press] = KbQueueCheck(deviceIndices);
+                
+                if Press(upKey) > 0 || Press(downKey)>0
+                    %code to tell user how many points they gained
+                    rewardAmtText = num2str(trialData(j, 5));
+                    plus = '+';
+                    responseText = [plus ' ' rewardAmtText];
+                    flag = 1;
+                    % code to find if user input was correct
                     
+                    %user presses up arrow and t is up so correct
+                    if Press(upKey) > 0 && trialData(j, 3) == up
+                        text = 'correct';
+                        response = 1;
+                        keyPress(j,1) = 1;
+                        
+                        
+                        %user presses down arrow and t is down so correct
+                    elseif Press(downKey) > 0 && trialData(j, 3) == down
+                        text = 'correct';
+                        response = 1;
+                        keyPress(j,1) = 0;
+                        
+                        
+                        %user presses up arrow and t is down so incorrect
+                    elseif Press(upKey) > 0 && trialData(j, 3) == down
+                        text = 'incorrect';
+                        responseText = '+ 0';
+                        response = 0;
+                        keyPress(j,1) = 1;
+                        
+                        %user presses down arrow and t is up so incorrect
+                    elseif Press(downKey) > 0 && trialData(j, 3) == up
+                        text = 'incorrect';
+                        responseText = '+ 0';
+                        response = 0;
+                        keyPress(j,1) = 0;
+                    end
                     
-                    %user presses down arrow and t is down so correct
-                elseif Press(downKey) > 0 && trialData(j, 3) == down
-                    text = 'correct';
-                    response = 1;
-                    keyPress(j,1) = 0;
+                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('Flip', window);
+                    WaitSecs(3-respTime(j,1));
                     
-                    
-                    %user presses up arrow and t is down so incorrect
-                elseif Press(upKey) > 0 && trialData(j, 3) == down
-                    text = 'incorrect';
-                    responseText = '+ 0';
-                    response = 0;
-                    keyPress(j,1) = 1;
-                    
-                    %user presses down arrow and t is up so incorrect
-                elseif Press(downKey) > 0 && trialData(j, 3) == up
-                    text = 'incorrect';
-                    responseText = '+ 0';
-                    response = 0;
-                    keyPress(j,1) = 0;
+                    %record response data
+                    correctOrIncorrect(j,1) = response;
+                    %print feedback from decesion in trial to screen
+                    DrawFormattedText(window, text,'center' , yCenter, black);
+                    DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
+                    Screen('Flip', window);
+                    WaitSecs(2)
+                    % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
                 end
                 
-              Screen('DrawTexture', window, crossForTrial, [], centerRect);
-                Screen('Flip', window);
-                WaitSecs(3-respTime(j,1));
-
+                
+                
+                
+                
+                %++++++THIS CODE CONTROLLS WEATHER OR NOT THE TRIAL IS ABORTED, IF THE
+                %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
+                if flag == 0
+                    isEyeInside = false;
+                    %         text = 'TOO LATE';
+                    %         DrawFormattedText(window, text,'center' , yCenter, black);
+                    %                 Screen('Flip', window);
+                    
+                    
+                end
+                
+                
                 %record response data
                 correctOrIncorrect(j,1) = response;
                 %print feedback from decesion in trial to screen
-                DrawFormattedText(window, text,'center' , yCenter, black);
-                DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
-                Screen('Flip', window);
-                WaitSecs(2)
-               % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
-            end
-            
-        
-        
-        
- 
-%++++++THIS CODE CONTROLLS WEATHER OR NOT THE TRIAL IS ABORTED, IF THE
-  %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
-    if flag == 0
-        isEyeInside = false;
-%         text = 'TOO LATE';
-%         DrawFormattedText(window, text,'center' , yCenter, black);
-%                 Screen('Flip', window);
-
-      
-    end
-    
-
-        %record response data
-        correctOrIncorrect(j,1) = response;
-        %print feedback from decesion in trial to screen
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
-
-        Screen('Flip', window);
-        
-        WaitSecs(2);
-        
-            %code for confidence assessment every 10 trials
-            decideConfRating = mod(j,10);
-            if decideConfRating == 0 || j == 1
-                
-                DrawFormattedText(window, responseText, 'How would you rate your mental fatigue?',screenYpixels * 0.25, black);
-                [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
-                fatigueRating(j) = trial_datum;
                 Screen('DrawTexture', window, dispImageCross, [], centerRect);
+                
                 Screen('Flip', window);
-                WaitSecs(1);
+                
+                WaitSecs(2);
+                
+                %code for confidence assessment every 10 trials
+                decideConfRating = mod(j,10);
+                if decideConfRating == 0 || j == 1
+                    
+                    DrawFormattedText(window, responseText, 'How would you rate your mental fatigue?',screenYpixels * 0.25, black);
+                    [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
+                    fatigueRating(j) = trial_datum;
+                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
+                    Screen('Flip', window);
+                    WaitSecs(1);
+                    
+                end
+                
+                
+            elseif ~isEyeInside || nofixtimeflag==1
+                
+                numTrials = numTrials + 1;
+                countAbortFree = countAbortFree + 1;
+                randTarray(numTrials) = randTarray(j);
+                orientationTArray(numTrials) = orientationTArray(j);
+                cardinalVec(numTrials) = cardinalVec(j);
+                incentiveVec(numTrials) = incentiveVec(j);
+                trialData(numTrials,1) = j;
+                trialData(numTrials, 2) = randTarray(j);
+                trialData(numTrials, 3) = orientationTArray(j);
+                trialData(numTrials, 4) = cardinalVec(j);
+                trialData(numTrials, 5) = incentiveVec(j);
+                % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+                randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+                abortedTrials(numTrials) = 0;
+                abortedTrials(j) = 1;
+                abortedTrials2(j) = 1;
+                isEyeInside = true;
+                respTimeInc(numTrials) = 0;
+                rewardChoice(numTrials) = 0;
+                fatigueRating(numTrials) = 0;
+                keyPress(numTrials) = 0;
+                correctOrIncorrect(numTrials) = 0;
+                respTime(numTrials) = 0;
+                
+                %Signaling for aborted trials
+                if ~isEyeInside
+                    
+                    DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+                    Screen('Flip', window);
+                    WaitSecs(2);
+                    
+                elseif nofixtimeflag==1
+                    
+                    DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING SEARCH','center' , yCenter, black);
+                    Screen('Flip', window);
+                    WaitSecs(2);
+                    %         elseif ~fixation2
+                    %             DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
+                    %             Screen('Flip', window);
+                    %             WaitSecs(2);
+                end
+                DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
+                Screen('Flip', window);
+                WaitSecs(2);
+                
+                isEyeInside = true;
+                fixation1 = true;
+                fixation2 = true;
                 
             end
             
+            clear firstPress
+            
+            
+            
+            %  end
             
         end
-        
-        clear firstPress
-        
-        
-        
-  %  end
-    
-       %++++++IMPORTANT+++++++++++++++++++
-    %this if statment houses code that takes the data for the setup in the
-    %aborted trial and moves it to the end
-    if ~isEyeInside || ~fixation1 || ~fixation2
+        %++++++IMPORTANT+++++++++++++++++++
+        %this if statment houses code that takes the data for the setup in the
+        %aborted trial and moves it to the end
+    elseif ~isEyeInside || nofixtimeflag==1
         
         numTrials = numTrials + 1;
         countAbortFree = countAbortFree + 1;
@@ -575,7 +871,7 @@ while j <= numTrials
         trialData(numTrials, 3) = orientationTArray(j);
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
-       % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+        % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
         randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;
@@ -591,24 +887,24 @@ while j <= numTrials
         %Signaling for aborted trials
         if ~isEyeInside
             
-        DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+            DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+            Screen('Flip', window);
+            WaitSecs(2);
+            
+        elseif nofixtimeflag==1
+            
+            DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING INITIAL FIXATION','center' , yCenter, black);
+            Screen('Flip', window);
+            WaitSecs(2);
+            %         elseif ~fixation2
+            %             DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
+            %             Screen('Flip', window);
+            %             WaitSecs(2);
+        end
+        DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
         
-        elseif ~fixation1
-            
-            DrawFormattedText(window, 'BROKE FIXATION AT START','center' , yCenter, black);
-            Screen('Flip', window);
-            WaitSecs(2);
-        elseif ~fixation2
-            DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
-            Screen('Flip', window);
-            WaitSecs(2);
-        end  
-            DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
-            Screen('Flip', window);
-            WaitSecs(2);
-            
         isEyeInside = true;
         fixation1 = true;
         fixation2 = true;
@@ -645,19 +941,19 @@ elseif countFreeBlocks ~= 1
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
     finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.force.trialData.allTrialData, trialData);
-
+    
 end
 
 countFreeBlocks = countFreeBlocks + 1;
 
 % finalTrialData.free.results.allTrialsData = horzcat([respTimeInc, rewardChoice, fatigueRating, keyPress, correctOrIncorrect, respTime, abortedTrials]);
 % finalTrialData.free.results.dataDescription = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...
-%     'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';... 
+%     'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
 %     'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};
-%     
+%
 % finalTrialData.free.trialData.description = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
-%     'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'}; 
-% 
+%     'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)'};
+%
 % finalTrialData.free.trialData.data = trialData;
 
 %finalDataFree = [incentiveAmt,trialData(:, 3),trialData(:, 2),correctOrIncorrect,respTime];
