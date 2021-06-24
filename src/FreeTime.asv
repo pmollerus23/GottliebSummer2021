@@ -45,12 +45,13 @@ while j <= numTrials
     % This supplies the title at the bottom of the eyetracker display
     Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
     WaitSecs(0.001);
+    isEyeInside = true;
     
     %%% 6. START RECORDING each trial
     Eyelink('StartRecording');
     error=Eyelink('CheckRecording');
     if(error~=0)
-        isEyeInside = false;
+        
     end
     
     if j == 1
@@ -68,7 +69,6 @@ while j <= numTrials
     Screen('Flip', window);
     
     
-    WaitSecs(3);
     
     % while isEyeInside
     %Conditional for trial speed (including fixation cross signal
@@ -153,7 +153,7 @@ while j <= numTrials
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', '1');
+        Eyelink('Message', '2');
         WaitSecs(0.001);
     end
     
@@ -181,8 +181,41 @@ while j <= numTrials
                     elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
                         nofixflag=1; %no fixation so we go to abort trial
                         % Mark events, messages, etc. in dataviwer trial
+                        numTrials = numTrials + 1;
+                        countAbortFree = countAbortFree + 1;
+                        randTarray(numTrials) = randTarray(j);
+                        orientationTArray(numTrials) = orientationTArray(j);
+                        cardinalVec(numTrials) = cardinalVec(j);
+                        incentiveVec(numTrials) = incentiveVec(j);
+                        trialData(numTrials,1) = j;
+                        trialData(numTrials, 2) = randTarray(j);
+                        trialData(numTrials, 3) = orientationTArray(j);
+                        trialData(numTrials, 4) = cardinalVec(j);
+                        trialData(numTrials, 5) = incentiveVec(j);
+                        % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
+                        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+                        abortedTrials(numTrials) = 0;
+                        abortedTrials(j) = 1;
+                        abortedTrials2(j) = 1;
+                        isEyeInside = true;
+                        respTimeInc(numTrials) = 0;
+                        rewardChoice(numTrials) = 0;
+                        fatigueRating(numTrials) = 0;
+                        keyPress(numTrials) = 0;
+                        correctOrIncorrect(numTrials) = 0;
+                        respTime(numTrials) = 0;
                         
-                        WaitSecs(0.001);
+                        DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING INITIAL FIXATION','center' , yCenter, black);
+                        Screen('Flip', window);
+                        WaitSecs(2);
+                        
+                        DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
+                        Screen('Flip', window);
+                        WaitSecs(2);
+                
+            
+                        
+                WaitSecs(0.001);
                     end
                 end
             end
@@ -239,7 +272,7 @@ while j <= numTrials
         end
     end
     
-    if nofixtimeflag==0
+    if nofixtimeflag==0 && nofixflag == 0
         %%%%the serach screen
         T_delay = timeToWaitResponse; %%take your search time
         nofixtimeflag=1;
@@ -438,15 +471,10 @@ while j <= numTrials
                 
                 if flag == 0
                     isEyeInside = false;
-                    %         text1 = 'TOO LATE';
-                    %          DrawFormattedText(window, text1,'center' , yCenter, black);
-                    %          Screen('Flip', window);
-                    %         WaitSecs(2);
-                    %
-                    %         text2 = 'TRY AGAIN';
-                    %         DrawFormattedText(window, text2,'center' , yCenter, black);
-                    %          Screen('Flip', window);
-                    %         WaitSecs(2);
+                    text1 = 'TOO LATE';
+                    DrawFormattedText(window, text1,'center' , yCenter, black);
+                    Screen('Flip', window);
+                    WaitSecs(2);
                     
                 end
                 
@@ -506,11 +534,11 @@ while j <= numTrials
                 %Signaling for aborted trials
                 if ~isEyeInside
                     
-                    DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
-                    Screen('Flip', window);
-                    WaitSecs(2);
-                    
-                elseif nofixtimeflag==1
+%                     DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
+%                     Screen('Flip', window);
+%                     WaitSecs(2);
+                end  
+                if nofixtimeflag==1
                     
                     DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING SEARCH','center' , yCenter, black);
                     Screen('Flip', window);
@@ -764,9 +792,9 @@ while j <= numTrials
                 %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
                 if flag == 0
                     isEyeInside = false;
-                    %         text = 'TOO LATE';
-                    %         DrawFormattedText(window, text,'center' , yCenter, black);
-                    %                 Screen('Flip', window);
+                    text = 'TOO LATE';
+                    DrawFormattedText(window, text,'center' , yCenter, black);
+                    Screen('Flip', window);
                     
                     
                 end
@@ -822,14 +850,9 @@ while j <= numTrials
                 respTime(numTrials) = 0;
                 
                 %Signaling for aborted trials
-                if ~isEyeInside
+               
                     
-                    DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
-                    Screen('Flip', window);
-                    WaitSecs(2);
-                    
-                elseif nofixtimeflag==1
-                    
+               if nofixtimeflag==1
                     DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING SEARCH','center' , yCenter, black);
                     Screen('Flip', window);
                     WaitSecs(2);
@@ -858,7 +881,7 @@ while j <= numTrials
         %++++++IMPORTANT+++++++++++++++++++
         %this if statment houses code that takes the data for the setup in the
         %aborted trial and moves it to the end
-    elseif ~isEyeInside || nofixtimeflag==1
+    elseif (~isEyeInside || nofixtimeflag==1) && nofixflag == 0
         
         numTrials = numTrials + 1;
         countAbortFree = countAbortFree + 1;
@@ -885,13 +908,9 @@ while j <= numTrials
         respTime(numTrials) = 0;
         
         %Signaling for aborted trials
-        if ~isEyeInside
+        
             
-            DrawFormattedText(window, 'TOO LATE','center' , yCenter, black);
-            Screen('Flip', window);
-            WaitSecs(2);
-            
-        elseif nofixtimeflag==1
+       if nofixtimeflag==1
             
             DrawFormattedText(window, 'PLEASE LOOK AT CENTER DURING INITIAL FIXATION','center' , yCenter, black);
             Screen('Flip', window);
@@ -900,7 +919,8 @@ while j <= numTrials
             %             DrawFormattedText(window, 'BROKE FIXATION AT SEARCH','center' , yCenter, black);
             %             Screen('Flip', window);
             %             WaitSecs(2);
-        end
+       end
+        
         DrawFormattedText(window, 'TRY AGAIN','center' , yCenter, black);
         Screen('Flip', window);
         WaitSecs(2);
