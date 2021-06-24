@@ -59,7 +59,7 @@ if strcmp(elstate,'on')
             %             practiceForceComplete = true;
             %         end
             SetUpTrialData;
-            ForceTime2;
+            ForceTime3;
             
             
         elseif randForceFreeVec(trialCount) == 2

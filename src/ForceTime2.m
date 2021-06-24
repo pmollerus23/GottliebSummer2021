@@ -230,12 +230,7 @@ while j <= numTrials
                 end
             end
         end
-        
-        
-        
-        
-        
-        
+
         
         %determine orientation of t presented 1 means the t is upright 0
         %means the t is upsidedown
