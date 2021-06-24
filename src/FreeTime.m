@@ -181,6 +181,7 @@ while j <= numTrials
                     elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
                         nofixflag=1; %no fixation so we go to abort trial
                         % Mark events, messages, etc. in dataviwer trial
+<<<<<<< HEAD
                         numTrials = numTrials + 1;
                         countAbortFree = countAbortFree + 1;
                         randTarray(numTrials) = randTarray(j);
@@ -214,6 +215,9 @@ while j <= numTrials
                         WaitSecs(2);
                 
             
+=======
+                        %%ADD ABORT TRIAL MESSAGE
+>>>>>>> eefd2ab5770f908be04d655bebf856674eccbd95
                         
                 WaitSecs(0.001);
                     end
