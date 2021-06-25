@@ -24,6 +24,8 @@ eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left ey
 if eye_used == el.BINOCULAR % if both eyes are tracked
     eye_used = el.LEFT_EYE; % use left eye
 end
+%  fileName=sprintf('%sFO.edf', edfFile); % Data file name
+%      Eyelink('Openfile',fileName);
 
 
 while  j <= numTrials

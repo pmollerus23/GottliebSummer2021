@@ -1,6 +1,12 @@
 fatigue_rate_trials=[1 10 20 30 40 50 60 70];
 num_practice=10;
 
+[deviceIndices, deviceNames] = GetKeyboardIndices;
+
+KbQueueCreate(deviceIndices);
+KbQueueStart(deviceIndices); % start recording key presses
+
+
 KbName('UnifyKeyNames');
 escapeKey = KbName('ESCAPE');
 leftKey = KbName('LeftArrow');
@@ -117,11 +123,6 @@ Screen('TextSize', window, 40);
 % escapeKey = KbName('ESCAPE');
 % leftKey = KbName('LeftArrow');
 % rightKey = KbName('RightArrow');
-[deviceIndices, deviceNames] = GetKeyboardIndices;
-
-KbQueueCreate(deviceIndices);
-KbQueueStart(deviceIndices); % start recording key presses
-
 %Reading images for fixation cross types
 imageCross = imread('CrossP.png');
 dispImageCross = Screen('MakeTexture', window, imageCross);

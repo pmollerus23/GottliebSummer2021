@@ -76,8 +76,8 @@
     end
     
     
-    fileName=sprintf('%s.edf', edfFile); % Data file name
-    % Eyelink('Openfile',fileName);
+    fileName=sprintf('%sF.edf', edfFile); % Data file name
+     Eyelink('Openfile',fileName);
     
 %     try
 %         fprintf('Receiving data file ''%s''\n', fileName);

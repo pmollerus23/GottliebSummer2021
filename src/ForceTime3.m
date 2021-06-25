@@ -1,7 +1,7 @@
 response = 0;
 responseText = 'incorrect';
 
-isEyeInside = true;
+
 numTrials = 12;
 fatigueRating = nan(numTrials,1);
 abortedTrials = zeros(numTrials,1);
@@ -235,7 +235,7 @@ while j <= numTrials
     
     
     
-    if nofixtimeflag==0 && nofixtime == 0
+    if nofixtimeflag==0 && nofixflag == 0
         T_delay = timeToWaitResponse; %%take your search time
         nofixtimeflag=1;
         startrt=GetSecs;
