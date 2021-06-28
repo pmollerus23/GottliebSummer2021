@@ -1,16 +1,16 @@
 response = 0;
 responseText = 'incorrect';
 
-numTrials = 12;
+numTrials = 30;
 
-abortedTrials = zeros(numTrials,1);
-correctOrIncorrect = zeros(numTrials,1);
-respTimeInc = zeros(numTrials,1);
-rewardChoice = zeros(numTrials,1);
+abortedTrials = nan(numTrials,1);
+correctOrIncorrect = nan(numTrials,1);
+respTimeInc = nan(numTrials,1);
+rewardChoice = nan(numTrials,1);
 fatigueRating = nan(numTrials,1);
-keyPress = zeros(numTrials,1);
-abortedTrials2 = zeros(numTrials,1);
-randSpeedVecData = zeros(numTrials, 1);
+keyPress = nan(numTrials,1);
+abortedTrials2 = nan(numTrials,1);
+randSpeedVecData = nan(numTrials, 1);
 
 j = 1;
 
@@ -68,7 +68,7 @@ while j <= numTrials
     Screen('Flip', window);
     WaitSecs(2);
     
-    Screen('DrawTexture', window, crossForTrial, [], crossPos);
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
     WaitSecs(2);
 
@@ -78,19 +78,19 @@ while j <= numTrials
     % while isEyeInside
     %Conditional for trial speed (including fixation cross signal
     %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
-    if randSpeedVec(blockIndex + j) == 1
+    if speed == 1
         %cross for slow trial
-        crossForTrial = dispImageBlueCross;
+        %dispImageCross = dispImageBlueCross;
         randSpeedVecData(j) = 1;
         timeToWaitResponse = 2;
         
-    elseif randSpeedVec(blockIndex + j) == 2
-        crossForTrial = dispImageRedCross;
+    elseif speed == 2
+        %dispImageCross = dispImageRedCross;
         randSpeedVecData(j) = 2;
         timeToWaitResponse = 0.8;
     end
     
-    Screen('DrawTexture', window, crossForTrial, [], crossPos);
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('TextSize', window, 30);
     DrawFormattedText(window, 'Choose the reward amount using the left and right arrow keys', 'center',...
         screenYpixels * 0.25, [0 0 0]);
@@ -153,7 +153,7 @@ while j <= numTrials
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    Screen('DrawTexture', window, crossForTrial, [], crossPos);
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
     
     if strcmp(elstate, 'on')
@@ -349,7 +349,7 @@ while j <= numTrials
             positionOfT(j,1) = occupiedByT;
             
             
-            Screen('DrawTexture', window, crossForTrial, [], centerRect);
+            Screen('DrawTexture', window, dispImageCross, [], centerRect);
             %present task screen for 2 seconds
             [~,start1, ~] =  Screen('Flip', window);
             
@@ -397,6 +397,8 @@ while j <= numTrials
                     [pressed, Press] = KbQueueCheck(deviceIndices);
                     
                     if Press(downKey)>0 || Press(upKey)>0
+                        
+                        respTime(j,1) = GetSecs-start1;
                         break
                     end
 
@@ -422,9 +424,9 @@ while j <= numTrials
                 %DECIDE IF THE KEY PRESS WAS CORRECT OR INCORRECT. IF IT WAS NOT
                 %CODE WILL TRIGGER TO ABORT THE TRIAL
                 %KbWait([], [], start1 + timeToWaitResponse);
-                timeWaited = GetSecs;
-                respTime(j,1) = timeWaited-start1;
-                
+%                 timeWaited = GetSecs;
+%                 respTime(j,1) = timeWaited-start1;
+%                 
 %                 clear Press;
 %                 [pressed, Press] = KbQueueCheck(deviceIndices);
                 
@@ -468,7 +470,7 @@ while j <= numTrials
                         keyPress(j,1) = 0;
                     end
                     
-                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
                     WaitSecs(3-respTime(j,1));
                     
@@ -540,7 +542,7 @@ while j <= numTrials
                 %record response data
                 correctOrIncorrect(j,1) = response;
                 %print feedback from decesion in trial to screen
-               % Screen('DrawTexture', window, crossForTrial, [], centerRect);
+               % Screen('DrawTexture', window, dispImageCross, [], centerRect);
                 
                % Screen('Flip', window);
                 
@@ -556,7 +558,7 @@ while j <= numTrials
                     [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
                     fatigueRating(j) = trial_datum;
                     
-                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
                     WaitSecs(1);
                     
@@ -630,7 +632,7 @@ while j <= numTrials
             %DIFFICULT TASK CODE HERE
             %======================================
             
-            Screen('DrawTexture', window, crossForTrial, [], centerRect);
+            Screen('DrawTexture', window, dispImageCross, [], centerRect);
             
             
             
@@ -771,6 +773,9 @@ while j <= numTrials
                     [pressed, Press] = KbQueueCheck(deviceIndices);
                     
                     if Press(downKey)>0 || Press(upKey)>0
+                        
+                        respTime(j,1) = GetSecs-start1;
+                        
                         break
                     end
 
@@ -839,7 +844,7 @@ while j <= numTrials
                         keyPress(j,1) = 0;
                     end
                     
-                    Screen('DrawTexture', window, crossForTrial, [], centerRect);
+                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
                     WaitSecs(3-respTime(j,1));
                     
@@ -1068,7 +1073,7 @@ elseif countFreeBlocks ~= 1
     finalTrialData.free.results.abortedTrials = vertcat(finalTrialData.free.results.abortedTrials, abortedTrials);
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
-    finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.force.trialData.allTrialData, trialData);
+    finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.free.trialData.allTrialData, trialData);
     
 end
 

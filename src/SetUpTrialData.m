@@ -1,16 +1,16 @@
 
-numTrials = 12;
+numTrials = 30;
 
 %creation of randomized array for free and forced choice sequence
-onesSpeed = zeros(numTrials*6,1)+1;
-twosSpeed = zeros(numTrials*6,1)+2;
+% onesSpeed = zeros(numTrials*6,1)+1;
+% twosSpeed = zeros(numTrials*6,1)+2;
 
-speedVec = vertcat(onesSpeed, twosSpeed);
-randSpeedVec = speedVec(randperm(length(speedVec)));
-
-blockIndex = (counter * 12);
-
-counter = counter + 1;
+% speedVec = vertcat(onesSpeed, twosSpeed);
+% randSpeedVec = speedVec(randperm(length(speedVec)));
+% 
+% blockIndex = (counter * 12);
+% 
+% counter = counter + 1;
 
 %creation of randomized array for T location
 ones = zeros(9,1) + 1;
@@ -23,7 +23,7 @@ sevens = zeros(9,1) + 7;
 eights = zeros(9,1) + 8;
 Tarray = vertcat(ones, twos, th, fours, fives, sixes, sevens ,eights);
 %randomize array for use in trials
-randTarray = randi(8,12,1);
+randTarray = randi(8,30,1);
 
 %scaled for length 12
 
@@ -107,12 +107,12 @@ countAbortFree= 0;
 
 x = 1:numTrials;
 x = x(:);
-trialData = x;
+trialData(:,1) = x;
 trialData(:, 2) = randTarray;
 trialData(:, 3) = orientationTArray;
 trialData(:, 4) = cardinalVec;
 trialData(:, 5) = incentiveVec;
-trialData(:, 6) = correctOrIncorrect;
+%trialData(:, 6) = correctOrIncorrect;
 
 
 isEyeInside = true;

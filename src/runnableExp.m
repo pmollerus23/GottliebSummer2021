@@ -16,70 +16,160 @@ GUI
 %SetupTChoice
 SetUpPsychTB;
 SetUpEyeLink;
+countForceBlocks = 1;
+countFreeBlocks = 1;
 elstate = 'on';
 if strcmp(elstate,'on')
     
     fileName=sprintf('%s.edf', edfFile); % Data file name
     Eyelink('Openfile',fileName);
     %try
+    
+
+    
+    order1 = [3 4 1 2 3 4 1 2];
+    order2 = [1 2 3 4 1 2 3 4];
+    
+    if trialChoice == 0
+        selection = order1;
+    elseif trialChoice ==1
+        selection = order2;
+    end
+    
+for i = 1 : 8
+
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %SPEED FORCED TRIALS
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    if selection(i) ==1 %speedforce
+    SetUpTrialData;
+    
+    DrawFormattedText(window, 'Speeded Forced block now starting','center' , yCenter, black);
+    DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    Screen('Flip', window);
+    KbWait;
+    
+    speed = 2;
+    ForceTimeET;
+        
+        
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %SPEED FREE TRIALS
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    elseif selection(i) ==2 %speedfree
+    SetUpTrialData;
+    
+    DrawFormattedText(window, 'Speeded Free Choice block now starting','center' , yCenter, black);
+    DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    Screen('Flip', window);
+    KbWait;
+    
+    speed = 2;
+    FreeTime
+    
+    
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %SLOW FORCED TRIALS
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    elseif selection(i) ==3 %slowforce
+    SetUpTrialData;
+    
+    DrawFormattedText(window, 'Regular Forced block now starting','center' , yCenter, black);
+    DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    Screen('Flip', window);
+    KbWait;
+    
+    speed = 1;
+    ForceTimeET;
+ 
+        
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %SLOW FREE TRIALS
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    elseif selection(i) ==4 %slowfree
+    SetUpTrialData;
+    
+    DrawFormattedText(window, 'Regular Free Choice block now starting','center' , yCenter, black);
+    DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    Screen('Flip', window);
+    KbWait;
+    
+    speed = 1;
+    FreeTime;
+ 
+    end
+end
+
         % download data file
         %%% This after Psychtoolbox setup
         
         %SetUpEyeLink;
-        counter = 0;
-      
-        countForceBlocks = 1;
-        countFreeBlocks = 1;
-        
-        forceFirstVec = zeros(2,1) + 1;
-        
-        
-        if trialChoice == 0
-            forceFirstVec(2,1) = 2;
-        elseif trialChoice == 1
-            forceFirstVec(1,1) = 2;
-        end
-        
-        %creation of randomized free and forced trial vector
-        forceVec = zeros(5,1) + 1;
-        freeVec = zeros(5,1) + 2;
-        forceFreeVec = vertcat(forceVec, freeVec);
-        randForceFree = forceFreeVec(randperm(length(forceFreeVec)));
-        randForceFreeVec = vertcat(forceFirstVec, randForceFree);
-        
-        
-        
-        completedForced = 0;
-        completedFree = 0;
-        trialCount = 1;
-        practiceForceComplete = false;
-        practiceFreeComplete = false;
-        while trialCount <= 2
-            if randForceFreeVec(trialCount) == 1
-                %         if ~practiceForceComplete
-                %             SetUpTrialData;
-                %             %practice trials to familiarize participant to task with 10 trials
-                %             PracticeForce;
-                %             practiceForceComplete = true;
-                %         end
-                SetUpTrialData;
-                testTTT      ;
-                
-                
-            elseif randForceFreeVec(trialCount) == 2
-                %         if ~practiceFreeComplete
-                %             SetUpTrialData;
-                %             %practice trials to familiarize participant to task with 10 trials
-                %             PracticeFree
-                %             practiceFreeComplete = true;
-                %         end 
-                SetUpTrialData;
-                FreeTime;
-                
-            end
-            trialCount = trialCount + 1;
-        end
-        
+%         counter = 0;
+%       
+%         countForceBlocks = 1;
+%         countFreeBlocks = 1;
+%         
+%         forceFirstVec = zeros(2,1) + 1;
+%         
+%         
+%         if trialChoice == 0
+%             forceFirstVec(2,1) = 2;
+%         elseif trialChoice == 1
+%             forceFirstVec(1,1) = 2;
+%         end
+%         
+%         %creation of randomized free and forced trial vector
+%         forceVec = zeros(5,1) + 1;
+%         freeVec = zeros(5,1) + 2;
+%         forceFreeVec = vertcat(forceVec, freeVec);
+%         randForceFree = forceFreeVec(randperm(length(forceFreeVec)));
+%         randForceFreeVec = vertcat(forceFirstVec, randForceFree);
+%         
+%         
+%         
+%         completedForced = 0;
+%         completedFree = 0;
+%         trialCount = 1;
+%         practiceForceComplete = false;
+%         practiceFreeComplete = false;
+%         while trialCount <= 2
+%             if randForceFreeVec(trialCount) == 1
+%                 %         if ~practiceForceComplete
+%                 %             SetUpTrialData;
+%                 %             %practice trials to familiarize participant to task with 10 trials
+%                 %             PracticeForce;
+%                 %             practiceForceComplete = true;
+%                 %         end
+%                 SetUpTrialData;
+%                 testTTT      ;
+%                 
+%                 
+%             elseif randForceFreeVec(trialCount) == 2
+%                 %         if ~practiceFreeComplete
+%                 %             SetUpTrialData;
+%                 %             %practice trials to familiarize participant to task with 10 trials
+%                 %             PracticeFree
+%                 %             practiceFreeComplete = true;
+%                 %         end 
+%                 SetUpTrialData;
+%                 FreeTime;
+%                 
+%             end
+%             trialCount = trialCount + 1;
+%         end
+%         
         
         
         
@@ -91,7 +181,7 @@ if strcmp(elstate,'on')
         finalTrialData.participant.timeEnded = clock;
         finalTrialData.participant.timeTaken = clock - Start_time;
         
-        finalTrialData.force.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.force.results.respTime, finalTrialData.force.results.abortedTrials, finalTrialData.force.results.fatigueRating, finalTrialData.force.results.keyPress, finalTrialData.force.results.correctOrIncorrect]);
+        finalTrialData.force.results.allTrialsResponseDataMatrix = vertcat([finalTrialData.force.results.respTime, finalTrialData.force.results.abortedTrials, finalTrialData.force.results.fatigueRating, finalTrialData.force.results.keyPress, finalTrialData.force.results.correctOrIncorrect]);
         finalTrialData.force.results.dataDescriptionResponse = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
             'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
         
@@ -100,7 +190,7 @@ if strcmp(elstate,'on')
         
         %finalTrialData.force.trialData.data = trialData;
         
-        finalTrialData.free.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
+        finalTrialData.free.results.allTrialsResponseDataMatrix = vertcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
         finalTrialData.free.results.dataDescriptionResponse = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...
             'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
             'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};
