@@ -682,13 +682,13 @@ if countForceBlocks == 1
     finalTrialData.force.results.keyPress = keyPress;
     finalTrialData.force.trialData.allTrialData = trialData;
 elseif countForceBlocks ~= 1
-    finalTrialData.force.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
-    finalTrialData.force.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
-    finalTrialData.force.results.correctOrIncorrect = vertcat(finalTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
-    finalTrialData.force.results.respTime = vertcat(finalTrialData.free.results.respTime, respTime);
-    finalTrialData.force.results.abortedTrials = vertcat(finalTrialData.free.results.abortedTrials, abortedTrials);
-    finalTrialData.force.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
-    finalTrialData.force.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
+    finalTrialData.force.results.responseTimeIncentive = vertcat(finalTrialData.force.results.responseTimeIncentive, respTimeInc);
+    finalTrialData.force.results.rewardChoice = vertcat(finalTrialData.force.results.rewardChoice, rewardChoice);
+    finalTrialData.force.results.correctOrIncorrect = vertcat(finalTrialData.force.results.correctOrIncorrect, correctOrIncorrect);
+    finalTrialData.force.results.respTime = vertcat(finalTrialData.force.results.respTime, respTime);
+    finalTrialData.force.results.abortedTrials = vertcat(finalTrialData.force.results.abortedTrials, abortedTrials);
+    finalTrialData.force.results.fatigueRating = vertcat(finalTrialData.force.results.fatigueRating, fatigueRating);
+    finalTrialData.force.results.keyPress = vertcat(finalTrialData.force.results.keyPress, keyPress);
     finalTrialData.force.trialData.allTrialData = vertcat(finalTrialData.force.trialData.allTrialData, trialData);
     
 end
