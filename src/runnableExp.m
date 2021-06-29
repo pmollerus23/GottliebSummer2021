@@ -181,7 +181,7 @@ end
         finalTrialData.participant.timeEnded = clock;
         finalTrialData.participant.timeTaken = clock - Start_time;
         
-        finalTrialData.force.results.allTrialsResponseDataMatrix = vertcat([finalTrialData.force.results.respTime, finalTrialData.force.results.abortedTrials, finalTrialData.force.results.fatigueRating, finalTrialData.force.results.keyPress, finalTrialData.force.results.correctOrIncorrect]);
+        finalTrialData.force.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.force.results.respTime, finalTrialData.force.results.abortedTrials, finalTrialData.force.results.fatigueRating, finalTrialData.force.results.keyPress, finalTrialData.force.results.correctOrIncorrect]);
         finalTrialData.force.results.dataDescriptionResponse = {'Column 1 represents the time it took for a person to decide the orientation of T';'Column 2 represents the aborted trials (1 = aborted, 0 = succesful)';...
             'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)';'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)'};
         
@@ -190,7 +190,7 @@ end
         
         %finalTrialData.force.trialData.data = trialData;
         
-        finalTrialData.free.results.allTrialsResponseDataMatrix = vertcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
+        finalTrialData.free.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
         finalTrialData.free.results.dataDescriptionResponse = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...
             'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
             'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};

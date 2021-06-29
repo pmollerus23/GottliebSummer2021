@@ -1,4 +1,4 @@
-
+clear trialData;
 numTrials = 30;
 
 %creation of randomized array for free and forced choice sequence
@@ -23,7 +23,7 @@ sevens = zeros(9,1) + 7;
 eights = zeros(9,1) + 8;
 Tarray = vertcat(ones, twos, th, fours, fives, sixes, sevens ,eights);
 %randomize array for use in trials
-randTarray = randi(8,30,1);
+randTarray = randi(8,numTrials,1);
 
 %scaled for length 12
 
@@ -105,7 +105,7 @@ p.times.noRapidPress = 0;
 countAbortForced = 0;
 countAbortFree= 0;
 
-x = 1:numTrials;
+x = 1:(numTrials);
 x = x(:);
 trialData(:,1) = x;
 trialData(:, 2) = randTarray;

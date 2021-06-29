@@ -196,7 +196,7 @@ while j <= numTrials
                         trialData(numTrials, 4) = cardinalVec(j);
                         trialData(numTrials, 5) = incentiveVec(j);
                         % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
-                        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+                      %   randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
                         abortedTrials(numTrials) = 0;
                         abortedTrials(j) = 1;
                         abortedTrials2(j) = 1;
@@ -566,7 +566,7 @@ while j <= numTrials
             trialData(numTrials, 4) = cardinalVec(j);
             trialData(numTrials, 5) = incentiveVec(j);
             % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
-            randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+          %  randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
             abortedTrials(numTrials) = 0;
             abortedTrials(j) = 1;
             abortedTrials2(j) = 1;
@@ -623,7 +623,7 @@ while j <= numTrials
         trialData(numTrials, 4) = cardinalVec(j);
         trialData(numTrials, 5) = incentiveVec(j);
         % randSpeedVecData(numTrials) = randSpeedVec(blockIndex + j);
-        randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
+       % randSpeedVec(numTrials) = randSpeedVec(blockIndex + j);
         abortedTrials(numTrials) = 0;
         abortedTrials(j) = 1;
         abortedTrials2(j) = 1;
@@ -693,4 +693,4 @@ elseif countForceBlocks ~= 1
     
 end
 
-countForceBlocks = countCountBlocks + 1;
+countForceBlocks = countForceBlocks + 1;
