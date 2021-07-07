@@ -27,8 +27,8 @@ if strcmp(elstate,'on')
     
 
     
-    order1 = [3 4 1 2 3 4 1 2];
-    order2 = [1 2 3 4 1 2 3 4];
+    order1 = [1 3 1 3];
+    order2 = [4 3 2 1];
     
     if trialChoice == 0
         selection = order1;
@@ -36,7 +36,7 @@ if strcmp(elstate,'on')
         selection = order2;
     end
     
-for i = 1 : 8
+for i = 1
 
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -190,14 +190,14 @@ end
         
         %finalTrialData.force.trialData.data = trialData;
         
-        finalTrialData.free.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
-        finalTrialData.free.results.dataDescriptionResponse = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...
-            'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
-            'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};
-        
-        finalTrialData.free.trialData.descriptionTrialData = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
-            'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)';'Coloum 7 represents weather or not a trial was speeded or slowed (1 = slow, 2 = fast)'};
-        
+% % % % % % % % % % % % %         finalTrialData.free.results.allTrialsResponseDataMatrix = horzcat([finalTrialData.free.results.responseTimeIncentive,  finalTrialData.free.results.rewardChoice, finalTrialData.free.results.fatigueRating,  finalTrialData.free.results.keyPress, finalTrialData.free.results.correctOrIncorrect, finalTrialData.free.results.respTime,  finalTrialData.free.results.abortedTrials]);
+% % % % % % % % % % % % %         finalTrialData.free.results.dataDescriptionResponse = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...
+% % % % % % % % % % % % %             'Column 4 represents key presses to decide the orientation of t( 1 = up, 0 = down)'; 'Columnn 5 represents weather or not a trial was correct (1 = correct, 0 = incorrect)';...
+% % % % % % % % % % % % %             'Column 6 represents the time it took for a person to decide the orientation of T'; 'Column 7 represents the aborted trials (1 = aborted, 0 = succesful)'};
+% % % % % % % % % % % % %         
+% % % % % % % % % % % % %         finalTrialData.free.trialData.descriptionTrialData = {'Column 1 represents the trial number(1-72 + aborted trials)'; 'Column 2 represents the position of T in the circle (0 is farthest right and increases traveling counterclock wise around the circle)';...
+% % % % % % % % % % % % %             'Column 3 represents the orientation of T (1 = upright T, 0 = upsidedown)'; ' Column 4 where the incentive is drawm (1 = drawn on right, 2 = drawn on left)';'Column 5 represents the incentive value shown 1-6 where an incentive value of 1 will be handled as a 2';'Column 6 is where aborted trials are represented (1= aborted, 0 = completed)';'Coloum 7 represents weather or not a trial was speeded or slowed (1 = slow, 2 = fast)'};
+% % % % % % % % % % % % %         
         %finalTrialData.free.trialData.data = trialData;
         
         
@@ -206,7 +206,7 @@ end
         load('finalTrialData.mat');
         
         try
-            fprintf('Receiving data file ''%s''\n', fileName);
+            fprintf('Receiving data file ''%s''\n', fileName);  
             status=Eyelink('ReceiveFile',fileName);
             if status > 0
                 fprintf('ReceiveFile status %d\n', status);
