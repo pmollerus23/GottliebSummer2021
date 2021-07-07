@@ -283,17 +283,22 @@ while j <= numTrials
     end
     %%% 7. END RECORDING each trial
     Eyelink('StopRecording');
-    
+        partInfo(j, 1) = 1;
+
     j = j + 1;
 end
 
+
+partInfo(:,2) = zeros(length(trialData(:,1)),1) + P_code;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
+trialData = horzcat(partInfo, trialData);
+nonDataVector = nan(length(trialData(:,1)),1);
 
 
 if countForceBlocks == 1
-    finalTrialData.force.results.responseTimeIncentive =respTimeInc;
-    finalTrialData.force.results.rewardChoice = rewardChoice;
+    finalTrialData.force.results.responseTimeIncentive = nonDataVector;
+    finalTrialData.force.results.rewardChoice = nonDataVector;
     finalTrialData.force.results.correctOrIncorrect = correctOrIncorrect;
     finalTrialData.force.results.respTime = respTime;
     finalTrialData.force.results.abortedTrials = abortedTrials;

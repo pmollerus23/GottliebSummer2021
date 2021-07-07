@@ -64,15 +64,23 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
-        hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
       
        
-       m = mean(rts);
-       line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+%        m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
         
     end
+    
+    h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
+        hold on
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
+        
+               m = mean(rts);
+       line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+
     
     xlim(rng);
                titleText = sprintf('Free Regular SS1 PC = %d %', pc);
@@ -120,13 +128,20 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%         hold on
+%         m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+    end
+    
+    h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
         hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
         hold on
         m = mean(rts);
        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
-    end
     
     titleText = sprintf('Free Speeded SS1 PC = %d %', pc);
     
@@ -171,13 +186,20 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%          hold on
+%         m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+    end
+    
+    h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
         hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
          hold on
         m = mean(rts);
        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
-    end
     
         titleText = sprintf('Free Regular SS8 PC = %d %', pc);
 
@@ -224,13 +246,20 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%          hold on
+%         m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+    end
+    
+     h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
         hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
          hold on
         m = mean(rts);
        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
-    end
     
             titleText = sprintf('Free Speeded SS8 PC = %d %', pc);
 
@@ -285,13 +314,20 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%          hold on
+%         m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+    end
+    
+     h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
         hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
          hold on
         m = mean(rts);
        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
-    end
     
                    titleText = sprintf('Force Regular SS8 PC = %d %', pc);
 
@@ -334,13 +370,20 @@ if col == 14;
            pc =  round(pc * 100);
         end
         
-        h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         h(a+1) = histogram(rtstoplotIncorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'red';
+%         hold on
+%         h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+%          hold on
+%         m = mean(rts);
+%        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
+    end
+    
+     h(a+1) = histogram(rtstoplotIncorrect, edges); h(a+1).FaceColor = 'red';
         hold on
-        h(a+1) = histogram(rtstoplotCorrect, edges, 'Normalization','count'); h(a+1).FaceColor = 'green';
+        h(a+1) = histogram(rtstoplotCorrect, edges); h(a+1).FaceColor = 'green';
          hold on
         m = mean(rts);
        line([m m], [min(get(gca, 'YLim')), max(get(gca, 'YLim'))]);
-    end
     
                        titleText = sprintf('Force Speeded SS8 PC = %d %', pc);
 

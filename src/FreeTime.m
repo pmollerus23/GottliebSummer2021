@@ -392,12 +392,14 @@ while j <= numTrials
     end
     %%% 7. END RECORDING each trial
     Eyelink('StopRecording');
-
+    partInfo(j, 1) = 2;
     j = j + 1;
 end
 
+partInfo(:,2) = zeros(length(trialData(:,1)),1) + P_code;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
+trialData = horzcat(partInfo, trialData);
 
 
 if countFreeBlocks == 1
