@@ -39,7 +39,7 @@ fixation_pos = crossPos;
 while j <= numTrials
     
     %% 5. Mark events, messages, etc. in dataviwer trial
-    Eyelink('Message', 'TRIAL_%d', numTrials);
+    Eyelink('Message', 'TRIAL_%d', j);
     % This supplies the title at the bottom of the eyetracker display
     Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
     WaitSecs(0.001);
@@ -66,6 +66,12 @@ while j <= numTrials
     %Starting response time interval
     [~,actualFlipTime,~,~]= Screen('Flip', window);
     
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Incentive shown');
+        WaitSecs(0.001);
+    end
+    
     %Clearing and initializing keyboard config for trial(i)
     secs = 1;
     
@@ -82,9 +88,10 @@ while j <= numTrials
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', '2');
+        Eyelink('Message', 'Initial fix cross shown');
         WaitSecs(0.001);
     end
+    
     
     % Wait until fixation in fixation cross (abort trial after 200ms)
     T_delay = 0.5; %rand time delay
@@ -187,6 +194,12 @@ while j <= numTrials
         
         %present task screen for 2 seconds
         [~,start1, ~] =  Screen('Flip', window);
+        
+        if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'SS8 search array shown');
+        WaitSecs(0.001);
+    end
          
         %%%checks if person is fixating on center while searching array for
         %%% T orientation
@@ -283,16 +296,17 @@ while j <= numTrials
     end
     %%% 7. END RECORDING each trial
     Eyelink('StopRecording');
-        partInfo(j, 1) = 1;
+       
 
     j = j + 1;
 end
 
 
-partInfo(:,2) = zeros(length(trialData(:,1)),1) + P_code;
+partInfo1 = zeros(length(trialData(:,1)),1) + 1;
+partInfo2 = zeros(length(trialData(:,1)),1) + P_codeUSE;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
-trialData = horzcat(partInfo, trialData);
+trialData = horzcat(partInfo1, partInfo2, trialData);
 nonDataVector = nan(length(trialData(:,1)),1);
 
 
@@ -306,8 +320,8 @@ if countForceBlocks == 1
     finalTrialData.force.results.keyPress = keyPress;
     finalTrialData.force.trialData.allTrialData = trialData;
 elseif countForceBlocks ~= 1
-    finalTrialData.force.results.responseTimeIncentive = vertcat(finalTrialData.force.results.responseTimeIncentive, respTimeInc);
-    finalTrialData.force.results.rewardChoice = vertcat(finalTrialData.force.results.rewardChoice, rewardChoice);
+    finalTrialData.force.results.responseTimeIncentive = vertcat(finalTrialData.force.results.responseTimeIncentive, nonDataVector);
+    finalTrialData.force.results.rewardChoice = vertcat(finalTrialData.force.results.rewardChoice, nonDataVector);
     finalTrialData.force.results.correctOrIncorrect = vertcat(finalTrialData.force.results.correctOrIncorrect, correctOrIncorrect);
     finalTrialData.force.results.respTime = vertcat(finalTrialData.force.results.respTime, respTime);
     finalTrialData.force.results.abortedTrials = vertcat(finalTrialData.force.results.abortedTrials, abortedTrials);

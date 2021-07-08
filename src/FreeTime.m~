@@ -62,31 +62,19 @@ while j <= numTrials
     %draw incentives to screen 
     DrawIncentive;
     
-    
     %Starting response time interval
     [~,actualFlipTime,~,~]= Screen('Flip', window);
     
     %Clearing and initializing keyboard config for trial(i)
-    
     [secs, ~,~] = KbWait;
     
     %Storing response interval time
     respTimeInc(j,1) = secs - actualFlipTime;
     
     [pressed, firstPress] = KbQueueCheck(deviceIndices);
-    
-    
     WaitSecs(0.25);
     
-    
-    
     %%%%%%%%%fixation before trial
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
     
@@ -162,19 +150,16 @@ while j <= numTrials
                             totalFixTimeout=0;
                             if totalFixTime >= fixTime-250
                                 nofixtimeflag=0;
-                                
                             end
                         elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
                             totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
-                            
                             totalFixTime = 0;
+                            
                             if totalFixTimeout >= 250
                                 nofixtimeflag =1;
                                 Novalid=1;
                             end
-                            
                             % Mark events, messages, etc. in dataviwer trial
-                            
                             WaitSecs(0.001);
                         end
                     end
@@ -196,8 +181,7 @@ while j <= numTrials
 
         %Conditional for easy task choice
         if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
-           
-            %boolean allows the easy search task to be drawn
+            %sets up easy trial to be drawn in DrawTLLocation
             easy = true;
             %record data on which reward was chosen
             rewardChoice(j,1) = 1;
@@ -214,7 +198,6 @@ while j <= numTrials
             
             %check for fixation during search task
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
-                
                     if Eyelink('NewFloatSampleAvailable') > 0
                         % get the sample in the form of an event structure
                         evt = Eyelink('NewestFloatSample');
@@ -233,12 +216,10 @@ while j <= numTrials
                                     totalFixTime = totalFixTime + 50;
                                     totalFixTimeout=0;
                                     if totalFixTime >= fixTime-250
-                                        nofixtimeflag=0;
-                                        
+                                        nofixtimeflag=0; 
                                     end
                                 elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
                                     totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
-                                    
                                     totalFixTime = 0;
                                     if totalFixTimeout >= 250
                                         nofixtimeflag =1;
@@ -246,26 +227,22 @@ while j <= numTrials
                                     end
                                     
                                     % Mark events, messages, etc. in dataviwer trial
-                                    
                                     WaitSecs(0.001);
                                 end
                             end
                         end
                     end
-                    
                     [pressed, Press] = KbQueueCheck(deviceIndices);
                     
                     %check for key press during search task if key is
                     %pressed loop breakes 
                     if Press(downKey)>0 || Press(upKey)>0
-                        
                         respTime(j,1) = GetSecs-start1;
                         break
                     end
 
             end
-            
-                       
+       
             if Press(downKey)>0 || Press(upKey)>0 
                 nofixtimeflag=0;
             end
@@ -283,24 +260,19 @@ while j <= numTrials
                 %so trial will be aborted
                 if flag == 0
                     AbortFree;
-                    
                 end
-
+                
                 %record response data
                 correctOrIncorrect(j,1) = response;
-
                 %code for confidence assessment EVERY 10 TRIALS
                 decideConfRating = mod(j,10);
                 if decideConfRating == 0
-                    
                     DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
                     [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
                     fatigueRating(j) = trial_datum;
-                    
                     Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
                     WaitSecs(1);
-                    
                 end
                 
                 %abort trial if fixation is broken during delay period
@@ -309,31 +281,23 @@ while j <= numTrials
                 AbortFree;
                 
             end
-            
-            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            
+           
             %Conditional for difficult task choice
         elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
-            %sets up hard trial to be drawn in DrawTLL
+            %sets up hard trial to be drawn in DrawTLLocation
             easy = false;
             %record data on which option was chosen
             rewardChoice(j,1) = 2;
-            
             %======================================
             %DIFFICULT TASK CODE HERE
             %======================================
-            %
+            %draw difficult task 
            DrawTLLocation;
-            
-            
             %present task screen for 2 seconds
             [~,start1, ~] =  Screen('Flip', window);
             
             
-            
+            %check for fixation during delay before search array
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
                 
                     if Eyelink('NewFloatSampleAvailable') > 0
@@ -374,82 +338,69 @@ while j <= numTrials
                         end
                     end
                     
-                    [pressed, Press] = KbQueueCheck(deviceIndices);
-                    
+                    [pressed, Press] = KbQueueCheck(deviceIndices); 
+                    %if key is pressed during search, the loop breaks and
+                    %records reaction time
                     if Press(downKey)>0 || Press(upKey)>0
-                        
                         respTime(j,1) = GetSecs-start1;
-                        
                         break
                     end
-
             end
-            
-                       
+                   
             if Press(downKey)>0 || Press(upKey)>0 
                 nofixtimeflag=0;
             end
+            %enters if statement if there was a key press
             if nofixtimeflag == 0
-                
                 % timeToWait = 2;
                 startTime = GetSecs;
                 timeInLoop = 0;
                 flag = 0;
                 timeWaited = GetSecs;
                 respTime(j,1) = timeWaited-start1;
+                %code housed in CorrectDecesion is used to decide weather or not decesion was correct
                 CorrectDecision;
-
-                %++++++THIS CODE CONTROLLS WEATHER OR NOT THE TRIAL IS ABORTED, IF THE
-                %BOOLEAN CONTAINED IN THE BLOCK IS FALSE THE TRIAL IS ABORTED
+                %aborts trial if time has ran out 
                 if flag == 0
-                   AbortFree;
-                    
+                   AbortFree;  
                 end
 
                 %record response data
                 correctOrIncorrect(j,1) = response;
-               
                 
                 %code for confidence assessment every 10 trials
                 decideConfRating = mod(j,10);
-                if decideConfRating == 0 || j == 1
-                    
+                if decideConfRating == 0 || j == 1 
                     DrawFormattedText(window, responseText, 'How would you rate your mental fatigue?',screenYpixels * 0.25, black);
                     [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
                     fatigueRating(j) = trial_datum;
                     Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
-                    WaitSecs(1);
-                    
+                    WaitSecs(1);   
                 end
                 
-                
+                % trial is aborted if fixation was broken during the
+                % search
             elseif ~isEyeInside || nofixtimeflag==1
-                
                 AbortFree;
-                
             end
-            
             clear firstPress;
-            
         end
-        %++++++IMPORTANT+++++++++++++++++++
-        %this if statment houses code that takes the data for the setup in the
-        %aborted trial and moves it to the end
+        %enter this else if statement if the initial fixation was broken 
     elseif (~isEyeInside || nofixtimeflag==1) && nofixflag == 0
-        
         AbortFree;
     end
-    
-    
     %%% 7. END RECORDING each trial
     Eyelink('StopRecording');
     
     j = j + 1;
 end
 
+partInfo(j, 1) = zeros(length(trialData(1,:)),1) + 2;
+partInfo(:,2) = zeros(length(trialData()),1) + P_codeUSE;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
+trialData = horzcat(partInfo, trialData);
 
 
 if countFreeBlocks == 1

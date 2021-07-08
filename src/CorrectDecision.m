@@ -37,6 +37,9 @@ if Press(upKey) > 0 || Press(downKey)>0
                     
                     Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
+                    
+                     
+                    
                     WaitSecs(3-respTime(j,1));
                     
                     %record response data
@@ -45,6 +48,13 @@ if Press(upKey) > 0 || Press(downKey)>0
                     DrawFormattedText(window, text,'center' , yCenter, black);
                     DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
                     Screen('Flip', window);
+                    
+                    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Accuracy confirmation shown');
+        WaitSecs(0.001);
+    end
+                    
                     WaitSecs(2)
                     % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
                 end

@@ -2,6 +2,13 @@ if j == 1 && isForce == true
     DrawFormattedText(window, 'Force Choice Trials', 'center',...
         yCenter, [0 0 0]);
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Force trial condition signal shown');
+        WaitSecs(0.001);
+    end
+    
     trialText = 'Reward Amount Is Fixed';
 
     WaitSecs(2);
@@ -10,6 +17,13 @@ elseif j == 1 && isForce == false
     DrawFormattedText(window, 'Free Choice Trials', 'center',...
         yCenter, [0 0 0]);
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Free trial condition signal shown');
+        WaitSecs(0.001);
+    end
+    
     trialText = 'Choose Reward Amount';
     WaitSecs(2);
 end
@@ -18,6 +32,13 @@ end
     
     DrawFormattedText(window, 'Next trial starting','center' , yCenter, black);
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Next trial starting signal shown');
+        WaitSecs(0.001);
+    end
+    
     WaitSecs(2);
     
     %     Screen('DrawTexture', window, dispImageCross, [], crossPos);

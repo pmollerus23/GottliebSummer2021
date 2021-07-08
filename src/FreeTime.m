@@ -44,7 +44,7 @@ fixation_pos = crossPos;
 while j <= numTrials
     
     %% 5. Mark events, messages, etc. in dataviwer trial
-    Eyelink('Message', 'TRIAL_%d', numTrials);
+    Eyelink('Message', 'TRIAL_%d', j);
     % This supplies the title at the bottom of the eyetracker display
     Eyelink('command', 'record_status_message "TRIAL %d OF %d"', j, numTrials);
     WaitSecs(0.001);
@@ -57,13 +57,19 @@ while j <= numTrials
         %isEyeInside = false;
     end
     
-    flag = 1; 
-    isForce = false; 
-    %draw incentives to screen 
+    flag = 1;
+    isForce = false;
+    %draw incentives to screen
     DrawIncentive;
     
     %Starting response time interval
     [~,actualFlipTime,~,~]= Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Incentive shown');
+        WaitSecs(0.001);
+    end
     
     %Clearing and initializing keyboard config for trial(i)
     [secs, ~,~] = KbWait;
@@ -80,7 +86,7 @@ while j <= numTrials
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', '2');
+        Eyelink('Message', 'Initial fix cross shown');
         WaitSecs(0.001);
     end
     
@@ -108,7 +114,7 @@ while j <= numTrials
                         nofixflag=0;
                         break
                     elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
-                       
+                        
                         %abort trial if there is an issue with the initial
                         %fixation
                         AbortFree;
@@ -118,7 +124,7 @@ while j <= numTrials
         end
     end
     
-    %enter this if statement if the initial fixation is passed 
+    %enter this if statement if the initial fixation is passed
     if nofixflag==0
         
         T_delay = randi([3 5],1);
@@ -129,7 +135,7 @@ while j <= numTrials
         Novalid=0;
         fixTime = T_delay;
         
-        %check fixation during delay to stimilus presentation 
+        %check fixation during delay to stimilus presentation
         while (GetSecs-startrt)<=T_delay  && Novalid==0
             if Eyelink('NewFloatSampleAvailable') > 0
                 % get the sample in the form of an event structure
@@ -178,7 +184,7 @@ while j <= numTrials
         totalFixTimeout=0;
         Novalid=0;
         fixTime = T_delay;
-
+        
         %Conditional for easy task choice
         if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
             %sets up easy trial to be drawn in DrawTLLocation
@@ -196,57 +202,63 @@ while j <= numTrials
             %present task screen for 2 seconds
             [~,start1, ~] =  Screen('Flip', window);
             
+            if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'SS1 search array shown');
+                WaitSecs(0.001);
+            end
+            
             %check for fixation during search task
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
-                    if Eyelink('NewFloatSampleAvailable') > 0
-                        % get the sample in the form of an event structure
-                        evt = Eyelink('NewestFloatSample');
-                        if eye_used ~= -1 % do we know which eye to use yet?
-                            % if we do, get current gaze position from sample
-                            
-                            x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
-                            y = evt.gy(eye_used+1);
-                            
-                            % do we have valid data and is the pupil visible?
-                            if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
-                                eyemx=x;
-                                eyemy=y;
-                                % if no fixation
-                                if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
-                                    totalFixTime = totalFixTime + 50;
-                                    totalFixTimeout=0;
-                                    if totalFixTime >= fixTime-250
-                                        nofixtimeflag=0; 
-                                    end
-                                elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
-                                    totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
-                                    totalFixTime = 0;
-                                    if totalFixTimeout >= 250
-                                        nofixtimeflag =1;
-                                        Novalid=1;
-                                    end
-                                    
-                                    % Mark events, messages, etc. in dataviwer trial
-                                    WaitSecs(0.001);
+                if Eyelink('NewFloatSampleAvailable') > 0
+                    % get the sample in the form of an event structure
+                    evt = Eyelink('NewestFloatSample');
+                    if eye_used ~= -1 % do we know which eye to use yet?
+                        % if we do, get current gaze position from sample
+                        
+                        x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                        y = evt.gy(eye_used+1);
+                        
+                        % do we have valid data and is the pupil visible?
+                        if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                            eyemx=x;
+                            eyemy=y;
+                            % if no fixation
+                            if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
+                                totalFixTime = totalFixTime + 50;
+                                totalFixTimeout=0;
+                                if totalFixTime >= fixTime-250
+                                    nofixtimeflag=0;
                                 end
+                            elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                                totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                                totalFixTime = 0;
+                                if totalFixTimeout >= 250
+                                    nofixtimeflag =1;
+                                    Novalid=1;
+                                end
+                                
+                                % Mark events, messages, etc. in dataviwer trial
+                                WaitSecs(0.001);
                             end
                         end
                     end
-                    [pressed, Press] = KbQueueCheck(deviceIndices);
-                    
-                    %check for key press during search task if key is
-                    %pressed loop breakes 
-                    if Press(downKey)>0 || Press(upKey)>0
-                        respTime(j,1) = GetSecs-start1;
-                        break
-                    end
-
+                end
+                [pressed, Press] = KbQueueCheck(deviceIndices);
+                
+                %check for key press during search task if key is
+                %pressed loop breakes
+                if Press(downKey)>0 || Press(upKey)>0
+                    respTime(j,1) = GetSecs-start1;
+                    break
+                end
+                
             end
-       
-            if Press(downKey)>0 || Press(upKey)>0 
+            
+            if Press(downKey)>0 || Press(upKey)>0
                 nofixtimeflag=0;
             end
-            %enters if statment if key is pressed and fixatin is held 
+            %enters if statment if key is pressed and fixatin is held
             if nofixtimeflag==0
                 %timeToWait = 2;
                 startTime = GetSecs;
@@ -254,7 +266,7 @@ while j <= numTrials
                 flag = 0;
                 %code housed in script decides weather or not input from
                 %user was correct
-                 CorrectDecision;
+                CorrectDecision;
                 
                 %flag will be set to zero in CorrectDecision script if time runs out
                 %so trial will be aborted
@@ -272,6 +284,13 @@ while j <= numTrials
                     fatigueRating(j) = trial_datum;
                     Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
+                    
+                    if strcmp(elstate, 'on')
+                        % Mark events, messages, etc. in dataviwer trial
+                        Eyelink('Message', 'Fatigue rating shown');
+                        WaitSecs(0.001);
+                    end
+                    
                     WaitSecs(1);
                 end
                 
@@ -281,7 +300,7 @@ while j <= numTrials
                 AbortFree;
                 
             end
-           
+            
             %Conditional for difficult task choice
         elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
             %sets up hard trial to be drawn in DrawTLLocation
@@ -291,63 +310,68 @@ while j <= numTrials
             %======================================
             %DIFFICULT TASK CODE HERE
             %======================================
-            %draw difficult task 
-           DrawTLLocation;
+            %draw difficult task
+            DrawTLLocation;
             %present task screen for 2 seconds
             [~,start1, ~] =  Screen('Flip', window);
             
+            if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'SS8 search array drawn');
+                WaitSecs(0.001);
+            end
             
             %check for fixation during delay before search array
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
                 
-                    if Eyelink('NewFloatSampleAvailable') > 0
-                        % get the sample in the form of an event structure
-                        evt = Eyelink('NewestFloatSample');
-                        if eye_used ~= -1 % do we know which eye to use yet?
-                            % if we do, get current gaze position from sample
-                            
-                            x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
-                            y = evt.gy(eye_used+1);
-                            
-                            % do we have valid data and is the pupil visible?
-                            if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
-                                eyemx=x;
-                                eyemy=y;
-                                % if no fixation
-                                if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
-                                    totalFixTime = totalFixTime + 50;
-                                    totalFixTimeout=0;
-                                    if totalFixTime >= fixTime-250
-                                        nofixtimeflag=0;
-                                        
-                                    end
-                                elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
-                                    totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                if Eyelink('NewFloatSampleAvailable') > 0
+                    % get the sample in the form of an event structure
+                    evt = Eyelink('NewestFloatSample');
+                    if eye_used ~= -1 % do we know which eye to use yet?
+                        % if we do, get current gaze position from sample
+                        
+                        x = evt.gx(eye_used+1); % +1 as we're accessing MATLAB array
+                        y = evt.gy(eye_used+1);
+                        
+                        % do we have valid data and is the pupil visible?
+                        if x~=el.MISSING_DATA && y~=el.MISSING_DATA && evt.pa(eye_used+1)>0
+                            eyemx=x;
+                            eyemy=y;
+                            % if no fixation
+                            if  (eyemx>fixation_pos(1)-150 && eyemx < fixation_pos(3)+150 && eyemy>fixation_pos(2)-150 && eyemy<fixation_pos(4)+150)
+                                totalFixTime = totalFixTime + 50;
+                                totalFixTimeout=0;
+                                if totalFixTime >= fixTime-250
+                                    nofixtimeflag=0;
                                     
-                                    totalFixTime = 0;
-                                    if totalFixTimeout >= 250
-                                        nofixtimeflag =1;
-                                        Novalid=1;
-                                    end
-                                    
-                                    % Mark events, messages, etc. in dataviwer trial
-                                    
-                                    WaitSecs(0.001);
                                 end
+                            elseif (eyemx<fixation_pos(1)-150 || eyemx > fixation_pos(3)+150 || eyemy<fixation_pos(2)-150 || eyemy>fixation_pos(4)+150)% broke fixation reset time
+                                totalFixTimeout = totalFixTimeout + 0.5;% change 50ms
+                                
+                                totalFixTime = 0;
+                                if totalFixTimeout >= 250
+                                    nofixtimeflag =1;
+                                    Novalid=1;
+                                end
+                                
+                                % Mark events, messages, etc. in dataviwer trial
+                                
+                                WaitSecs(0.001);
                             end
                         end
                     end
-                    
-                    [pressed, Press] = KbQueueCheck(deviceIndices); 
-                    %if key is pressed during search, the loop breaks and
-                    %records reaction time
-                    if Press(downKey)>0 || Press(upKey)>0
-                        respTime(j,1) = GetSecs-start1;
-                        break
-                    end
+                end
+                
+                [pressed, Press] = KbQueueCheck(deviceIndices);
+                %if key is pressed during search, the loop breaks and
+                %records reaction time
+                if Press(downKey)>0 || Press(upKey)>0
+                    respTime(j,1) = GetSecs-start1;
+                    break
+                end
             end
-                   
-            if Press(downKey)>0 || Press(upKey)>0 
+            
+            if Press(downKey)>0 || Press(upKey)>0
                 nofixtimeflag=0;
             end
             %enters if statement if there was a key press
@@ -360,23 +384,30 @@ while j <= numTrials
                 respTime(j,1) = timeWaited-start1;
                 %code housed in CorrectDecesion is used to decide weather or not decesion was correct
                 CorrectDecision;
-                %aborts trial if time has ran out 
+                %aborts trial if time has ran out
                 if flag == 0
-                   AbortFree;  
+                    AbortFree;
                 end
-
+                
                 %record response data
                 correctOrIncorrect(j,1) = response;
                 
                 %code for confidence assessment every 10 trials
                 decideConfRating = mod(j,10);
-                if decideConfRating == 0 || j == 1 
+                if decideConfRating == 0 || j == 1
                     DrawFormattedText(window, responseText, 'How would you rate your mental fatigue?',screenYpixels * 0.25, black);
                     [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
                     fatigueRating(j) = trial_datum;
                     Screen('DrawTexture', window, dispImageCross, [], centerRect);
                     Screen('Flip', window);
-                    WaitSecs(1);   
+                    
+                    if strcmp(elstate, 'on')
+                        % Mark events, messages, etc. in dataviwer trial
+                        Eyelink('Message', 'Fatigue rating shown');
+                        WaitSecs(0.001);
+                    end
+                    
+                    WaitSecs(1);
                 end
                 
                 % trial is aborted if fixation was broken during the
@@ -386,20 +417,21 @@ while j <= numTrials
             end
             clear firstPress;
         end
-        %enter this else if statement if the initial fixation was broken 
+        %enter this else if statement if the initial fixation was broken
     elseif (~isEyeInside || nofixtimeflag==1) && nofixflag == 0
         AbortFree;
     end
     %%% 7. END RECORDING each trial
     Eyelink('StopRecording');
-    partInfo(j, 1) = 2;
+    
     j = j + 1;
 end
 
-partInfo(:,2) = zeros(length(trialData(:,1)),1) + P_code;
+partInfo1 = zeros(length(trialData(:,1)),1) + 2;
+partInfo2 = zeros(length(trialData(:,1)),1) + P_codeUSE;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
-trialData = horzcat(partInfo, trialData);
+trialData = horzcat(partInfo1, partInfo2, trialData);
 
 
 if countFreeBlocks == 1

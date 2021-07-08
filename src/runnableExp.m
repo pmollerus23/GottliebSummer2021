@@ -36,7 +36,7 @@ if strcmp(elstate,'on')
         selection = order2;
     end
     
-for i = 1
+for i = 1:4
 
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -49,11 +49,33 @@ for i = 1
     
     DrawFormattedText(window, 'Speeded Forced block now starting','center' , yCenter, black);
     DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    
+    
+    
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded forced block signal shown');
+        WaitSecs(0.001);
+    end
+    
     KbWait;
     
     speed = 2;
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded forced block start');
+        WaitSecs(0.001);
+    end
+    
     ForceTimeET;
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded forced block end');
+        WaitSecs(0.001);
+    end
         
         
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -67,12 +89,34 @@ for i = 1
     
     DrawFormattedText(window, 'Speeded Free Choice block now starting','center' , yCenter, black);
     DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    
+   
+    
     Screen('Flip', window);
+    
+     if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded free block signal shown');
+        WaitSecs(0.001);
+    end
+    
     KbWait;
     
     speed = 2;
+    
+     if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded free block start');
+        WaitSecs(0.001);
+    end
+    
     FreeTime
     
+     if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Speeded free block end');
+        WaitSecs(0.001);
+    end
     
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -85,11 +129,34 @@ for i = 1
     
     DrawFormattedText(window, 'Regular Forced block now starting','center' , yCenter, black);
     DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    
+    
+    
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular forced block signal shown');
+        WaitSecs(0.001);
+    end
+    
     KbWait;
     
     speed = 1;
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular forced block start');
+        WaitSecs(0.001);
+    end
+    
     ForceTimeET;
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular forced block end');
+        WaitSecs(0.001);
+    end
  
         
     %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -103,11 +170,34 @@ for i = 1
     
     DrawFormattedText(window, 'Regular Free Choice block now starting','center' , yCenter, black);
     DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+    
+    
+    
     Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular free block signal shown');
+        WaitSecs(0.001);
+    end
+    
     KbWait;
     
     speed = 1;
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular free block start');
+        WaitSecs(0.001);
+    end
+    
     FreeTime;
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Regular free block end');
+        WaitSecs(0.001);
+    end
  
     end
 end
@@ -199,8 +289,8 @@ end
         
         finalTrialData.free.trialData.data = trialData;
         
-        cleaned.allDataForce = horzcat(finalTrialData.force.trialData.data, finalTrialData.force.results.allTrialsResponseDataMatrix);
-        cleaned.allDataFree = horzcat( finalTrialData.free.trialData.data,  finalTrialData.free.results.allTrialsResponseDataMatrix);
+        cleaned.allDataForce = horzcat(finalTrialData.force.trialData.allTrialData, finalTrialData.force.results.allTrialsResponseDataMatrix);
+        cleaned.allDataFree = horzcat(finalTrialData.free.trialData.allTrialData,  finalTrialData.free.results.allTrialsResponseDataMatrix);
         cleaned.allData = vertcat(cleaned.allDataForce, cleaned.allDataFree);
         
         indices = find(cleaned.allData(:,16)==1);

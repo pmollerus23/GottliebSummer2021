@@ -36,6 +36,13 @@
         
         DrawFormattedText(window, 'Try again','center' , yCenter + 75, black);
         Screen('Flip', window);
+        
+        if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Abort message shown');
+        WaitSecs(0.001);
+    end
+        
         WaitSecs(4);
         flag = 1;
         isEyeInside = true;

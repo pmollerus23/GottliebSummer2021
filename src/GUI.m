@@ -5,6 +5,7 @@ answer = inputdlg(prompt, 'Particpant information',1,defaults); %opens dialog
 edfFile = answer{1};
 fprintf('EDFFile: %s\n', edfFile );
 P_code = answer{2,:};
+P_codeUSE = str2double(P_code);
 P_bdate = answer{3,:};
 P_sex = answer{4,:};
 P_hand = answer{5,:};
