@@ -12,7 +12,7 @@ rt = d(:,15);
 speed = d(:,9);
 il = d(:,7);
 
-figure
+
 
 y = [];
 
@@ -72,6 +72,8 @@ end
    
     plot(x+0.1, yFast, 'r-o'); hold on
     
+    title('Reaction Times as a Function of Reward Size')
+    %legend(' ', ' ', 'Regular', 'Speeded')
     xlabel('reward sizes 1-6');
     ylabel('reaction time (s)');
 

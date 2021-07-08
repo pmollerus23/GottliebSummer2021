@@ -12,7 +12,7 @@ rt = d(:,15);
 speed = d(:,9);
 il = d(:,7);
 
-figure
+
 
 y = [];
 
@@ -30,8 +30,9 @@ for i = 1:6
     ilLenIndSlow = find(FF == freeForce & sbjNum == P_code & il == i & speed == 1);
     ilLenIndFast = find(FF == freeForce & sbjNum == P_code & il == i & speed == 2);
     ilLenArrSlow = d(ilLenIndSlow,:);
-    ilLenArrSlow = d(ilLenIndFast,:);
-    ilLenSlow = length(ilLenArr);
+    ilLenArrFast = d(ilLenIndFast,:);
+    ilLenSlow = length(ilLenArrSlow);
+    ilLenFast = length(ilLenArrFast);
     
     semSlowIND = find(FF == freeForce & sbjNum == P_code & il == i & speed == 1);
     semFastIND = find(FF == freeForce & sbjNum == P_code & il == i & speed == 2);
@@ -41,25 +42,26 @@ for i = 1:6
     semFastVec = semFastMAT(:,15);
     stdnSlow = std(semSlowVec);
     stdnFast = std(semFastVec);
-    SEMslow = stdnSlow/sqrt(ilLen);
+    SEMslow = stdnSlow/sqrt(ilLenSlow);
+    SEMfast = stdnFast/sqrt(ilLenFast);
     
     %%%%
     
     ySlow(i) = mean(SlowVec(:,15));
-    ySlowErrPos(i) = ySlow(i) + SEM;
-    ySlowErrNeg(i) = ySlow(i) - SEM;
+    ySlowErrPos(i) = ySlow(i) + SEMslow;
+    ySlowErrNeg(i) = ySlow(i) - SEMslow;
     yFast(i) = mean(FastVec(:,15));
-    yFastErrPos(i) = yFast(i) + SEM;
-    yFastErrNeg(i) = yFast(i) - SEM;
+    yFastErrPos(i) = yFast(i) + SEMfast;
+    yFastErrNeg(i) = yFast(i) - SEMfast;
     
     
     %%%
     
     x = 1:6;
     
-     plot([i-0.1 i-0.1],[ySlowErrPos(i) ySlowErrNeg(i)],'b'); hold on
+     plot([i-0.1 i-0.1],[ySlowErrPos(i) ySlowErrNeg(i)],'black'); hold on
      
-     plot([i+0.1 i+0.1],[yFastErrPos(i) yFastErrNeg(i)], 'b'); hold on
+     plot([i+0.1 i+0.1],[yFastErrPos(i) yFastErrNeg(i)], 'black'); hold on
 end
     
     
@@ -70,6 +72,8 @@ end
    
     plot(x+0.1, yFast, 'r-o'); hold on
     
+    title('Reaction Times as a Function of Reward Size')
+    %legend(' ', ' ', 'Regular', 'Speeded')
     xlabel('reward sizes 1-6');
     ylabel('reaction time (s)');
 
