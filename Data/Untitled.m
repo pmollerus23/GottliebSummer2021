@@ -123,5 +123,9 @@ cleaned.PM.forceFast.forceFastSS8.data = horzcat(cleaned.PM.forceFast.data);
  Untitled2(cleaned.free.PM.data);
    
  get(gca)
+ 
+ RTincPlot(final.data, 2, 1);
+ RTincPlot(final.data, 3, 1);
+ 
 
    

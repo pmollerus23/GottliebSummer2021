@@ -1,0 +1,78 @@
+function [] = RTincPlot( matrix, P_code, freeForce )
+
+%RT Summary of this function goes here
+%   Detailed explanation goes here
+load final;
+
+d = matrix;
+
+FF = d(:,1);
+sbjNum = d(:,2);
+rt = d(:,15);
+speed = d(:,9);
+il = d(:,7);
+
+figure
+
+y = [];
+
+for i = 1:6
+    SlowInd = find(FF == freeForce & sbjNum == P_code & speed == 1 & il == i);
+    SlowVec = d(SlowInd,:);
+    
+    %%%%
+    
+    FastInd = find(FF == freeForce & sbjNum == P_code & speed == 2 & il == i);
+    FastVec = d(FastInd,:);
+    
+    %%%%
+    
+    ilLenIndSlow = find(FF == freeForce & sbjNum == P_code & il == i & speed == 1);
+    ilLenIndFast = find(FF == freeForce & sbjNum == P_code & il == i & speed == 2);
+    ilLenArrSlow = d(ilLenIndSlow,:);
+    ilLenArrSlow = d(ilLenIndFast,:);
+    ilLenSlow = length(ilLenArr);
+    
+    semSlowIND = find(FF == freeForce & sbjNum == P_code & il == i & speed == 1);
+    semFastIND = find(FF == freeForce & sbjNum == P_code & il == i & speed == 2);
+    semSlowMAT = d(semSlowIND,:);
+    semFastMAT = d(semFastIND,:);
+    semSlowVec = semSlowMAT(:,15);
+    semFastVec = semFastMAT(:,15);
+    stdnSlow = std(semSlowVec);
+    stdnFast = std(semFastVec);
+    SEMslow = stdnSlow/sqrt(ilLen);
+    
+    %%%%
+    
+    ySlow(i) = mean(SlowVec(:,15));
+    ySlowErrPos(i) = ySlow(i) + SEM;
+    ySlowErrNeg(i) = ySlow(i) - SEM;
+    yFast(i) = mean(FastVec(:,15));
+    yFastErrPos(i) = yFast(i) + SEM;
+    yFastErrNeg(i) = yFast(i) - SEM;
+    
+    
+    %%%
+    
+    x = 1:6;
+    
+     plot([i-0.1 i-0.1],[ySlowErrPos(i) ySlowErrNeg(i)],'b'); hold on
+     
+     plot([i+0.1 i+0.1],[yFastErrPos(i) yFastErrNeg(i)], 'b'); hold on
+end
+    
+    
+    
+    x = 1:6;
+    
+    plot(x-0.1, ySlow, 'b-o'); hold on
+   
+    plot(x+0.1, yFast, 'r-o'); hold on
+    
+    xlabel('reward sizes 1-6');
+    ylabel('reaction time (s)');
+
+
+end
+
