@@ -80,6 +80,7 @@ end
    
     plot(x+0.1, yFast, 'r-o'); hold on
     
+    
     title('Reaction Times as a Function of Reward Size')
     %legend(' ', ' ', 'Regular', 'Speeded')
     xlabel('reward sizes 1-6');
