@@ -67,32 +67,31 @@ for i = 1:6
     
     x = 1:6;
     
-     plot([i-0.1 i-0.1],[ySlowErrPos(i) ySlowErrNeg(i)],'black'); hold on
-     
-     plot([i+0.1 i+0.1],[yFastErrPos(i) yFastErrNeg(i)], 'black'); hold on
+    plot([i-0.1 i-0.1],[ySlowErrPos(i) ySlowErrNeg(i)],'black'); hold on
+    
+    plot([i+0.1 i+0.1],[yFastErrPos(i) yFastErrNeg(i)], 'black'); hold on
 end
+
+
+
+x = 1:6;
+
+plot(x-0.1, ySlow, 'b-o'); hold on
+
+plot(x+0.1, yFast, 'r-o'); hold on
+
+if freeForce == 1
     
-    
-    
-    x = 1:6;
-    
-    plot(x-0.1, ySlow, 'b-o'); hold on
-   
-    plot(x+0.1, yFast, 'r-o'); hold on
-    
-    if freeForce == 1 
-        text = 'Reaction Times as a Function of Reward Size For Free Trials';
-    elseif freeForce ==2
-        text = 'Reaction Times as a Function of Reward Size For Force Trials';
-        
-    end
-    title(text)
-    %legend(' ', ' ', 'Regular', 'Speeded')
-    xlabel('reward sizes 1-6');
-    ylabel('reaction time (s)');
-    
-    
-     ylim(yRNG);
+    title('Free Choice Reaction Times as a Function of Reward Size');
+elseif freeForce == 2
+    title('Forced Choice Reaction Times as a Function of Reward Size');
+end
+%legend(' ', ' ', 'Regular', 'Speeded')
+xlabel('reward sizes 1-6');
+ylabel('reaction time (s)');
+
+
+ylim(yRNG);
 
 end
 
