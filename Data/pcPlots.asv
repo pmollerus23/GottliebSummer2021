@@ -12,18 +12,18 @@ incV = d(:,7);
 TrSp = d(:, 9);
 CI = d(:, 14)
 x = 1:6;
-f = 1;
+
 for j = 1:6
    
    vec = find(ff == f & CI == 1 & incV == j& TrSp == 1 & sn == pCode);
-   incTr = find(sn == pCode& ff == f & (CI == 1| CI == 0) & incV == j & TrSp == 1);
+   incTr = find(sn == pCode& ff == f & (CI == 1| abtT == 0) & incV == j & TrSp == 1);
    totalAbt = length(vec);
    torTR = length(incTr);
    perABT1(j) = (totalAbt/torTR)*100;
    
    
-    vec = find(ff == f & CI == 1& incV == j& TrSp == 2 & sn == pCode);
-   incTr = find(sn == pCode& ff == f & (CI == 1| CI == 0) & incV == j & TrSp == 2);
+    vec = find(ff == f & abtT == 0 & incV == j& TrSp == 2 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 2);
    totalAbt = length(vec);
    torTR = length(incTr);
    perABT2(j) = (totalAbt/torTR)*100;
@@ -33,25 +33,25 @@ max1 = max(perABT1);
 f = 2;
 for j = 1:6
    
-   vec = find(ff == f & CI == 1 & incV == j& TrSp == 1 & sn == pCode);
-   incTr = find(sn == pCode& ff == f & (CI == 1| CI == 0) & incV == j & TrSp == 1);
+   vec = find(ff == f & abtT == 0 & incV == j& TrSp == 1 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 1);
    totalAbt = length(vec);
    torTR = length(incTr);
    perABT3(j) = (totalAbt/torTR)*100;
    
-   vec = find(ff == f & CI == 1 & incV == j& TrSp == 2 & sn == pCode);
-   incTr = find(sn == pCode& ff == f & (CI == 1| CI == 0) & incV == j & TrSp == 2);
+   vec = find(ff == f & abtT == 0 & incV == j& TrSp == 2 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 2);
    totalAbt = length(vec);
    torTR = length(incTr);
    perABT4(j) = (totalAbt/torTR)*100;
 
 end
 
-maxMat(1) = min(perABT1);
-maxMat(2) = min(perABT2);
-maxMat(3) = min(perABT3);
-maxMat(4) = min(perABT4);
-yMIN = min(maxMat) - 15;
+maxMat(1) = max(perABT1);
+maxMat(2) = max(perABT2);
+maxMat(3) = max(perABT3);
+maxMat(4) = max(perABT4);
+yMAX = max(maxMat) + 15;
 
 
 

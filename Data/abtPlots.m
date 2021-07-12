@@ -12,6 +12,55 @@ incV = d(:,7);
 TrSp = d(:, 9);
 x = 1:6;
 
+f = 1;
+
+for j = 1:6
+   
+   vec = find(ff == f & abtT == 0 & incV == j& TrSp == 1 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 1);
+   totalAbt = length(vec);
+   torTR = length(incTr);
+   perABT1(j) = (totalAbt/torTR)*100;
+   
+   
+    vec = find(ff == f & abtT == 0 & incV == j& TrSp == 2 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 2);
+   totalAbt = length(vec);
+   torTR = length(incTr);
+   perABT2(j) = (totalAbt/torTR)*100;
+
+end
+max1 = max(perABT1);
+f = 2;
+for j = 1:6
+   
+   vec = find(ff == f & abtT == 0 & incV == j& TrSp == 1 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 1);
+   totalAbt = length(vec);
+   torTR = length(incTr);
+   perABT3(j) = (totalAbt/torTR)*100;
+   
+   vec = find(ff == f & abtT == 0 & incV == j& TrSp == 2 & sn == pCode);
+   incTr = find(sn == pCode& ff == f & (abtT ~= 0| abtT == 0) & incV == j & TrSp == 2);
+   totalAbt = length(vec);
+   torTR = length(incTr);
+   perABT4(j) = (totalAbt/torTR)*100;
+
+end
+
+maxMat(1) = max(perABT1);
+maxMat(2) = max(perABT2);
+maxMat(3) = max(perABT3);
+maxMat(4) = max(perABT4);
+yMAX = max(maxMat) + 15;
+
+
+
+
+
+
+
+
 for i = 1:2
     perABT = [];
     for j = 1:6
@@ -31,6 +80,9 @@ for i = 1:2
 
     end
    
+    yMIN = 0;
+    yLIMS = [yMIN yMAX];
+     ylim(yLIMS);
     
     legend('Regular','Speeded')
     title('Percent of Trials Aborted a Function of Reward')
