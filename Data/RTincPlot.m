@@ -80,7 +80,13 @@ end
    
     plot(x+0.1, yFast, 'r-o'); hold on
     
-    title('Reaction Times as a Function of Reward Size')
+    if freeForce == 1 
+        text = 'Reaction Times as a Function of Reward Size For Free Trials';
+    elseif freeForce ==2
+        text = 'Reaction Times as a Function of Reward Size For Force Trials';
+        
+    end
+    title(text)
     %legend(' ', ' ', 'Regular', 'Speeded')
     xlabel('reward sizes 1-6');
     ylabel('reaction time (s)');

@@ -51,7 +51,7 @@ maxMat(1) = min(perABT1);
 maxMat(2) = min(perABT2);
 maxMat(3) = min(perABT3);
 maxMat(4) = min(perABT4);
-yMIN = min(maxMat) - 15;
+yMIN = min(maxMat) - 5;
 
 
 
@@ -82,7 +82,16 @@ for i = 1:2
      
     legend('Regular Trial','Speeded Trial')
 
-      title('Percent Correct By Reward')
+    
+    if FreeForce == 1
+        text = 'Free Choice Percent Correct By Reward';
+        
+    elseif FreeForce == 2
+        
+        text = 'Force Choice Percent Correct By Reward';
+        
+    end
+      title(text)
     xlabel('Reward Size (1-6)')
     ylabel('Percent Correct');
 
