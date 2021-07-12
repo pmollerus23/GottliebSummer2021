@@ -83,13 +83,9 @@ for i = 1:2
     yMIN = 0;
     yLIMS = [yMIN yMAX];
      ylim(yLIMS);
-    if FreeForce == 1
-        text = 'Percent of Free Trials Aborted as Function of Reward'
-    elseif FreeForce ==2 
-       text =  'Percent of Force Trials Aborted as Function of Reward'
-    end
+    
     legend('Regular','Speeded')
-    title(text)
+    title('Percent of Trials Aborted a Function of Reward')
     xlabel('Reward Size (1-6)')
     ylabel('P(Trials Aborted)');
 

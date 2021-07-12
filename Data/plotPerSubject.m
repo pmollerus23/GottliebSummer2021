@@ -6,14 +6,18 @@ for i = 1:length(SC)
     figure;
     for j = 1:2
         if j == 1
-            subplot(3,3,1); hold on
+            subplot(3,3,1); 
+            title('Free')
+            hold on
             RTincPlot(d, SC(i), j)
             subplot(3,3,4); hold on
             pcPlots(d,SC(i),j);
             subplot(3,3,7); hold on
             abtPlots(d,SC(i),j);
         elseif j ==2
-            subplot(3,3,2); hold on 
+            subplot(3,3,2); 
+            title('Force')
+            hold on 
             RTincPlot(d, SC(i),j)
             subplot(3,3,5); hold on
             pcPlots(d,SC(i),j);
