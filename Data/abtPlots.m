@@ -97,7 +97,7 @@ for i = 1:2
        text =  'Percent of Force Trials Aborted'
     end
    % legend('Regular','Speeded')
-    title(text)
+%     title(text)
     xlabel('Reward Size (1-6)')
     ylabel('P(Trials Aborted)');
 

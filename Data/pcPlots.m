@@ -91,14 +91,14 @@ for i = 1:2
 
     
     if FreeForce == 1
-        text = 'Free Choice Percent Correct By Reward';
+%         text = 'Free Choice Percent Correct By Reward';
         
     elseif FreeForce == 2
         
-        text = 'Force Choice Percent Correct By Reward';
+%         text = 'Force Choice Percent Correct By Reward';
         
     end
-      title(text)
+%       title(text)
     xlabel('Reward Size (1-6)')
     ylabel('Percent Correct');
 

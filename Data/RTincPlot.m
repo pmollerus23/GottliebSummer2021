@@ -83,13 +83,10 @@ elseif freeForce == 2
     markerForFast = 'r-x';
 end
 
-<<<<<<< HEAD
 plot(x-0.1, ySlow, markerForSlow); hold on
 
 plot(x+0.1, yFast, markerForFast); hold on
 
-=======
->>>>>>> feff40933eac263fbc8754b659b2bc9a7c539809
 if freeForce == 1
     markerSlow = 'b-o';
     markerFast = 'r-o';
