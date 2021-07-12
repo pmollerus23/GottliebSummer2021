@@ -76,7 +76,13 @@ while j <= numTrials
     
     %Storing response interval time
     respTimeInc(j,1) = secs - actualFlipTime;
-    
+    if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
+            
+            rewardChoice(j,1) = 1;
+    elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
+             rewardChoice(j,1) = 2;
+    end
+
     [pressed, firstPress] = KbQueueCheck(deviceIndices);
     WaitSecs(0.25);
     

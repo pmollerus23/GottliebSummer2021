@@ -293,8 +293,8 @@ end
         cleaned.allDataFree = horzcat(finalTrialData.free.trialData.allTrialData,  finalTrialData.free.results.allTrialsResponseDataMatrix);
         cleaned.allData = vertcat(cleaned.allDataForce, cleaned.allDataFree);
         
-        indices = find(cleaned.allData(:,16)==1);
-        cleaned.allData(indices,:) = [];
+        AbortIndices = find(cleaned.allData(:,16)==1);
+%         cleaned.allData(indices,:) = [];
         
         
         
