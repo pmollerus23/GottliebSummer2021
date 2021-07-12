@@ -68,30 +68,37 @@ for i = 1:2
        pC(j) = (length(correct)/length(total))*100;
        
     end 
+    if FreeForce == 1
+    markerForSlow = 'b-o'
+    markerForFast = 'r-o';
+    elseif FreeForce == 2
+    markerForSlow = 'b-x'
+    markerForFast = 'r-x';
+    end
     
      if i == 1
-      plot(x-0.1, pC, 'bo-'); hold on 
+      plot(x-0.1, pC, markerForSlow); hold on 
       
     elseif i == 2
-      plot(x+0.1, pC, 'rx-'); hold on 
+      plot(x+0.1, pC, markerForFast); hold on 
     
     
      end
      yLIMS = [yMIN 100];
      ylim(yLIMS);
      
-    legend('Regular Trial','Speeded Trial')
+    %legend('Regular Trial','Speeded Trial')
 
     
     if FreeForce == 1
-        text = 'Free Choice Percent Correct By Reward';
+%         text = 'Free Choice Percent Correct By Reward';
         
     elseif FreeForce == 2
         
-        text = 'Force Choice Percent Correct By Reward';
+%         text = 'Force Choice Percent Correct By Reward';
         
     end
-      title(text)
+%       title(text)
     xlabel('Reward Size (1-6)')
     ylabel('Percent Correct');
 

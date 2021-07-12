@@ -21,7 +21,8 @@ m3 = 0;
 m4 = 0;
 counter = 1;
 legARR = [];
-
+xForce = [];
+xFree = [];
 for i = 0:7
     blockStart = 1+(i*30);
     if speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 1
@@ -54,6 +55,7 @@ for i = 0:7
         chr = 'Regular Force';
        % legendText = convertCharsToStrings(chr);
         m = 2;
+        xForce
 
     elseif speed(1+ (i*30)) ==2 & freeForce(1+ (i*30)) == 1
         for j = 1+(i*30): 1+(i*30)+29
@@ -89,17 +91,17 @@ for i = 0:7
     
    
    
-    plot(i+1, dataForTrial, pointForTrial, 'LineWidth',3); hold on
+    plot(i+1, dataForTrial, pointForTrial); hold on
     xlim([0 9]);
     
     
-    h = zeros(4, 1);
-h(1) = plot(NaN,NaN,'rx');
-h(2) = plot(NaN,NaN,'ro');
-h(3) = plot(NaN,NaN,'bx');
-h(4) = plot(NaN,NaN,'bo');
-
-legend(h, 'Fast Force','Fast Free','Regular Force', 'Regular Free');
+%     h = zeros(4, 1);
+% h(1) = plot(NaN,NaN,'rx');
+% h(2) = plot(NaN,NaN,'ro');
+% h(3) = plot(NaN,NaN,'bx');
+% h(4) = plot(NaN,NaN,'bo');
+% 
+% legend(h, 'Fast Force','Fast Free','Regular Force', 'Regular Free');
     
 %    if m == 1 && m1 ~=1
 %       legARR{counter} = chr;
@@ -120,9 +122,9 @@ legend(h, 'Fast Force','Fast Free','Regular Force', 'Regular Free');
 %    end
 %      
    
-   if counter == 5
-       legend(legARR);
-   end
+%    if counter == 5
+%        legend(legARR);
+%    end
     title('Percent Aborted Trials per Block')
     %legend(' ', ' ', 'Regular', 'Speeded')
     xlabel('block numbers 1-8');
