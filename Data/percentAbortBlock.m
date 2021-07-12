@@ -1,19 +1,23 @@
 function [ output_args ] = percentAbortBlock( matrix, P_code )
 load final;
 
-d = matrix;
+d = final.data;
 sbjNum = d(:,2);
 
 y = [];
 
-sbjInd = find(sbjNum == P_code);
+sbjInd = find(sbjNum == 2);
 sbjMat = d(sbjInd,:);
 speed = sbjMat(:,9);
+freeForce = sbjMat(:,1);
+
+
 
 for s = 1:2
     speedInd = find(speed == s);
     sbjSpeedMat = sbjMat(speedInd,:);
     abortVec = sbjSpeedMat(:,16);
+    freeForceVec = sbjSpeedMat(:,1);
     
     numAbort1 = 0;
     numAbort2 = 0;
@@ -37,11 +41,22 @@ for s = 1:2
         yPoint(j) = numAbortBlockVec(j);
     end
     
+    
     x = 1:4;
+    
     if s == 1
-        plot(x-0.1, ((yPoint/30)*100), 'b-o'); hold on
+        if freeForceVec(i) == 1
+            plot(x-0.1, ((yPoint/30)*100), 'b-o'); hold on
+        elseif freeForceVec(i) == 2
+            plot(x-0.1, ((yPoint/30)*100), 'b-x'); hold on
+        end
     elseif s == 2
-        plot(x-0.1, ((yPoint/30)*100), 'r-x'); hold on
+        if freeForceVec(i) == 1
+            plot(x-0.1, ((yPoint/30)*100), 'r-o'); hold on
+        elseif freeForceVec(i) == 2
+            plot(x-0.1, ((yPoint/30)*100), 'r-x'); hold on
+        end
+        
     end
     
     title('Percent Aborted Trials per Block')

@@ -26,7 +26,7 @@ for i = 1:length(SC)
             subplot(3,3,6); hold on 
             pcFR(d,SC(i),0);
             subplot(3,3,9); hold on
-            percentAbortBlock(d, SC(i));
+            abortPerBlock(d, SC(i));
     end
     
     titleHead = 'Participant';
