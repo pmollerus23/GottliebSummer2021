@@ -35,7 +35,7 @@ for i = 1:length(SC)
     
     titleHead = 'Participant';
     SCstr = num2str(SC(i));
-    titleStr = strcat(titleHead, {' '}, SCstr);
+    titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, Free/Forced = O/X)'});
     suptitle(titleStr);
 end
 end

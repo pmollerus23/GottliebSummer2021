@@ -83,16 +83,25 @@ elseif freeForce == 2
     markerForFast = 'r-x';
 end
 
+<<<<<<< HEAD
 plot(x-0.1, ySlow, markerForSlow); hold on
 
 plot(x+0.1, yFast, markerForFast); hold on
 
+=======
+>>>>>>> feff40933eac263fbc8754b659b2bc9a7c539809
 if freeForce == 1
-    
-    title('Free Choice Reaction Times as a Function of Reward Size');
+    markerSlow = 'b-o';
+    markerFast = 'r-o';
 elseif freeForce == 2
-    title('Forced Choice Reaction Times as a Function of Reward Size');
+    markerSlow = 'b-x';
+    markerFast = 'r-x';
 end
+
+plot(x-0.1, ySlow, markerSlow); hold on
+
+plot(x+0.1, yFast, markerFast); hold on
+
 %legend(' ', ' ', 'Regular', 'Speeded')
 xlabel('reward sizes 1-6');
 ylabel('reaction time (s)');
