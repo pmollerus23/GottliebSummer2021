@@ -50,7 +50,7 @@ for i = 1:2
           finalVal = x2(j);
       end
       plot(x1, vals1, 'bo-'); hold on 
-      plot(x2, vals2, 'bx-'); hold on 
+      plot(x2, vals2, 'ro-'); hold on 
 
       
       
@@ -76,7 +76,7 @@ for i = 1:2
           end
       end
       
-      plot(x3, vals1, 'ro-'); hold on
+      plot(x3, vals1, 'bx-'); hold on
       plot(x4, vals2, 'rx-'); hold on
 
     
@@ -85,7 +85,7 @@ for i = 1:2
    end 
 
    
-   legend('Regular Free Choice','Speeded Free Choice', 'Regular Force Choice', 'Speeded Force Choice');
+  % legend('Regular Free Choice','Speeded Free Choice', 'Regular Force Choice', 'Speeded Force Choice');
  title('Fatigue Ratings By Trials')
     xlabel('Trials Number (1-240)')
     ylabel('Fatigue Rating (1-10)');

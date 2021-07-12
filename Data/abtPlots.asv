@@ -72,6 +72,14 @@ for i = 1:2
    perABT(j) = (totalAbt/torTR)*100;
 
     end
+    if FreeForce == 1
+    markerForSlow = 'b-o'
+    markerForFast = 'r-o';
+elseif freeForce == 2
+    markerForSlow = 'b-x'
+    markerForFast = 'r-x';
+end
+    
     if i == 1
       plot(x-0.1, perABT, 'bo-'); hold on 
       
@@ -83,9 +91,13 @@ for i = 1:2
     yMIN = 0;
     yLIMS = [yMIN yMAX];
      ylim(yLIMS);
-    
+    if FreeForce == 1
+        text = 'Percent of Free Trials Aborted as Function of Reward'
+    elseif FreeForce ==2 
+       text =  'Percent of Force Trials Aborted as Function of Reward'
+    end
     legend('Regular','Speeded')
-    title('Percent of Trials Aborted a Function of Reward')
+    title(text)
     xlabel('Reward Size (1-6)')
     ylabel('P(Trials Aborted)');
 

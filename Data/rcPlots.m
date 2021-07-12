@@ -25,14 +25,14 @@ for i = 1:2
     if i == 1  
         plot(x-0.1, pcDif, 'bo-'); hold on 
     elseif i ==2 
-        plot(x-0.1, pcDif, 'rx-'); hold on 
+        plot(x-0.1, pcDif, 'ro-'); hold on 
     end 
         
         
        
-         legend('Regular Trial','Speeded Trial')
+       %  legend('Regular Trial','Speeded Trial')
 
- title('Percent of SS8 Selection as a Function of Reward')
+ title('Percent of SS8 Selection')
     xlabel('Reward Size (1-6)')
     ylabel('P(SS8 Selection)');
 

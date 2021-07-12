@@ -75,10 +75,17 @@ end
 
 
 x = 1:6;
+if freeForce == 1
+    markerForSlow = 'b-o'
+    markerForFast = 'r-o';
+elseif freeForce == 2
+    markerForSlow = 'b-x'
+    markerForFast = 'r-x';
+end
 
-plot(x-0.1, ySlow, 'b-o'); hold on
+plot(x-0.1, ySlow, markerForSlow); hold on
 
-plot(x+0.1, yFast, 'r-o'); hold on
+plot(x+0.1, yFast, markerForFast); hold on
 
 if freeForce == 1
     
