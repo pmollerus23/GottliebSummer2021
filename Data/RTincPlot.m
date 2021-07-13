@@ -2,7 +2,7 @@ function [] = RTincPlot( matrix, P_code, freeForce )
 
 %RT Summary of this function goes here
 %   Detailed explanation goes here
-load final;
+%load final;
 
 d = matrix;
 

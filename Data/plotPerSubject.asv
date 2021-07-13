@@ -29,8 +29,7 @@ for i = 1:length(SC)
         end
             subplot(4,3,10); hold on
             rcPlots(d,SC(i),0);
-            subplot(4,3,11); hold on
-            rcfbPlots(d,SC(i),0);
+            
             subplot(4,3,6); hold on 
             pcFR(d,SC(i),0);
             subplot(4,3,9); hold on

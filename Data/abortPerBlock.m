@@ -23,7 +23,7 @@ counter = 1;
 legARR = [];
 xForce = [];
 xFree = [];
-for i = 0:7
+for i = 0:3
     blockStart = 1+(i*30);
     if speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 1
         for j = 1+(i*30): 1+(i*30)+29
@@ -92,7 +92,7 @@ for i = 0:7
    
    
     plot(i+1, dataForTrial, pointForTrial); hold on
-    xlim([0 9]);
+    xlim([0 5]);
     
     
 %     h = zeros(4, 1);
