@@ -33,11 +33,11 @@ for i = 0:7
         end
         freeSlow = (countAbort/30)* 100;
         
-        pointForTrial = 'bo';
+        pointForTrial = 'bx';
         dataForTrial = slowFree;
         freeSlow = 0;
         countAbort = 0;
-        chr = 'Regular Free';
+        chr = 'Regular Force';
        % legendText = convertCharsToStrings(chr);
         m =1;
 
@@ -48,11 +48,11 @@ for i = 0:7
             end
         end
         slowForce = (countAbort/30)* 100;
-        pointForTrial = 'bx';
+        pointForTrial = 'bo';
         dataForTrial = slowForce;
         slowForce = 0;
         countAbort = 0;
-        chr = 'Regular Force';
+        chr = 'Regular Free';
        % legendText = convertCharsToStrings(chr);
         m = 2;
         xForce
@@ -64,7 +64,7 @@ for i = 0:7
             end
         end
         fastFree = (countAbort/30)* 100;
-        pointForTrial = 'ro';
+        pointForTrial = 'rx';
         dataForTrial = fastFree;
         fastFree = 0;
         countAbort = 0;
@@ -79,7 +79,7 @@ for i = 0:7
             end
         end
         fastForce = (countAbort/30)* 100;
-        pointForTrial = 'rx';
+        pointForTrial = 'ro';
         dataForTrial = fastForce;
         fastForce = 0;
         countAbort = 0;

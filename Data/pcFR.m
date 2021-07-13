@@ -49,8 +49,8 @@ for i = 1:2
           end
           finalVal = x2(j);
       end
-      plot(x1, vals1, 'bo-'); hold on 
-      plot(x2, vals2, 'ro-'); hold on 
+      plot(x1, vals1, 'bx-'); hold on 
+      plot(x2, vals2, 'rx-'); hold on 
 
       
       
@@ -76,8 +76,8 @@ for i = 1:2
           end
       end
       
-      plot(x3, vals1, 'bx-'); hold on
-      plot(x4, vals2, 'rx-'); hold on
+      plot(x3, vals1, 'bo-'); hold on
+      plot(x4, vals2, 'ro-'); hold on
 
     
     
