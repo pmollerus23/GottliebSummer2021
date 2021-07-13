@@ -1,7 +1,7 @@
 response = 0;
 responseText = 'incorrect';
 
-numTrials = 6;
+numTrials = 30;
 
 abortedTrials = nan(numTrials,1);
 correctOrIncorrect = nan(numTrials,1);
@@ -74,6 +74,9 @@ while j <= numTrials
     %Clearing and initializing keyboard config for trial(i)
     [secs, ~,~] = KbWait;
     
+    [pressed, firstPress] = KbQueueCheck(deviceIndices);
+    WaitSecs(0.25);
+    
     %Storing response interval time
     respTimeInc(j,1) = secs - actualFlipTime;
     if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
@@ -83,8 +86,7 @@ while j <= numTrials
              rewardChoice(j,1) = 2;
     end
 
-    [pressed, firstPress] = KbQueueCheck(deviceIndices);
-    WaitSecs(0.25);
+    
     
     %%%%%%%%%fixation before trial
     Screen('DrawTexture', window, dispImageCross, [], crossPos);
@@ -433,11 +435,17 @@ while j <= numTrials
     j = j + 1;
 end
 
-partInfo1 = zeros(length(trialData(:,1)),1) + 2;
+if feedback == true
+    feedbackFlag = 2;
+elseif feedback == false
+    feedbackFlag = 1;
+end
+partInfo1 = zeros(length(trialData(:,1)),1) + feedbackFlag;
 partInfo2 = zeros(length(trialData(:,1)),1) + P_codeUSE;
+blockInfo = zeros(length(trialData(:,1)),1) + blockNum;
 trialData(:, 6) = abortedTrials;
 trialData(:, 7) = randSpeedVecData;
-trialData = horzcat(partInfo1, partInfo2, trialData);
+trialData = horzcat(partInfo1, partInfo2, trialData, blockInfo);
 
 
 if countFreeBlocks == 1

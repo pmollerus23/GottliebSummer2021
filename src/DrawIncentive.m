@@ -1,11 +1,11 @@
-if j == 1 && isForce == true
-    DrawFormattedText(window, 'Force Choice Trials', 'center',...
+if j == 1 && speed == 1
+    DrawFormattedText(window, 'Regular Trials', 'center',...
         yCenter, [0 0 0]);
     Screen('Flip', window);
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', 'Force trial condition signal shown');
+        Eyelink('Message', 'Regular trial condition signal shown');
         WaitSecs(0.001);
     end
     
@@ -13,14 +13,14 @@ if j == 1 && isForce == true
 
     WaitSecs(2);
     
-elseif j == 1 && isForce == false
-    DrawFormattedText(window, 'Free Choice Trials', 'center',...
+elseif j == 1 && speed == 2
+    DrawFormattedText(window, 'Speeded Trials', 'center',...
         yCenter, [0 0 0]);
     Screen('Flip', window);
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', 'Free trial condition signal shown');
+        Eyelink('Message', 'Speeded trial condition signal shown');
         WaitSecs(0.001);
     end
     

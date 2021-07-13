@@ -45,8 +45,11 @@ if Press(upKey) > 0 || Press(downKey)>0
                     %record response data
                     correctOrIncorrect(j,1) = response;
                     %print feedback from decesion in trial to screen
+                    if feedback == true
                     DrawFormattedText(window, text,'center' , yCenter, black);
                     DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
+                    end
+                    
                     Screen('Flip', window);
                     
                     if strcmp(elstate, 'on')
