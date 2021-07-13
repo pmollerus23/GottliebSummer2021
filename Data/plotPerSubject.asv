@@ -1,15 +1,13 @@
 function [] = plotPerSubject(DataMatrix, SubjectCodes)
 SC = SubjectCodes;
-dInd = find(DataMatrix(:,8) == 1); 
-DataMatrix(dInd,:) = [];
-d=DataMatrix;
+d = DataMatrix;
 
 for i = 1:length(SC)
     figure;
     for j = 1:2
         if j == 1
             subplot(4,3,1); 
-            title('No Feedback')
+            title('Force')
             hold on
             RTincPlot(d, SC(i), j)
             subplot(4,3,4); hold on
@@ -18,7 +16,7 @@ for i = 1:length(SC)
             abtPlots(d,SC(i),j);
         elseif j ==2
             subplot(4,3,2); 
-            title('Feedback')
+            title('Free')
             hold on 
             RTincPlot(d, SC(i),j)
             subplot(4,3,5); hold on
@@ -29,7 +27,7 @@ for i = 1:length(SC)
         end
             subplot(4,3,10); hold on
             rcPlots(d,SC(i),0);
-            
+            subplot(4,3,11); hold
             subplot(4,3,6); hold on 
             pcFR(d,SC(i),0);
             subplot(4,3,9); hold on
@@ -38,7 +36,7 @@ for i = 1:length(SC)
     
     titleHead = 'Participant';
     SCstr = num2str(SC(i));
-    titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, No Feedback/Feedback = O/X)'});
+    titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, Free/Forced = O/X)'});
     suptitle(titleStr);
 end
 end

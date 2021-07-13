@@ -16,7 +16,7 @@ x = 1:6;
 
 
 for i = 1:2
-    for j =1:2
+    for j =1:6
     
      difCh2 = find(TrSp == i & sn == pCode & ff == 2& RC == 2& incV == j);
     totCh2 = find(TrSp == i & sn == pCode & ff == 2& incV == j);

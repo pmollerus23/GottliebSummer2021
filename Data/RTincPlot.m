@@ -2,7 +2,7 @@ function [] = RTincPlot( matrix, P_code, freeForce )
 
 %RT Summary of this function goes here
 %   Detailed explanation goes here
-%load final;
+load final;
 
 d = matrix;
 
@@ -75,10 +75,10 @@ end
 
 
 x = 1:6;
-if freeForce == 2
+if freeForce == 1
     markerForSlow = 'b-o'
     markerForFast = 'r-o';
-elseif freeForce == 1
+elseif freeForce == 2
     markerForSlow = 'b-x'
     markerForFast = 'r-x';
 end
@@ -87,10 +87,10 @@ plot(x-0.1, ySlow, markerForSlow); hold on
 
 plot(x+0.1, yFast, markerForFast); hold on
 
-if freeForce == 2
+if freeForce == 1
     markerSlow = 'b-o';
     markerFast = 'r-o';
-elseif freeForce == 1
+elseif freeForce == 2
     markerSlow = 'b-x';
     markerFast = 'r-x';
 end

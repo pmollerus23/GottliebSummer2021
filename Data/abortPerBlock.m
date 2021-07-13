@@ -23,7 +23,7 @@ counter = 1;
 legARR = [];
 xForce = [];
 xFree = [];
-for i = 0:3
+for i = 0:7
     blockStart = 1+(i*30);
     if speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 1
         for j = 1+(i*30): 1+(i*30)+29
@@ -33,11 +33,11 @@ for i = 0:3
         end
         freeSlow = (countAbort/30)* 100;
         
-        pointForTrial = 'bx';
+        pointForTrial = 'bo';
         dataForTrial = slowFree;
         freeSlow = 0;
         countAbort = 0;
-        chr = 'Regular Force';
+        chr = 'Regular Free';
        % legendText = convertCharsToStrings(chr);
         m =1;
 
@@ -48,11 +48,11 @@ for i = 0:3
             end
         end
         slowForce = (countAbort/30)* 100;
-        pointForTrial = 'bo';
+        pointForTrial = 'bx';
         dataForTrial = slowForce;
         slowForce = 0;
         countAbort = 0;
-        chr = 'Regular Free';
+        chr = 'Regular Force';
        % legendText = convertCharsToStrings(chr);
         m = 2;
         xForce
@@ -64,7 +64,7 @@ for i = 0:3
             end
         end
         fastFree = (countAbort/30)* 100;
-        pointForTrial = 'rx';
+        pointForTrial = 'ro';
         dataForTrial = fastFree;
         fastFree = 0;
         countAbort = 0;
@@ -79,7 +79,7 @@ for i = 0:3
             end
         end
         fastForce = (countAbort/30)* 100;
-        pointForTrial = 'ro';
+        pointForTrial = 'rx';
         dataForTrial = fastForce;
         fastForce = 0;
         countAbort = 0;
@@ -92,7 +92,7 @@ for i = 0:3
    
    
     plot(i+1, dataForTrial, pointForTrial); hold on
-    xlim([0 5]);
+    xlim([0 9]);
     
     
 %     h = zeros(4, 1);

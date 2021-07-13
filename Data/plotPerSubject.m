@@ -7,7 +7,7 @@ for i = 1:length(SC)
     for j = 1:2
         if j == 1
             subplot(3,3,1); 
-            title('Force')
+            title('Free')
             hold on
             RTincPlot(d, SC(i), j)
             subplot(3,3,4); hold on
@@ -16,7 +16,7 @@ for i = 1:length(SC)
             abtPlots(d,SC(i),j);
         elseif j ==2
             subplot(3,3,2); 
-            title('Free')
+            title('Force')
             hold on 
             RTincPlot(d, SC(i),j)
             subplot(3,3,5); hold on

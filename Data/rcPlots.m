@@ -22,9 +22,9 @@ for i = 1:2
     pcDif(j) = (length(difCh)/ length(totCh))*100;
     end
     
-    if i == 2 
+    if i == 1  
         plot(x-0.1, pcDif, 'bo-'); hold on 
-    elseif i ==1 
+    elseif i ==2 
         plot(x-0.1, pcDif, 'ro-'); hold on 
     end 
         
