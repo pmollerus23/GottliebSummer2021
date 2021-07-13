@@ -72,10 +72,10 @@ for i = 1:2
    perABT(j) = (totalAbt/torTR)*100;
 
     end
-    if FreeForce == 1
+    if FreeForce == 2
         markerForSlow = 'b-o'
         markerForFast = 'r-o';
-    elseif FreeForce == 2
+    elseif FreeForce == 1
         markerForSlow = 'b-x'
         markerForFast = 'r-x';
     end

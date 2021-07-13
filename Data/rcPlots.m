@@ -20,24 +20,19 @@ for i = 1:2
     difCh = find(TrSp == i & sn == pCode & ff == 1& RC == 2& incV == j);
     totCh = find(TrSp == i & sn == pCode & ff == 1& incV == j);
     pcDif(j) = (length(difCh)/ length(totCh))*100;
-    
     end
     
-    if i == 1  
-       plot(x-0.05, pcDif, 'bo-'); hold on 
-      
-
-    elseif i ==2 
-        plot(x+0.05, pcDif, 'ro-'); hold on 
-       
-
+    if i == 2 
+        plot(x-0.1, pcDif, 'bo-'); hold on 
+    elseif i ==1 
+        plot(x-0.1, pcDif, 'ro-'); hold on 
     end 
         
         
        
        %  legend('Regular Trial','Speeded Trial')
 
- title('NFB Percent of SS8 Selection')
+ title('Percent of SS8 Selection')
     xlabel('Reward Size (1-6)')
     ylabel('P(SS8 Selection)');
 
