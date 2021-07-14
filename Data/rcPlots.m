@@ -28,11 +28,10 @@ for i = 1:2
         plot(x-0.1, pcDif, 'ro-'); hold on 
     end 
         
-        
        
        %  legend('Regular Trial','Speeded Trial')
 
- title('Percent of SS8 Selection')
+ 
     xlabel('Reward Size (1-6)')
     ylabel('P(SS8 Selection)');
 

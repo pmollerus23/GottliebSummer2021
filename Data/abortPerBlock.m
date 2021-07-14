@@ -23,7 +23,7 @@ counter = 1;
 legARR = [];
 xForce = [];
 xFree = [];
-for i = 0:7
+for i = 0:3
     blockStart = 1+(i*30);
     if speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 1
         for j = 1+(i*30): 1+(i*30)+29

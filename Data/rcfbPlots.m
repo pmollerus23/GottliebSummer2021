@@ -37,7 +37,7 @@ for i = 1:2
        
        %  legend('Regular Trial','Speeded Trial')
 
- title('FB Percent of SS8 Selection')
+
     xlabel('Reward Size (1-6)')
     ylabel('P(SS8 Selection)');
 

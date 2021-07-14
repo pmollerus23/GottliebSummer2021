@@ -14,10 +14,10 @@ CI = d(:, 14);
 FR = d(:, 12)
 x1 = [1 10 20 30 40 50 60 70 80 90 100 110 120 ];
 x2 = [130 140 150 160 170 180 190 200 210 220 230 240];
-blkNum = d(:, 17);
+blkNum = d(:, 12);
 
 for i = 1:4
-   indecies = find(blkNum == i &FR > 0 & sn == pCode)
+   indecies = find(blkNum == i &FR > 0)
    locFR = FR(indecies);
    x = indecies;
    if ff(x(1)) == 1 && TrSp(x(1)) == 1
@@ -27,7 +27,7 @@ for i = 1:4
            pointForTrial = 'ro-';
            elseif  ff(x(1)) == 2 && TrSp(x(1)) == 1
        
-           pointForTrial = 'bx-';
+           pointForTrial = 'ro-';
            elseif  ff(x(1)) == 2 && TrSp(x(1)) == 2
        
            pointForTrial = 'rx-';
