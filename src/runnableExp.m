@@ -51,10 +51,7 @@ if strcmp(elstate,'on')
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
        
         if selection(o) ==1 %speedforce
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+             
             
             if P1Practice == false
                 
@@ -214,10 +211,7 @@ if strcmp(elstate,'on')
             
             
         elseif selection(o)==5
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+            
             if P2Practice == false
                 
                 speed = 1;
@@ -225,6 +219,12 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 3;
                 SetUpTrialData;
+                
+                P2instr;
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+                Eyelink('command','validation_area_proportion = 0.48 0.48');
+                EyelinkDoTrackerSetup(el);
+                WaitSecs(0.1);
                 
                 DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
@@ -250,6 +250,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                 P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
             end
             
             speed = 1;
@@ -290,10 +293,7 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==6
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+             
             if P2Practice == false
                 
                 speed = 1;
@@ -301,6 +301,12 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 3;
                 SetUpTrialData;
+                
+                P2instr;
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
                 
                 DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
@@ -326,6 +332,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                 P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
             end
             
             speed = 2;
@@ -366,16 +375,20 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==7
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+             
             if P2Practice == false
                 speed = 1;
                 feedback = true;
                 confidence = false;
                 numTrials = 3;
                 SetUpTrialData;
+                
+                P2instr;
+              
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
                 
                 DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
@@ -401,6 +414,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                P2Practice = true;
+               Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
 
             end
             
@@ -442,10 +458,7 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==8
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+             
             if P2Practice == false
                 
                 speed = 1;
@@ -453,6 +466,12 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 3;
                 SetUpTrialData;
+                
+                P2instr;
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
                 
                 DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
@@ -478,6 +497,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                 P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
             end
             
             speed = 2;
