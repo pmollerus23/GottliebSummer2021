@@ -33,11 +33,36 @@ for i = 1:length(SC)
             pcFR(d,SC(i),0);
             subplot(4,3,6); hold on
             abortPerBlock(d, SC(i));
+             subplot(4,3,9); hold on
+             y = 0;
+                line([-1,1],[y,y], 'color','black')
+                line([y,y],[-1,1], 'color','black')
+                line([-1,1],[1,-1],'color','black')
+                line([1,-1],[1,-1],'color','black')
+
+
+
+             %plot(x,y,'k-'); hold on
+             polarPlotsRT(d, SC(i));
+            subplot(4,3,12); hold on
+             y = 0;
+                line([-1,1],[y,y], 'color','black')
+                line([y,y],[-1,1], 'color','black')
+                line([-1,1],[1,-1],'color','black')
+                line([1,-1],[1,-1],'color','black')
+
+           
+             polarPlotsPC(d, SC(i));
+
     end
     
     titleHead = 'Participant';
     SCstr = num2str(SC(i));
     titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, No Feedback/Feedback = O/X)'});
     suptitle(titleStr);
+               %  polarPlotsRT(d, SC(i));
+                    %          polarPlotsPC(d, SC(i));
+
+
 end
 end

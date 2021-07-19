@@ -7,5 +7,13 @@ replace = cleaned.allDataFree (:,10);
 cleaned.allDataFree   = horzcat(cleaned.allDataFree , replace)
 cleaned.allDataFree (:,10) = [];
 cleaned.allDataFree= cleaned.allData;
-plotPerSubject(cleaned.allDataFree, 4);
+NewDATAMATRIX = cleaned.allDataFree;
+
+
+
+SC = [1 2 3];
+plotPerSubject(final.data, SC);
 pcFR(cleaned.allDataFree, 4, 0);
+polarPlotsRT(cleaned.allDataFree, 4)
+polarPlotsPC(cleaned.allDataFree, 4)
+plotPerSubject(cleaned.allDataFree, 4);
