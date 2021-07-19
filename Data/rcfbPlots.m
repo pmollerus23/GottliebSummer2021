@@ -37,7 +37,8 @@ for i = 1:2
        
        %  legend('Regular Trial','Speeded Trial')
 
-
+xticks(x);
+xticklabels({'10','14','18','22','26','30'});
     xlabel('Reward Size (1-6)')
     ylabel('P(SS8 Selection)');
 

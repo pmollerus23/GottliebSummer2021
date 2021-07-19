@@ -23,114 +23,30 @@ counter = 1;
 legARR = [];
 xForce = [];
 xFree = [];
-for i = 0:3
-    blockStart = 1+(i*30);
-    if speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 1
-        for j = 1+(i*30): 1+(i*30)+29
-            if abort(j) == 0
-                countAbort = countAbort + 1;
-            end
-        end
-        freeSlow = (countAbort/30)* 100;
-        
-        pointForTrial = 'bo';
-        dataForTrial = slowFree;
-        freeSlow = 0;
-        countAbort = 0;
-        chr = 'Regular Free';
-       % legendText = convertCharsToStrings(chr);
-        m =1;
+blkNum = d(:, 17);
+TrSp = d(:, 9);
+ff = d(:,1);
 
-    elseif speed(1+ (i*30)) ==1 & freeForce(1+ (i*30)) == 2
-        for j = 1+(i*30): 1+(i*30)+29
-            if abort(j) == 0
-                countAbort = countAbort + 1;
-            end
-        end
-        slowForce = (countAbort/30)* 100;
-        pointForTrial = 'bx';
-        dataForTrial = slowForce;
-        slowForce = 0;
-        countAbort = 0;
-        chr = 'Regular Force';
-       % legendText = convertCharsToStrings(chr);
-        m = 2;
-        xForce
 
-    elseif speed(1+ (i*30)) ==2 & freeForce(1+ (i*30)) == 1
-        for j = 1+(i*30): 1+(i*30)+29
-            if abort(j) == 0
-                countAbort = countAbort + 1;
-            end
-        end
-        fastFree = (countAbort/30)* 100;
-        pointForTrial = 'ro';
-        dataForTrial = fastFree;
-        fastFree = 0;
-        countAbort = 0;
-        chr = 'Fast Free';
-        %legendText = convertCharsToStrings(chr);
-        m = 3;
+for i = 1:4
+   indecies = find(blkNum == i& abort == 1)
+   abortPlot = length(indecies)/30
+   if ff(indecies(2)) == 1 && TrSp(indecies(2)) == 1
+       pointForTrial = 'bo-';
+   elseif  ff(indecies(2)) == 1 && TrSp(indecies(2)) == 2
+       
+           pointForTrial = 'ro-';
+           elseif  ff(indecies(2)) == 2 && TrSp(indecies(2)) == 1
+       
+           pointForTrial = 'bx-';
+           elseif  ff(indecies(2)) == 2 && TrSp(indecies(2)) == 2
+       
+           pointForTrial = 'rx-';
 
-    elseif speed(1+ (i*30)) ==2 & freeForce(1+ (i*30)) == 2
-        for j = 1+(i*30): 1+(i*30)+29
-            if abort(j) == 0
-                countAbort = countAbort + 1;
-            end
-        end
-        fastForce = (countAbort/30)* 100;
-        pointForTrial = 'rx';
-        dataForTrial = fastForce;
-        fastForce = 0;
-        countAbort = 0;
-        chr = 'Fast Force';
-        %legendText = convertCharsToStrings(chr);
-        m = 4;
-
-    end
-    
-   
-   
-    plot(i+1, dataForTrial, pointForTrial); hold on
-    xlim([0 9]);
     
     
-%     h = zeros(4, 1);
-% h(1) = plot(NaN,NaN,'rx');
-% h(2) = plot(NaN,NaN,'ro');
-% h(3) = plot(NaN,NaN,'bx');
-% h(4) = plot(NaN,NaN,'bo');
-% 
-% legend(h, 'Fast Force','Fast Free','Regular Force', 'Regular Free');
-    
-%    if m == 1 && m1 ~=1
-%       legARR{counter} = chr;
-%        counter = counter + 1;
-%        m1 = 1;
-%    elseif m ==2  && m2 ~=1
-%          legARR{counter} = chr;
-%        counter = counter + 1;
-%        m2 = 1;
-%      elseif m ==3  && m3 ~=1
-%         legARR{counter} = chr;
-%        counter = counter + 1;
-%        m3 = 1;
-%      elseif m ==4  && m4 ~=1
-%          legARR{counter} = chr;
-%        counter = counter + 1;
-%        m4 = 1;
-%    end
-%      
-   
-%    if counter == 5
-%        legend(legARR);
-%    end
-    title('Percent Aborted Trials per Block')
-    %legend(' ', ' ', 'Regular', 'Speeded')
-    xlabel('block numbers 1-8');
-    ylabel('percent aborted trials');
-    m = 0;
-    
+   end
+   plot(i, abortPlot, pointForTrial); hold on
 end
 
 

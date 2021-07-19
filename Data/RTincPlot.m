@@ -15,7 +15,7 @@ il = d(:,7);
 PartRTSInd = find(sbjNum == P_code);
 PartRTS = rt(PartRTSInd,:);
 
-minRTS = mean(PartRTS) -0.2;
+minRTS = mean(PartRTS) -0.5;
 %maxRTS = mean(PartRTS)+0.2;
 maxRTS = 1;
 yRNG = [minRTS maxRTS];
@@ -102,6 +102,9 @@ plot(x+0.1, yFast, markerFast); hold on
 %legend(' ', ' ', 'Regular', 'Speeded')
 xlabel('reward sizes 1-6');
 ylabel('reaction time (s)');
+
+xticks(x);
+xticklabels({'10','14','18','22','26','30'});
 
 
 ylim(yRNG);
