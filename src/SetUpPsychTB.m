@@ -23,9 +23,9 @@ screen = Screen('Screens');
 screenNumber = max(screen);
  
 
-[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
+%[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
  
-%[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
+[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 [xCenter, yCenter] = RectCenter(windowRect);
 rad = 70;
@@ -170,13 +170,13 @@ FRTC = Screen('MakeTexture', window, imageFreeTaskInstrC);
 FRTD = Screen('MakeTexture', window, imageFreeTaskInstrD);
 
 %Reading images for each incentive level
-imageIncentive1 = imread('Reward1.1.png');
-imageIncentive1EASY = imread('Reward1.2.png');
-imageIncentive2 = imread('Reward2.1.png');
-imageIncentive3 = imread('Reward3.1.png');
-imageIncentive4 = imread('Reward4.1.png');
-imageIncentive5 = imread('Reward5.1.png');
-imageIncentive6 = imread('Reward6.1.png');
+imageIncentive1 = imread('Reward11.png');
+imageIncentive1EASY = imread('Reward10.png');
+imageIncentive2 = imread('Reward14.png');
+imageIncentive3 = imread('Reward18.png');
+imageIncentive4 = imread('Reward22.png');
+imageIncentive5 = imread('Reward26.png');
+imageIncentive6 = imread('Reward30.png');
 
 disOneIncentive = Screen('MakeTexture', window, imageIncentive1);
 disOneEasyIncentive = Screen('MakeTexture', window, imageIncentive1EASY);

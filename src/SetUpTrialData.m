@@ -1,5 +1,5 @@
 clear trialData;
-numTrials = 30;
+%numTrials = 30;
 
 %creation of randomized array for free and forced choice sequence
 % onesSpeed = zeros(numTrials*6,1)+1;

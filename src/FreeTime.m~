@@ -1,7 +1,7 @@
 response = 0;
 responseText = 'incorrect';
 
-numTrials = 6;
+%numTrials = 30;
 
 abortedTrials = nan(numTrials,1);
 correctOrIncorrect = nan(numTrials,1);
@@ -57,9 +57,30 @@ while j <= numTrials
         %isEyeInside = false;
     end
     
+    %code for confidence assessment EVERY 10 TRIALS
+    decideConfRating = mod(j,10);
+    if decideConfRating == 0 || j == 1
+        DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
+        [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
+        fatigueRating(j) = trial_datum;
+        Screen('DrawTexture', window, dispImageCross, [], centerRect);
+        Screen('Flip', window);
+        
+        if strcmp(elstate, 'on')
+            % Mark events, messages, etc. in dataviwer trial
+            Eyelink('Message', 'Fatigue rating shown');
+            WaitSecs(0.001);
+        end
+        
+        WaitSecs(1);
+        
+    end
+    
+    
     flag = 1;
     isForce = false;
     %draw incentives to screen
+    
     DrawIncentive;
     
     %Starting response time interval
@@ -80,17 +101,27 @@ while j <= numTrials
     %Storing response interval time
     respTimeInc(j,1) = secs - actualFlipTime;
     if (firstPress(leftKey) > 0 &&  trialData(j, 4)==1) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==2)
-            
-            rewardChoice(j,1) = 1;
+        
+        rewardChoice(j,1) = 1;
     elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
-             rewardChoice(j,1) = 2;
+        rewardChoice(j,1) = 2;
     end
-
+    
+    
     
     
     %%%%%%%%%fixation before trial
     Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
+    %
+    %
+    %
+    %
+    %
+%
+%
+
+    %RestrictKeysForKbCheck([1]);
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
@@ -209,13 +240,15 @@ while j <= numTrials
             Screen('DrawTexture', window, dispImageCross, [], centerRect);
             %present task screen for 2 seconds
             [~,start1, ~] =  Screen('Flip', window);
+            WaitSecs(0.2);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
                 Eyelink('Message', 'SS1 search array shown');
                 WaitSecs(0.001);
             end
-            
+         %   RestrictKeysForKbCheck([upKey, downKey, leftKey, rightKey])
+
             %check for fixation during search task
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
                 if Eyelink('NewFloatSampleAvailable') > 0
@@ -284,23 +317,6 @@ while j <= numTrials
                 
                 %record response data
                 correctOrIncorrect(j,1) = response;
-                %code for confidence assessment EVERY 10 TRIALS
-                decideConfRating = mod(j,10);
-                if decideConfRating == 0
-                    DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
-                    [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
-                    fatigueRating(j) = trial_datum;
-                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
-                    Screen('Flip', window);
-                    
-                    if strcmp(elstate, 'on')
-                        % Mark events, messages, etc. in dataviwer trial
-                        Eyelink('Message', 'Fatigue rating shown');
-                        WaitSecs(0.001);
-                    end
-                    
-                    WaitSecs(1);
-                end
                 
                 %abort trial if fixation is broken during delay period
             elseif ~isEyeInside || nofixtimeflag==1
@@ -329,6 +345,8 @@ while j <= numTrials
                 WaitSecs(0.001);
             end
             
+            %RestrictKeysForKbCheck([upKey, downKey, leftKey, rightKey])
+
             %check for fixation during delay before search array
             while ((GetSecs-startrt)<=T_delay  && Novalid==0) %| Press(downKey)==0 | Press(upKey)==0
                 
@@ -400,24 +418,6 @@ while j <= numTrials
                 %record response data
                 correctOrIncorrect(j,1) = response;
                 
-                %code for confidence assessment every 10 trials
-                decideConfRating = mod(j,10);
-                if decideConfRating == 0 || j == 1
-                    DrawFormattedText(window, responseText, 'How would you rate your mental fatigue?',screenYpixels * 0.25, black);
-                    [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
-                    fatigueRating(j) = trial_datum;
-                    Screen('DrawTexture', window, dispImageCross, [], centerRect);
-                    Screen('Flip', window);
-                    
-                    if strcmp(elstate, 'on')
-                        % Mark events, messages, etc. in dataviwer trial
-                        Eyelink('Message', 'Fatigue rating shown');
-                        WaitSecs(0.001);
-                    end
-                    
-                    WaitSecs(1);
-                end
-                
                 % trial is aborted if fixation was broken during the
                 % search
             elseif ~isEyeInside || nofixtimeflag==1
@@ -435,6 +435,22 @@ while j <= numTrials
     j = j + 1;
 end
 
+if confidence == true
+    DrawFormattedText(window, responseText, 'What percent do you think you got correct?',screenYpixels * 0.25, black);
+    [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
+    fatigueRating(length(trialData(:,1))) = trial_datum;
+    Screen('DrawTexture', window, dispImageCross, [], centerRect);
+    Screen('Flip', window);
+    
+    if strcmp(elstate, 'on')
+        % Mark events, messages, etc. in dataviwer trial
+        Eyelink('Message', 'Percent correct rating shown');
+        WaitSecs(0.001);
+    end
+    
+    WaitSecs(1);
+end
+
 if feedback == true
     feedbackFlag = 2;
 elseif feedback == false
@@ -448,7 +464,7 @@ trialData(:, 7) = randSpeedVecData;
 trialData = horzcat(partInfo1, partInfo2, trialData, blockInfo);
 
 
-if countFreeBlocks == 1
+if countFreeBlocks == 1 && confidence == false
     finalTrialData.free.results.responseTimeIncentive =respTimeInc;
     finalTrialData.free.results.rewardChoice = rewardChoice;
     finalTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
@@ -457,7 +473,7 @@ if countFreeBlocks == 1
     finalTrialData.free.results.fatigueRating = fatigueRating;
     finalTrialData.free.results.keyPress = keyPress;
     finalTrialData.free.trialData.allTrialData = trialData;
-elseif countFreeBlocks ~= 1
+elseif countFreeBlocks ~= 1 && confidence == false
     finalTrialData.free.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
     finalTrialData.free.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
     finalTrialData.free.results.correctOrIncorrect = vertcat(finalTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
@@ -466,10 +482,31 @@ elseif countFreeBlocks ~= 1
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
     finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.free.trialData.allTrialData, trialData);
-    
+elseif countPracticeBlocks == 1 && confidence == true
+    practiceTrialData.free.results.responseTimeIncentive =respTimeInc;
+    practiceTrialData.free.results.rewardChoice = rewardChoice;
+    practiceTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
+    practiceTrialData.free.results.respTime = respTime;
+    practiceTrialData.free.results.abortedTrials = abortedTrials;
+    practiceTrialData.free.results.fatigueRating = fatigueRating;
+    practiceTrialData.free.results.keyPress = keyPress;
+    practiceTrialData.free.trialData.allTrialData = trialData;
+elseif countPracticeBlocks ~= 1 && confidence == true
+    practiceTrialData.free.results.responseTimeIncentive = vertcat(practiceTrialData.free.results.responseTimeIncentive, respTimeInc);
+    practiceTrialData.free.results.rewardChoice = vertcat(practiceTrialData.free.results.rewardChoice, rewardChoice);
+    practiceTrialData.free.results.correctOrIncorrect = vertcat(practiceTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
+    practiceTrialData.free.results.respTime = vertcat(practiceTrialData.free.results.respTime, respTime);
+    practiceTrialData.free.results.abortedTrials = vertcat(practiceTrialData.free.results.abortedTrials, abortedTrials);
+    practiceTrialData.free.results.fatigueRating = vertcat(practiceTrialData.free.results.fatigueRating, fatigueRating);
+    practiceTrialData.free.results.keyPress = vertcat(practiceTrialData.free.results.keyPress, keyPress);
+    practiceTrialData.free.trialData.allTrialData = vertcat(practiceTrialData.free.trialData.allTrialData, trialData);
 end
 
-countFreeBlocks = countFreeBlocks + 1;
+if confidence == false
+    countFreeBlocks = countFreeBlocks + 1;
+elseif confidence == true
+    countPracticeBlocks = countPracticeBlocks + 1;
+end
 
 % finalTrialData.free.results.allTrialsData = horzcat([respTimeInc, rewardChoice, fatigueRating, keyPress, correctOrIncorrect, respTime, abortedTrials]);
 % finalTrialData.free.results.dataDescription = {'Column 1 represents the response time for choosing incentive'; 'Column 2 represents the reward choice(difficult = 2, easy = 1)'; 'Columnn 3 represents self assessed fatigue on a scale of 1 to 10';...

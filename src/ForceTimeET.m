@@ -61,6 +61,7 @@ while j <= numTrials
 
     %draw incentive at the start of a new trial. Script controlls for both
     %free and force trials 
+    
     DrawIncentive;
     
     %Starting response time interval
