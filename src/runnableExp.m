@@ -61,20 +61,12 @@ if strcmp(elstate,'on')
                 numTrials = 3;
                 SetUpTrialData;
                 
-                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
-                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-                
-                
-                
-                Screen('Flip', window);
-                
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
                     Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
                     WaitSecs(0.001);
                 end
                 
-                KbWait;
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -82,9 +74,17 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
                 
                 
-            end
+                end
+                preSlides;
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                end
                 Practice;
                 P1Practice = true;
+                Screen('DrawTexture', window, s9, [], windowRect);
+                KbWait;
             end
             
             speed = 1;
@@ -158,14 +158,17 @@ if strcmp(elstate,'on')
                 KbWait;
                 
                 if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
-                WaitSecs(0.001);
-                
-                
-            end
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                    WaitSecs(0.001);
+                    
+                    
+                end
+                preSlides;
                 Practice;
-                 P1Practice = true;
+                P1Practice = true;
+                Screen('DrawTexture', window, s9, [], windowRect);
+                KbWait;
             end
             speed = 2;
             feedback = false;
