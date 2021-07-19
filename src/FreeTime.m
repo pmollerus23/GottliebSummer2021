@@ -25,6 +25,11 @@ if eye_used == el.BINOCULAR % if both eyes are tracked
     eye_used = el.LEFT_EYE; % use left eye
 end
 
+Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
+
 %     fileName=sprintf('%sF.edf',edfFile); % Data file name
 %      Eyelink('Openfile',fileName);
 

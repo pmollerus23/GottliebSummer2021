@@ -152,22 +152,30 @@ imageSWL = imread('LPictureSW.png');
 sideWL = Screen('MakeTexture', window, imageSWL);
 
 %Reading images for task instruction slides
-imageForceTaskInstrA = imread('forceTaskInstrA.png');
-imageForceTaskInstrB = imread('forceTaskInstrB.png');
-imageForceTaskInstrC = imread('forceTaskInstrC.png');
-imageFreeTaskInstrA = imread('freeTaskInstrA.png');
-imageFreeTaskInstrB = imread('freeTaskInstrB.png');
-imageFreeTaskInstrC = imread('freeTaskInstrC.png');
-imageFreeTaskInstrD = imread('freeTaskInstrD.png');
+s10 = imread('p2instr1.png');
+s11 = imread('p2instr2.png');
+s12 = imread('p2instr3.png');
+s13 = imread('p2instr4.png');
+s14 = imread('p2instr5.png');
+s15 = imread('p2instr6.png');
+s16 = imread('p2instr7.png');
+s17 = imread('p2instr8.png');
+s18 = imread('p2instr9.png');
+s19 = imread('p2instr10.png');
+
 
 %...
-FOTA = Screen('MakeTexture', window, imageForceTaskInstrA);
-FOTB = Screen('MakeTexture', window, imageForceTaskInstrB);
-FOTC = Screen('MakeTexture', window, imageForceTaskInstrC);
-FRTA = Screen('MakeTexture', window, imageFreeTaskInstrA);
-FRTB = Screen('MakeTexture', window, imageFreeTaskInstrB);
-FRTC = Screen('MakeTexture', window, imageFreeTaskInstrC);
-FRTD = Screen('MakeTexture', window, imageFreeTaskInstrD);
+sc10 = Screen('MakeTexture', window, s10);
+sc11 = Screen('MakeTexture', window, s11);
+sc12 = Screen('MakeTexture', window, s12);
+sc13 = Screen('MakeTexture', window, s13);
+sc14 = Screen('MakeTexture', window, s14);
+sc15 = Screen('MakeTexture', window, s15);
+sc16 = Screen('MakeTexture', window, s16);
+sc17 = Screen('MakeTexture', window, s16);
+sc18 = Screen('MakeTexture', window, s18);
+sc19 = Screen('MakeTexture', window, s19);
+
 
 %Reading images for each incentive level
 imageIncentive1 = imread('Reward11.png');
