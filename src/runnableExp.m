@@ -228,13 +228,13 @@ if strcmp(elstate,'on')
         elseif selection(o)==5
             speed = 1;
             feedback = false;
-            numTrials = 12;
-            confidence = true;
+            numTrials = 30;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Regular No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
@@ -255,7 +255,7 @@ if strcmp(elstate,'on')
             end
             
             practiceNum = practiceNum + 1;
-            Practice;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -266,19 +266,19 @@ if strcmp(elstate,'on')
         elseif selection(o)==6
             speed = 2;
             feedback = false;
-            numTrials = 12;
-            confidence = true;
+            numTrials = 30;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Fast No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Speeded No Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block signal shown');
+                Eyelink('Message', 'P2 Speeded No Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -288,35 +288,35 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block start');
+                Eyelink('Message', 'P2 Speeded No Feedback block start');
                 WaitSecs(0.001);
             end
             
             practiceNum = practiceNum + 1;
-            Practice;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block end');
+                Eyelink('Message', 'P2 Speeded No Feedback block end');
                 WaitSecs(0.001);
             end
             
         elseif selection(o)==7
             speed = 1;
             feedback = true;
-            numTrials = 12;
-            confidence = true;
+            numTrials = 30;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Regular Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Regular Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block signal shown');
+                Eyelink('Message', 'P2 Regular Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -326,35 +326,35 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block start');
+                Eyelink('Message', 'P2 Regular Feedback block start');
                 WaitSecs(0.001);
             end
             
             practiceNum = practiceNum + 1;
-            Practice;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block end');
+                Eyelink('Message', 'P2 Regular Feedback block end');
                 WaitSecs(0.001);
             end
             
         elseif selection(o)==8
             speed = 2;
             feedback = true;
-            numTrials = 12;
-            confidence = true;
+            numTrials = 30;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Fast Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Fast Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block signal shown');
+                Eyelink('Message', 'P2 Fast Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -364,16 +364,16 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block start');
+                Eyelink('Message', 'P2 Fast Feedback block start');
                 WaitSecs(0.001);
             end
             
             practiceNum = practiceNum + 1;
-            Practice;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block end');
+                Eyelink('Message', 'P2 Fast Feedback block end');
                 WaitSecs(0.001);
             end
             
