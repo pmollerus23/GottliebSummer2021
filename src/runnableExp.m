@@ -51,7 +51,10 @@ if strcmp(elstate,'on')
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
        
         if selection(o) ==1 %speedforce
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
             
             if P1Practice == false
                 
@@ -133,7 +136,10 @@ if strcmp(elstate,'on')
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         elseif selection(o) ==2 %speedPractice
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
              if P1Practice == false
                
                 speed = 1;
@@ -299,7 +305,10 @@ if strcmp(elstate,'on')
 %             end
             
         elseif selection(o)==5
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
             if P2Practice == false
                 
                 speed = 1;
@@ -372,7 +381,10 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==6
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
             if P2Practice == false
                 
                 speed = 1;
@@ -445,7 +457,10 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==7
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
             if P2Practice == false
                 speed = 1;
                 feedback = true;
@@ -518,7 +533,10 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==8
-            
+             Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
             if P2Practice == false
                 
                 speed = 1;
