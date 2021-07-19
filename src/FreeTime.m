@@ -184,7 +184,7 @@ while j <= numTrials
     %enter this if statement if the initial fixation is passed
     if nofixflag==0
         
-        T_delay = randi([3 5],1);
+        T_delay = 0.5;
         nofixtimeflag=1;
         startrt=GetSecs;
         totalFixTime =0;

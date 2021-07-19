@@ -184,7 +184,7 @@ while j <= numTrials
     %enter this if statement if the initial fixation is passed
     if nofixflag==0
         
-        T_delay = randi([3 5],1);
+        T_delay = 0.5;
         nofixtimeflag=1;
         startrt=GetSecs;
         totalFixTime =0;
@@ -483,7 +483,7 @@ trialData(:, 7) = randSpeedVecData;
 trialData = horzcat(partInfo1, partInfo2, trialData, blockInfo);
 
 
-if countFreeBlocks == 1 && confidence == false && P2Practice == false
+if countFreeBlocks == 1 && confidence == false && P2Practice == true
     finalTrialData.free.results.responseTimeIncentive =respTimeInc;
     finalTrialData.free.results.rewardChoice = rewardChoice;
     finalTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
@@ -492,7 +492,7 @@ if countFreeBlocks == 1 && confidence == false && P2Practice == false
     finalTrialData.free.results.fatigueRating = fatigueRating;
     finalTrialData.free.results.keyPress = keyPress;
     finalTrialData.free.trialData.allTrialData = trialData;
-elseif countFreeBlocks ~= 1 && confidence == false && P2Practice == false
+elseif countFreeBlocks ~= 1 && confidence == false && P2Practice == true
     finalTrialData.free.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
     finalTrialData.free.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
     finalTrialData.free.results.correctOrIncorrect = vertcat(finalTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
@@ -501,7 +501,7 @@ elseif countFreeBlocks ~= 1 && confidence == false && P2Practice == false
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
     finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.free.trialData.allTrialData, trialData);
-elseif countPracticeBlocks == 1 && confidence == true && P2Practice == false
+elseif countPracticeBlocks == 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.responseTimeIncentive =respTimeInc;
     practiceTrialData.free.results.rewardChoice = rewardChoice;
     practiceTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
@@ -510,7 +510,7 @@ elseif countPracticeBlocks == 1 && confidence == true && P2Practice == false
     practiceTrialData.free.results.fatigueRating = fatigueRating;
     practiceTrialData.free.results.keyPress = keyPress;
     practiceTrialData.free.trialData.allTrialData = trialData;
-elseif countPracticeBlocks ~= 1 && confidence == true && P2Practice == false
+elseif countPracticeBlocks ~= 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.responseTimeIncentive = vertcat(practiceTrialData.free.results.responseTimeIncentive, respTimeInc);
     practiceTrialData.free.results.rewardChoice = vertcat(practiceTrialData.free.results.rewardChoice, rewardChoice);
     practiceTrialData.free.results.correctOrIncorrect = vertcat(practiceTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
