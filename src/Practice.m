@@ -101,7 +101,7 @@ while j <= numTrials
         Eyelink('Message', 'Trial start signal shown');
         WaitSecs(0.001);
     end
-    WaitSecs(2);
+    WaitSecs(1);
     
     %%%%%%FIXATION SIGNAL
     DrawFormattedText(window, 'fixate on cross',screenYpixels * 0.25, black);
@@ -112,9 +112,12 @@ while j <= numTrials
         Eyelink('Message', 'Fixation signal shown');
         WaitSecs(0.001);
     end
-    WaitSecs(2);
+    
+    DrawIncentiveForce;
     Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
+    WaitSecs(2);
+    
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
