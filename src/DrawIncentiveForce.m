@@ -39,7 +39,7 @@ end
         WaitSecs(0.001);
     end
     
-    WaitSecs(2);
+    WaitSecs(1);
     
     %     Screen('DrawTexture', window, dispImageCross, [], crossPos);
     %     Screen('Flip', window);
