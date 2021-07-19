@@ -94,8 +94,8 @@ while j <= numTrials
     clear pressed;
     clear firstPress;
     
-    DrawFormattedText(window, 'TRIAL STARTING',screenYpixels * 0.5, black);
-    Screen('Flip', window);
+%     DrawFormattedText(window, 'TRIAL STARTING',screenYpixels * 0.5, black);
+%     Screen('Flip', window);
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
         Eyelink('Message', 'Trial start signal shown');
@@ -374,7 +374,7 @@ trialData(:, 7) = randSpeedVecData;
 trialData = horzcat(partInfo1, partInfo2, trialData, blockInfo);
 
 
-if countFreeBlocks == 1 && confidence == false && P1Practice == false
+if countFreeBlocks == 1 && confidence == false && P1Practice == true
     finalTrialData.free.results.responseTimeIncentive =respTimeInc;
     finalTrialData.free.results.rewardChoice = rewardChoice;
     finalTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
@@ -383,7 +383,7 @@ if countFreeBlocks == 1 && confidence == false && P1Practice == false
     finalTrialData.free.results.fatigueRating = fatigueRating;
     finalTrialData.free.results.keyPress = keyPress;
     finalTrialData.free.trialData.allTrialData = trialData;
-elseif countFreeBlocks ~= 1 && confidence == false && P1Practice == false
+elseif countFreeBlocks ~= 1 && confidence == false && P1Practice == true
     finalTrialData.free.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
     finalTrialData.free.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
     finalTrialData.free.results.correctOrIncorrect = vertcat(finalTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
@@ -392,7 +392,7 @@ elseif countFreeBlocks ~= 1 && confidence == false && P1Practice == false
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
     finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.free.trialData.allTrialData, trialData);
-elseif countPracticeBlocks == 1 && confidence == true && P1Practice == false
+elseif countPracticeBlocks == 1 && confidence == true && P1Practice == true
     practiceTrialData.free.results.responseTimeIncentive =respTimeInc;
     practiceTrialData.free.results.rewardChoice = rewardChoice;
     practiceTrialData.free.results.correctOrIncorrect = correctOrIncorrect;
@@ -401,7 +401,7 @@ elseif countPracticeBlocks == 1 && confidence == true && P1Practice == false
     practiceTrialData.free.results.fatigueRating = fatigueRating;
     practiceTrialData.free.results.keyPress = keyPress;
     practiceTrialData.free.trialData.allTrialData = trialData;
-elseif countPracticeBlocks ~= 1 && confidence == true && P1Practice == false
+elseif countPracticeBlocks ~= 1 && confidence == true && P1Practice == true
     practiceTrialData.free.results.responseTimeIncentive = vertcat(practiceTrialData.free.results.responseTimeIncentive, respTimeInc);
     practiceTrialData.free.results.rewardChoice = vertcat(practiceTrialData.free.results.rewardChoice, rewardChoice);
     practiceTrialData.free.results.correctOrIncorrect = vertcat(practiceTrialData.free.results.correctOrIncorrect, correctOrIncorrect);
