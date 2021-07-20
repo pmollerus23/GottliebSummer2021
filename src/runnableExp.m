@@ -7,7 +7,7 @@ GUI
 
 %+++++++++++++++++++++DESCTIPTION OF PROGRAM+++++++++++++++++++++++++
 %THIS RUNNABLE EXP FILE IS WHERE THE PROGRAM IS RAN FROM. THE PROGRAM WILL
-%SET ITSELF UP AND EXECUTE FREE OR FORCE TRIALS DPENDING ON THE VALUES
+%SET ITSELF UP AND EXECscaUTE FREE OR FORCE TRIALS DPENDING ON THE VALUES
 %GIVEN TO THE GUI. THE BEST DOCUMENTATION CAN BE FOUND IN THE MAIN TRIAL
 %BLOCKS, "ForceTime2' AND "FreeTime".
 
@@ -27,21 +27,21 @@ if strcmp(elstate,'on')
     %try
     
     
-    order1 = [1 2 1 2];
+    order1 = [1 2 5 6 5 6 7 8 7 8];
     order2 = [1];
     
-    if trialChoice == 0
+    if trialChoice == 0 
         selection = order1;
     elseif trialChoice ==1
         selection = order2;
     end
-    P1Practice = false;
-    P2Practice = false;
+    P1Practice = true;
+    P2Practice = true;
     FR = false;
-    blockNum = 0;
-    practiceNum = 8;
+    blockNum = 2;
+    practiceNum = 0;
     
-    for o = 1:1
+    for o = 1:10
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -57,8 +57,8 @@ if strcmp(elstate,'on')
                 
                 speed = 1;
                 feedback = false;
-                confidence = false;
-                numTrials = 3;
+                confidence = true;
+                numTrials = 6;
                 SetUpTrialData;
                 
                 if strcmp(elstate, 'on')
@@ -81,26 +81,28 @@ if strcmp(elstate,'on')
                 Eyelink('Message', 'P1 Regular No Feedback Practice block start');
                 WaitSecs(0.001);
                 end
+                
+                
                 Practice;
                 P1Practice = true;
                 Screen('DrawTexture', window, s9, [], windowRect);
+                            Screen('Flip', window);
+
                 KbWait;
+                WaitSecs(0.25);
             end
             
             speed = 1;
             feedback = false;
-            confidence = false;
+            confidence = true;
             numTrials = 42;
             
             SetUpTrialData;
             
             DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
             DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-            
-            
-            
             Screen('Flip', window);
-            
+            WaitSecs(1);
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
                 Eyelink('Message', 'P1 Regular No Feedback block signal shown');
@@ -117,7 +119,8 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            blockNum = blockNum + 1;
+
+            practiceNum = practiceNum + 1;
             Practice;
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -133,19 +136,16 @@ if strcmp(elstate,'on')
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         elseif selection(o) ==2 %speedPractice
-             Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+             
              if P1Practice == false
                
                 speed = 1;
                 feedback = false;
-                confidence = false;
-                numTrials = 3;
+                confidence = true;
+                numTrials = 6;
                 SetUpTrialData;
                 
-                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Regular No Feedback Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
                 
                 
@@ -168,10 +168,14 @@ if strcmp(elstate,'on')
                     
                 end
                 preSlides;
+                
+                
+                WaitSecs(0.1);
                 Practice;
                 P1Practice = true;
                 Screen('DrawTexture', window, s9, [], windowRect);
                 KbWait;
+                WaitSecs(0.25);
             end
             speed = 2;
             feedback = false;
@@ -180,11 +184,9 @@ if strcmp(elstate,'on')
             
             SetUpTrialData;
             
-            DrawFormattedText(window, 'P1 Speeded No Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Speeded No Feedback block now starting','center' , yCenter, black);
             DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-            
-            
-            
+           
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
@@ -203,7 +205,7 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            blockNum = blockNum + 1;
+            practiceNum = practiceNum + 1;
             Practice
             
             if strcmp(elstate, 'on')
@@ -220,13 +222,11 @@ if strcmp(elstate,'on')
                 speed = 1;
                 feedback = true;
                 confidence = false;
-                numTrials = 3;
+                numTrials = 6;
                 SetUpTrialData;
                 
                 P2instr;
-                Eyelink('command','calibration_area_proportion = 0.5 0.5');
-                Eyelink('command','validation_area_proportion = 0.48 0.48');
-                EyelinkDoTrackerSetup(el);
+                
                 WaitSecs(0.1);
                 
                 DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
@@ -256,6 +256,7 @@ if strcmp(elstate,'on')
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
+                WaitSecs(0.25);
             end
             
             speed = 1;
@@ -286,7 +287,7 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
+            blockNum = blockNum + 1;
             FreeTime;
             
             if strcmp(elstate, 'on')
@@ -302,14 +303,11 @@ if strcmp(elstate,'on')
                 speed = 1;
                 feedback = true;
                 confidence = false;
-                numTrials = 3;
+                numTrials = 6;
                 SetUpTrialData;
                 
                 P2instr;
-                Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+                
                 
                 DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
@@ -338,6 +336,7 @@ if strcmp(elstate,'on')
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
+                WaitSecs(0.25);
             end
             
             speed = 2;
@@ -368,7 +367,7 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
+            blockNum = blockNum + 1;
             FreeTime;
             
             if strcmp(elstate, 'on')
@@ -383,7 +382,7 @@ if strcmp(elstate,'on')
                 speed = 1;
                 feedback = true;
                 confidence = false;
-                numTrials = 3;
+                numTrials = 6;
                 SetUpTrialData;
                 
                 P2instr;
@@ -451,7 +450,7 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
+            blockNum = blockNum + 1;
             FreeTime;
             
             if strcmp(elstate, 'on')
@@ -467,7 +466,7 @@ if strcmp(elstate,'on')
                 speed = 1;
                 feedback = true;
                 confidence = false;
-                numTrials = 3;
+                numTrials = 6;
                 SetUpTrialData;
                 
                 P2instr;
@@ -533,7 +532,7 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
+            blockNum = blockNum + 1;
             FreeTime;
             
             if strcmp(elstate, 'on')

@@ -62,11 +62,11 @@
         % set sample rate in camera setup screen
         Eyelink('command', 'sample_rate = %d', 1000);
         
-        %%% 4. Calibrate the eye tracker
-        Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+%         %% 4. Calibrate the eye tracker
+%         Eyelink('command','calibration_area_proportion = 0.5 0.5');
+%         Eyelink('command','validation_area_proportion = 0.48 0.48');
+%         EyelinkDoTrackerSetup(el);
+%         WaitSecs(0.1);
         
         eye_used = Eyelink('EyeAvailable'); % get eye that's tracked (only track left eye)
         if eye_used == el.BINOCULAR % if both eyes are tracked

@@ -11,6 +11,7 @@ fatigueRating = nan(numTrials,1);
 keyPress = nan(numTrials,1);
 abortedTrials2 = nan(numTrials,1);
 randSpeedVecData = nan(numTrials, 1);
+confidence = true;
 
 j = 1;
 
@@ -25,6 +26,10 @@ if eye_used == el.BINOCULAR % if both eyes are tracked
     eye_used = el.LEFT_EYE; % use left eye
 end
 
+Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
 %     fileName=sprintf('%sF.edf',edfFile); % Data file name
 %      Eyelink('Openfile',fileName);
 
@@ -102,22 +107,17 @@ while j <= numTrials
         WaitSecs(0.001);
     end
     
-    %%%%%%FIXATION SIGNAL
-    DrawFormattedText(window, 'fixate on cross',screenYpixels * 0.25, black);
-    Screen('DrawTexture', window, dispImageCross, [], centerRect);
-    Screen('Flip', window);
-    if strcmp(elstate, 'on')
-        % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', 'Fixation signal shown');
-        WaitSecs(0.001);
-    end
         WaitSecs(1);
 
     
     DrawIncentiveForce;
     Screen('DrawTexture', window, dispImageCross, [], crossPos);
     Screen('Flip', window);
-    WaitSecs(2);
+    WaitSecs(1);
+    Screen('DrawTexture', window, dispImageCross, [], crossPos);
+    Screen('Flip', window);
+    WaitSecs(0.1);
+    
     
     
     if strcmp(elstate, 'on')
@@ -349,7 +349,7 @@ end
 if confidence == true
     DrawFormattedText(window, 'What percent do you think you got correct?', responseText,screenYpixels * 0.25, black);
     [~, trial_datum, ~, ~, ~ ,~] = RatingsConfidence('confidence', window,p);
-    fatigueRating(length(trialData(:,1))) = trial_datum;
+    fatigueRating(length(trialData(:,1)), 1) = trial_datum;
     Screen('DrawTexture', window, dispImageCross, [], centerRect);
     Screen('Flip', window);
     
@@ -413,9 +413,7 @@ elseif countPracticeBlocks ~= 1 && confidence == true && P1Practice == true
     practiceTrialData.free.trialData.allTrialData = vertcat(practiceTrialData.free.trialData.allTrialData, trialData);
 end
 
-if confidence == false
-    countFreeBlocks = countFreeBlocks + 1;
-elseif confidence == true
+if P1Practice == true
     countPracticeBlocks = countPracticeBlocks + 1;
 end
 

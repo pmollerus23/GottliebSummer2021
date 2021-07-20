@@ -81,23 +81,23 @@ while j <= numTrials
         
     end
     
-     if (j == 3 && FR == false)
-        DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
-        [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
-        fatigueRating(j) = trial_datum;
-        Screen('DrawTexture', window, dispImageCross, [], centerRect);
-        Screen('Flip', window);
-        FR = true;
-        
-        if strcmp(elstate, 'on')
-            % Mark events, messages, etc. in dataviwer trial
-            Eyelink('Message', 'Fatigue rating shown');
-            WaitSecs(0.001);
-        end
-        
-        WaitSecs(1);
-        
-    end
+%      if (j == 3 && FR == false)
+%         DrawFormattedText(window, responseText, 'How woud you rate your mental fatigue?',screenYpixels * 0.25, black);
+%         [~, trial_datum, ~, ~, ~ ,~] = Ratings('confidence', window,p);
+%         fatigueRating(j) = trial_datum;
+%         Screen('DrawTexture', window, dispImageCross, [], centerRect);
+%         Screen('Flip', window);
+%         FR = true;
+%         
+%         if strcmp(elstate, 'on')
+%             % Mark events, messages, etc. in dataviwer trial
+%             Eyelink('Message', 'Fatigue rating shown');
+%             WaitSecs(0.001);
+%         end
+%         
+%         WaitSecs(1);
+%         
+%     end
     
     
     flag = 1;
@@ -526,10 +526,8 @@ elseif countPracticeBlocks ~= 1 && confidence == true && P2Practice == true
     practiceTrialData.free.trialData.allTrialData = vertcat(practiceTrialData.free.trialData.allTrialData, trialData);
 end
 
-if confidence == false
+if P2Practice == true
     countFreeBlocks = countFreeBlocks + 1;
-elseif confidence == true
-    countPracticeBlocks = countPracticeBlocks + 1;
 end
 
 % finalTrialData.free.results.allTrialsData = horzcat([respTimeInc, rewardChoice, fatigueRating, keyPress, correctOrIncorrect, respTime, abortedTrials]);
