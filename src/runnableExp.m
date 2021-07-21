@@ -63,14 +63,14 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
-                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    Eyelink('Message', 'P1 Practice  block signal shown');
                     WaitSecs(0.001);
                 end
                 
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P1 Practice block start');
                 WaitSecs(0.001);
                 
                 
@@ -78,7 +78,7 @@ if strcmp(elstate,'on')
                 preSlides;
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P1 Practice block start');
                 WaitSecs(0.001);
                 end
                 
@@ -248,7 +248,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P2 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P2 Practice block start');
                 WaitSecs(0.001);
                 
                 
@@ -274,7 +274,7 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block signal shown');
+                Eyelink('Message', 'P2 Regular No Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -284,7 +284,7 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block start');
+                Eyelink('Message', 'P2 Regular No Feedback block start');
                 WaitSecs(0.001);
             end
             
@@ -293,7 +293,7 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block end');
+                Eyelink('Message', 'P2 Regular No Feedback block end');
                 WaitSecs(0.001);
             end
             
@@ -319,7 +319,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
-                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    Eyelink('Message', 'P2 Practice  block signal shown');
                     WaitSecs(0.001);
                 end
                 
@@ -328,7 +328,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P2 Practice block start');
                 WaitSecs(0.001);
                 
                 
@@ -398,7 +398,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
-                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    Eyelink('Message', 'P2 Practice block signal shown');
                     WaitSecs(0.001);
                 end
                 
@@ -407,7 +407,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P2 Practice block start');
                 WaitSecs(0.001);
                 
                 
@@ -476,7 +476,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
-                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    Eyelink('Message', 'P2 Practice  block signal shown');
                     WaitSecs(0.001);
                 end
                 
@@ -485,7 +485,7 @@ if strcmp(elstate,'on')
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                Eyelink('Message', 'P2 Practice block start');
                 WaitSecs(0.001);
                 
                 

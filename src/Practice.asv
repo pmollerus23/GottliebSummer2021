@@ -128,7 +128,7 @@ while j <= numTrials
     
     if strcmp(elstate, 'on')
         % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', 'Fix cross shown, no incentive shown');
+        Eyelink('Message', 'fix cross shown, no incentive sh');
         WaitSecs(0.001);
     end
     
