@@ -1,9 +1,6 @@
 if Press(upKey) > 0 || Press(downKey)>0
                     %code to tell user how many points they gained
                     rewardAmtText = num2str(trialData(j, 5));
-                    if easy== true
-                        rewardAmtText = 1;
-                    end
                     plus = '+';
                     responseText = [plus ' ' rewardAmtText];
                     flag = 1;

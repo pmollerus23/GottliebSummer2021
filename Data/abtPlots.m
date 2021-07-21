@@ -1,6 +1,10 @@
 function [] = abtPlots(DataMatrix, PartCode, FreeForce);
 
 d = DataMatrix;
+inx = find(d(:,8) == 1);
+d(inx, :) = [];
+
+
 pCode = PartCode;
 ff = d(:,1);
 sn = d(:,2);
