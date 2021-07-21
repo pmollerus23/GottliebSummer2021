@@ -49,17 +49,18 @@ if Press(upKey) > 0 || Press(downKey)>0
                     correctOrIncorrect(j,1) = response;
                     %print feedback from decesion in trial to screen
                     if feedback == true
-                    DrawFormattedText(window, text,'center' , yCenter, black);
-                    DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
+                        DrawFormattedText(window, text,'center' , yCenter, black);
+                        DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);
                     end
                     
                     Screen('Flip', window);
-                    
-                    if strcmp(elstate, 'on')
-        % Mark events, messages, etc. in dataviwer trial
-        Eyelink('Message', 'Accuracy confirmation shown');
-        WaitSecs(0.001);
-    end
+                    if feedback == true
+                        if strcmp(elstate, 'on')
+                            % Mark events, messages, etc. in dataviwer trial
+                            Eyelink('Message', 'Feedback shown');
+                            WaitSecs(0.001);
+                        end
+                    end
                     
                     WaitSecs(0.5)
                     % DrawFormattedText(window, responseText, 'center',screenYpixels * 0.25, black);

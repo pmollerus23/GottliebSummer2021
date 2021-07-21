@@ -193,3 +193,31 @@ disThreeIncentive = Screen('MakeTexture', window, imageIncentive3);
 disFourIncentive = Screen('MakeTexture', window, imageIncentive4);
 disFiveIncentive = Screen('MakeTexture', window, imageIncentive5);
 disSixIncentive = Screen('MakeTexture', window, imageIncentive6);
+
+%Initializing images for BLOCK SIGNAL SLIDES
+imgRegFB = imread('regFB.png');
+imgFastFB = imread('fastFB.png');
+imgRegNFB = imread('regNFB.png');
+imgFastNFB = imread('fastNFB.png');
+
+%...
+
+regFB = Screen('MakeTexture', window, imgRegFB);
+fastFB = Screen('MakeTexture', window, imgFastFB);
+regNFB = Screen('MakeTexture', window, imgRegNFB);
+fastNFB = Screen('MakeTexture', window, imgFastNFB);
+
+%Initializing images for BONUS SLIDES
+
+imgP1bonus = imread('p1Bonus.png');
+imgP2bonus = imread('p2Bonus.png');
+
+%...
+
+p1Bonus = Screen('MakeTexture', window, imgP1bonus);
+p2Bonus = Screen('MakeTexture', window, imgP2bonus);
+
+
+
+
+
