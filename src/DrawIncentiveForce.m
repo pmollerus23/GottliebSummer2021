@@ -87,7 +87,7 @@ end
         Screen('DrawTexture', window, incentiveForTrial, [], rightRectPos);
     elseif  trialData(j, 4)==2 && isForce == false
        % Screen('DrawTexture', window, incentiveForTrial, [], leftRectPos);
-        Screen('DrawTexture', window, disOneEasyIncentive, [], rightRectPos);
+        Screen('DrawTexture', window, incentiveForTrial, [], leftRectPos);
         
     elseif  trialData(j, 4)==1 && isForce == true
         Screen('DrawTexture', window, incentiveForTrial, [], rightRectPos);

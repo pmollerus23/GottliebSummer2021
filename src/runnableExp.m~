@@ -7,7 +7,7 @@ GUI
 
 %+++++++++++++++++++++DESCTIPTION OF PROGRAM+++++++++++++++++++++++++
 %THIS RUNNABLE EXP FILE IS WHERE THE PROGRAM IS RAN FROM. THE PROGRAM WILL
-%SET ITSELF UP AND EXECUTE FREE OR FORCE TRIALS DPENDING ON THE VALUES
+%SET ITSELF UP AND EXECscaUTE FREE OR FORCE TRIALS DPENDING ON THE VALUES
 %GIVEN TO THE GUI. THE BEST DOCUMENTATION CAN BE FOUND IN THE MAIN TRIAL
 %BLOCKS, "ForceTime2' AND "FreeTime".
 
@@ -27,19 +27,21 @@ if strcmp(elstate,'on')
     %try
     
     
-    order1 = [5 6 1 2 1 2 7 8 3 4 3 4];
-    order2 = [5 1];
+    order1 = [1 2 5 6];
+    order2 = [1];
     
-    if trialChoice == 0
+    if trialChoice == 0 
         selection = order1;
     elseif trialChoice ==1
         selection = order2;
     end
+    P1Practice = false;
+    P2Practice = false;
+    FR = false;
+    blockNum = 2;
+    practiceNum = 0;
     
-    blockNum = 0;
-    practiceNum = 8;
-    
-    for o = 1:1
+    for o = 1:4
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -47,24 +49,63 @@ if strcmp(elstate,'on')
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       
         if selection(o) ==1 %speedforce
+             
+            
+            if P1Practice == false
+                
+                speed = 1;
+                feedback = false;
+                confidence = true;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                
+                
+                end
+                preSlides;
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                end
+                
+                
+                Practice;
+                P1Practice = true;
+                Screen('DrawTexture', window, s9, [], windowRect);
+                            Screen('Flip', window);
+
+                KbWait;
+                WaitSecs(0.25);
+            end
+            
             speed = 1;
             feedback = false;
-            confidence = false;
+            confidence = true;
             numTrials = 6;
             
             SetUpTrialData;
             
             DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
-            
-            
-            
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             Screen('Flip', window);
-            
+            WaitSecs(1);
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block signal shown');
+                Eyelink('Message', 'P1 Regular No Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -74,15 +115,16 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block start');
+                Eyelink('Message', 'P1 Regular No Feedback block start');
                 WaitSecs(0.001);
             end
             
-            blockNum = blockNum + 1;
-            FreeTime;
+
+            practiceNum = practiceNum + 1;
+            Practice;
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular No Feedback block end');
+                Eyelink('Message', 'P1 Regular No Feedback block end');
                 WaitSecs(0.001);
             end
             
@@ -93,19 +135,58 @@ if strcmp(elstate,'on')
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        elseif selection(o) ==2 %speedfree
+        elseif selection(o) ==2 %speedPractice
+             
+             if P1Practice == false
+               
+                speed = 1;
+                feedback = false;
+                confidence = true;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                DrawFormattedText(window, 'Regular No Feedback Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+                
+                
+                
+                Screen('Flip', window);
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                KbWait;
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                    WaitSecs(0.001);
+                    
+                    
+                end
+                preSlides;
+                
+                
+                WaitSecs(0.1);
+                Practice;
+                P1Practice = true;
+                Screen('DrawTexture', window, s9, [], windowRect);
+                KbWait;
+                WaitSecs(0.25);
+            end
             speed = 2;
             feedback = false;
             numTrials = 6;
-            confidence = false;
+            confidence = true;
             
             SetUpTrialData;
             
             DrawFormattedText(window, 'Speeded No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
-            
-            
-            
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+           
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
@@ -124,8 +205,8 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            blockNum = blockNum + 1;
-            FreeTime
+            practiceNum = practiceNum + 1;
+            Practice
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -133,108 +214,60 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %REGULAR FEEDBACK TRIALS
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        elseif selection(o) ==3 %slowforce
-            speed = 1;
-            feedback = true;
-            numTrials = 6;
-            confidence = false;
-            SetUpTrialData;
-            
-            DrawFormattedText(window, 'Regular Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
-            
-            
-            
-            Screen('Flip', window);
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block signal shown');
-                WaitSecs(0.001);
-            end
-            
-            KbWait;
-            
-            
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block start');
-                WaitSecs(0.001);
-            end
-            
-            blockNum = blockNum + 1;
-            FreeTime;
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block end');
-                WaitSecs(0.001);
-            end
-            
-            
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %FAST FEEDBACK TRIALS
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        elseif selection(o) ==4 %slowfree
-            speed = 2;
-            feedback = true;
-            numTrials = 6;
-            confidence = false;
-            
-            SetUpTrialData;
-            
-            DrawFormattedText(window, 'Speeded Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
-            
-            
-            
-            Screen('Flip', window);
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Speeded Feedback block signal shown');
-                WaitSecs(0.001);
-            end
-            
-            KbWait;
-            
-            
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Speeded Feedback block start');
-                WaitSecs(0.001);
-            end
-            
-            blockNum = blockNum + 1;
-            FreeTime;
-            
-            if strcmp(elstate, 'on')
-                % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Speeded Feedback block end');
-                WaitSecs(0.001);
-            end
             
         elseif selection(o)==5
+            
+            if P2Practice == false
+                
+                speed = 1;
+                feedback = true;
+                confidence = false;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                P2instr;
+                
+                WaitSecs(0.1);
+                
+                DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+                
+                
+                
+                Screen('Flip', window);
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P2 Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                KbWait;
+                
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P2 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                
+                
+            end
+                FreeTime;
+                P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
+                WaitSecs(0.25);
+            end
+            
             speed = 1;
             feedback = false;
             numTrials = 6;
-            confidence = true;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Regular No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
@@ -254,8 +287,8 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
-            Practice;
+            blockNum = blockNum + 1;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -264,21 +297,63 @@ if strcmp(elstate,'on')
             end
             
         elseif selection(o)==6
+             
+            if P2Practice == false
+                
+                speed = 1;
+                feedback = true;
+                confidence = false;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                P2instr;
+                
+                
+                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+                
+                
+                
+                Screen('Flip', window);
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                KbWait;
+                
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                
+                
+            end
+                FreeTime;
+                P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
+                WaitSecs(0.25);
+            end
+            
             speed = 2;
             feedback = false;
             numTrials = 6;
-            confidence = true;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Fast No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Speeded No Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block signal shown');
+                Eyelink('Message', 'P2 Speeded No Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -288,35 +363,80 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block start');
+                Eyelink('Message', 'P2 Speeded No Feedback block start');
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
-            Practice;
+            blockNum = blockNum + 1;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast No Feedback block end');
+                Eyelink('Message', 'P2 Speeded No Feedback block end');
                 WaitSecs(0.001);
             end
             
         elseif selection(o)==7
+             
+            if P2Practice == false
+                speed = 1;
+                feedback = true;
+                confidence = false;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                P2instr;
+              
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
+                
+                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+                
+                
+                
+                Screen('Flip', window);
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                KbWait;
+                
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                
+                
+            end
+                FreeTime;
+               P2Practice = true;
+               Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
+
+            end
+            
             speed = 1;
             feedback = true;
             numTrials = 6;
-            confidence = true;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Regular Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Regular Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block signal shown');
+                Eyelink('Message', 'P2 Regular Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -326,35 +446,79 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block start');
+                Eyelink('Message', 'P2 Regular Feedback block start');
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
-            Practice;
+            blockNum = blockNum + 1;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Regular Feedback block end');
+                Eyelink('Message', 'P2 Regular Feedback block end');
                 WaitSecs(0.001);
             end
             
         elseif selection(o)==8
+             
+            if P2Practice == false
+                
+                speed = 1;
+                feedback = true;
+                confidence = false;
+                numTrials = 6;
+                SetUpTrialData;
+                
+                P2instr;
+                Eyelink('command','calibration_area_proportion = 0.5 0.5');
+        Eyelink('command','validation_area_proportion = 0.48 0.48');
+        EyelinkDoTrackerSetup(el);
+        WaitSecs(0.1);
+                
+                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
+                
+                
+                
+                Screen('Flip', window);
+                
+                if strcmp(elstate, 'on')
+                    % Mark events, messages, etc. in dataviwer trial
+                    Eyelink('Message', 'P1 Regular No Feedback Practice  block signal shown');
+                    WaitSecs(0.001);
+                end
+                
+                KbWait;
+                
+                if strcmp(elstate, 'on')
+                % Mark events, messages, etc. in dataviwer trial
+                Eyelink('Message', 'P1 Regular No Feedback Practice block start');
+                WaitSecs(0.001);
+                
+                
+            end
+                FreeTime;
+                P2Practice = true;
+                Screen('DrawTexture', window, sc19, [], windowRect);
+                Screen('Flip', window);
+                KbWait;
+            end
+            
             speed = 2;
             feedback = true;
             numTrials = 6;
-            confidence = true;
+            confidence = false;
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'PRACTICE Fast Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press any key to continue...','center' , yCenter + 75, black);
+            DrawFormattedText(window, 'Fast Feedback block now starting','center' , yCenter, black);
+            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block signal shown');
+                Eyelink('Message', 'P2 Fast Feedback block signal shown');
                 WaitSecs(0.001);
             end
             
@@ -364,16 +528,16 @@ if strcmp(elstate,'on')
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block start');
+                Eyelink('Message', 'P2 Fast Feedback block start');
                 WaitSecs(0.001);
             end
             
-            practiceNum = practiceNum + 1;
-            Practice;
+            blockNum = blockNum + 1;
+            FreeTime;
             
             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
-                Eyelink('Message', 'Fast Feedback block end');
+                Eyelink('Message', 'P2 Fast Feedback block end');
                 WaitSecs(0.001);
             end
             
@@ -472,9 +636,9 @@ finalTrialData.free.trialData.data = trialData;
 practiceTrialData.free.results.allTrialsResponseDataMatrix = horzcat([practiceTrialData.free.results.responseTimeIncentive, practiceTrialData.free.results.rewardChoice, practiceTrialData.free.results.fatigueRating, practiceTrialData.free.results.keyPress, practiceTrialData.free.results.correctOrIncorrect, practiceTrialData.free.results.respTime, practiceTrialData.free.results.abortedTrials]);
 practiceTrialData.free.trialData.data = trialData;
 
-cleaned.allDataForce = horzcat(finalTrialData.force.trialData.allTrialData, finalTrialData.force.results.allTrialsResponseDataMatrix);
+% % % % cleaned.allDataForce = horzcat(finalTrialData.force.trialData.allTrialData, finalTrialData.force.results.allTrialsResponseDataMatrix);
 cleaned.data = horzcat(finalTrialData.free.trialData.allTrialData,  finalTrialData.free.results.allTrialsResponseDataMatrix);
-cleaned.allData = vertcat(cleaned.allData);
+% % % % cleaned.allData = vertcat(cleaned.allData);
 cleaned.practiceData = horzcat(practiceTrialData.free.trialData.allTrialData, practiceTrialData.free.results.allTrialsResponseDataMatrix);
 
 blockNumVec = cleaned.practiceData(:,10);
