@@ -23,9 +23,9 @@ screen = Screen('Screens');
 screenNumber = max(screen);
  
 
-%[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
+[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
  
-[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
+%[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 [xCenter, yCenter] = RectCenter(windowRect);
 rad = 70;
@@ -158,17 +158,24 @@ s12 = imread('p2instr3.png');
 s13 = imread('p2instr4.png');
 s14 = imread('p2instr5.png');
 s15 = imread('p2instr6.png');
-
+s16 = imread('p2instr7.png');
+s17 = imread('p2instr8.png');
+s18 = imread('p2instr9.png');
+s19 = imread('p2instr10.png');
 
 
 %...
-FOTA = Screen('MakeTexture', window, imageForceTaskInstrA);
-FOTB = Screen('MakeTexture', window, imageForceTaskInstrB);
-FOTC = Screen('MakeTexture', window, imageForceTaskInstrC);
-FRTA = Screen('MakeTexture', window, imageFreeTaskInstrA);
-FRTB = Screen('MakeTexture', window, imageFreeTaskInstrB);
-FRTC = Screen('MakeTexture', window, imageFreeTaskInstrC);
-FRTD = Screen('MakeTexture', window, imageFreeTaskInstrD);
+sc10 = Screen('MakeTexture', window, s10);
+sc11 = Screen('MakeTexture', window, s11);
+sc12 = Screen('MakeTexture', window, s12);
+sc13 = Screen('MakeTexture', window, s13);
+sc14 = Screen('MakeTexture', window, s14);
+sc15 = Screen('MakeTexture', window, s15);
+sc16 = Screen('MakeTexture', window, s16);
+sc17 = Screen('MakeTexture', window, s16);
+sc18 = Screen('MakeTexture', window, s18);
+sc19 = Screen('MakeTexture', window, s19);
+
 
 %Reading images for each incentive level
 imageIncentive1 = imread('Reward11.png');
@@ -186,3 +193,25 @@ disThreeIncentive = Screen('MakeTexture', window, imageIncentive3);
 disFourIncentive = Screen('MakeTexture', window, imageIncentive4);
 disFiveIncentive = Screen('MakeTexture', window, imageIncentive5);
 disSixIncentive = Screen('MakeTexture', window, imageIncentive6);
+
+%Initializing images for BLOCK SIGNAL SLIDES
+imgRegFB = imread('regFB.png');
+imgFastFB = imread('fastFB.png');
+imgRegNFB = imread('regNFB.png');
+imgFastNFB = imread('fastNFB.png');
+
+%...
+
+regFB = Screen('MakeTexture', window, imgRegFB);
+fastFB = Screen('MakeTexture', window, imgFastFB);
+regNFB = Screen('MakeTexture', window, imgRegNFB);
+fastNFB = Screen('MakeTexture', window, imgFastNFB);
+
+%Initializing images for BONUS SLIDES
+
+imgP1bonus = imread('p1Bonus.png');
+i
+
+
+
+

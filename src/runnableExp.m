@@ -27,7 +27,7 @@ if strcmp(elstate,'on')
     %try
     
     
-    order1 = [1 2 5 6 5 6 7 8 7 8];
+    order1 = [1 2 3 7 8 7 8 5 6 5 6 4];
     order2 = [1];
     
     if trialChoice == 0 
@@ -35,13 +35,13 @@ if strcmp(elstate,'on')
     elseif trialChoice ==1
         selection = order2;
     end
-    P1Practice = true;
-    P2Practice = true;
+    P1Practice = false;
+    P2Practice = false;
     FR = false;
     blockNum = 2;
     practiceNum = 0;
     
-    for o = 1:10
+    for o = 1:12
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -110,7 +110,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -159,6 +159,7 @@ if strcmp(elstate,'on')
                 end
                 
                 KbWait;
+                WaitSecs(0.25);
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
@@ -196,7 +197,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -243,6 +244,7 @@ if strcmp(elstate,'on')
                 end
                 
                 KbWait;
+                WaitSecs(0.25);
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -264,10 +266,9 @@ if strcmp(elstate,'on')
             numTrials = 30;
             confidence = false;
             
-            SetUpTrialData
+            SetUpTrialData;
             
-            DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
+            Screen('DrawTexture', window, regNFB, [], windowRect);
             
             Screen('Flip', window);
             
@@ -278,7 +279,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -309,7 +310,7 @@ if strcmp(elstate,'on')
                 P2instr;
                 
                 
-                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
                 
                 
@@ -323,6 +324,7 @@ if strcmp(elstate,'on')
                 end
                 
                 KbWait;
+                WaitSecs(0.25);
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -346,9 +348,8 @@ if strcmp(elstate,'on')
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'Speeded No Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press arrow key to continue...','center' , yCenter + 75, black);
-            
+            Screen('DrawTexture', window, fastNFB, [], windowRect);
+
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
@@ -358,7 +359,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -386,13 +387,9 @@ if strcmp(elstate,'on')
                 SetUpTrialData;
                 
                 P2instr;
-              
-                Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
+           
                 
-                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
                 
                 
@@ -406,6 +403,7 @@ if strcmp(elstate,'on')
                 end
                 
                 KbWait;
+                WaitSecs(0.25);
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -419,6 +417,7 @@ if strcmp(elstate,'on')
                Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
+                WaitSecs(0.25);
 
             end
             
@@ -428,10 +427,9 @@ if strcmp(elstate,'on')
             confidence = false;
             
             SetUpTrialData
-            
-            DrawFormattedText(window, 'Regular Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-            
+           
+            Screen('DrawTexture', window, regFB, [], windowRect);
+
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
@@ -441,7 +439,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -470,16 +468,10 @@ if strcmp(elstate,'on')
                 SetUpTrialData;
                 
                 P2instr;
-                Eyelink('command','calibration_area_proportion = 0.5 0.5');
-        Eyelink('command','validation_area_proportion = 0.48 0.48');
-        EyelinkDoTrackerSetup(el);
-        WaitSecs(0.1);
                 
-                DrawFormattedText(window, 'Regular No Feedback  Practice block now starting','center' , yCenter, black);
+                DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-                
-                
-                
+               
                 Screen('Flip', window);
                 
                 if strcmp(elstate, 'on')
@@ -489,6 +481,7 @@ if strcmp(elstate,'on')
                 end
                 
                 KbWait;
+                WaitSecs(0.25);
                 
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -502,6 +495,7 @@ if strcmp(elstate,'on')
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
+                WaitSecs(0.25);
             end
             
             speed = 2;
@@ -511,9 +505,8 @@ if strcmp(elstate,'on')
             
             SetUpTrialData
             
-            DrawFormattedText(window, 'Fast Feedback block now starting','center' , yCenter, black);
-            DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
-            
+            Screen('DrawTexture', window, fastFB, [], windowRect);
+
             Screen('Flip', window);
             
             if strcmp(elstate, 'on')
@@ -523,7 +516,7 @@ if strcmp(elstate,'on')
             end
             
             KbWait;
-            
+            WaitSecs(0.25);
             
             
             if strcmp(elstate, 'on')
@@ -540,7 +533,17 @@ if strcmp(elstate,'on')
                 Eyelink('Message', 'P2 Fast Feedback block end');
                 WaitSecs(0.001);
             end
+        elseif selection(o) == 3
+            Screen('DrawTexture', window, p1Bonus, [], windowRect);
+            Screen('Flip', window);
+            KbWait;
+            WaitSecs(0.25);
             
+        elseif selection(o) == 4
+            Screen('DrawTexture', window, p2Bonus, [], windowRect);
+            Screen('Flip', window);
+            KbWait;
+            WaitSecs(0.25);
         end
     end
 end
