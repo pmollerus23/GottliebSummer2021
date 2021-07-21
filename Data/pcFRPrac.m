@@ -1,4 +1,4 @@
-function [] = pcFR (DataMatrix, partCode, FreeForce)
+function [] = pcFRPrac (DataMatrix, partCode, FreeForce)
 
 d = DataMatrix;
 pCode = partCode;
@@ -16,7 +16,7 @@ x1 = [1 10 20 30 40 50 60 70 80 90 100 110 120 ];
 x2 = [130 140 150 160 170 180 190 200 210 220 230 240];
 blkNum = d(:, 17);
 
-for i = 3:10
+for i = 1:2
    indecies = find(blkNum == i &FR > 0 & sn == pCode)
    locFR = FR(indecies);
    x = indecies;

@@ -4,7 +4,11 @@ function [] = RTincPlot( matrix, P_code, freeForce )
 %   Detailed explanation goes here
 load final;
 
+
 d = matrix;
+inx = find(d(:,8) == 1);
+d(inx, :) = [];
+
 
 FF = d(:,1);
 sbjNum = d(:,2);

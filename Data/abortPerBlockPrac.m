@@ -1,4 +1,4 @@
-function [ ] = abortPerBlock( matrix, P_code )
+function [ ] = abortPerBlockPrac( matrix, P_code )
 
 y = [];
 
@@ -28,7 +28,7 @@ TrSp = d(:, 9);
 ff = d(:,1);
 
 
-for i = 3:10
+for i = 1:2
    indecies = find(blkNum == i& abort == 1)
    abortPlot = length(indecies)/30
    if length(indecies) > 0

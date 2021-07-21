@@ -1,6 +1,9 @@
 function [] = pcPlots (DataMatrix, partCode, FreeForce)
 
 d = DataMatrix;
+inx = find(d(:,8) == 1);
+d(inx, :) = [];
+
 pCode = partCode;
 ff = d(:,1);
 sn = d(:,2);

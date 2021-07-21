@@ -647,6 +647,10 @@ cleaned.practiceData = horzcat(practiceTrialData.free.trialData.allTrialData, pr
 blockNumVec = cleaned.practiceData(:,10);
 cleaned.practiceData = horzcat(cleaned.practiceData, blockNumVec);
 cleaned.practiceData(:,10) = [];
+indecies = find(cleaned.practiceData(:,7) == 1 |cleaned.practiceData(:,7) == 2 |cleaned.practiceData(:,7) == 3 );
+cleaned.practiceData(indecies,7) = 1;
+indecies = find(cleaned.practiceData(:,7) == 4 |cleaned.practiceData(:,7) == 5 |cleaned.practiceData(:,7) == 6 );
+cleaned.practiceData(indecies,7) = 6;
 
 blockNumVec = cleaned.data(:,10);
 cleaned.data = horzcat(cleaned.data, blockNumVec);
