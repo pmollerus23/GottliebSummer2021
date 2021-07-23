@@ -68,7 +68,7 @@ while (secs-start_time)<=p.times.ratingsMaxDuration
     
     
     tickMark = center (1) + linspace(-VASwidth/2,VASwidth/2,number_tics);
-    tickLabels = {'0','10'};
+    tickLabels = {' ',' '};
     for tick = 1:length(tickLabels)
         Screen('DrawLine',curWindow,black,tickMark(tick),center(2)+VASoffset+10,tickMark(tick),center(2)+VASoffset);
         DrawFormattedText(curWindow,tickLabels{tick},[tickMark(tick)-10],[center(2)+VASoffset-30],black);
