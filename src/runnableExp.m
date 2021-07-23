@@ -350,7 +350,7 @@ if strcmp(elstate,'on')
                 FreeTime;
                 P2Practice = true;
                 RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+                RestrictKeysForKbCheck(upKey);
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;

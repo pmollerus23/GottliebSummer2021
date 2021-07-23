@@ -31,10 +31,12 @@ ff = d(:,1);
 for i = 3:10
    indecies = find(blkNum == i& abort == 1)
    abortPlot = length(indecies)/30
+               pointForTrial = 'gx- ';
+
    if length(indecies) > 0
    if ff(indecies(1)) == 1 && TrSp(indecies(1)) == 1
        pointForTrial = 'bo-';
-   elseif  ff(indecies(1)) == 1 && TrSp(indecies(1)) == 2
+           elseif  ff(indecies(1)) == 1 && TrSp(indecies(1)) == 2
        
            pointForTrial = 'ro-';
            elseif  ff(indecies(1)) == 2 && TrSp(indecies(1)) == 1
@@ -44,7 +46,6 @@ for i = 3:10
        
            pointForTrial = 'rx-';
 
-    
     
    end
    end

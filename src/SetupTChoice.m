@@ -296,7 +296,8 @@ orientationOfT = nan(numTrials, 1);
 positionOfT = nan(numTrials,1);
 correctOrIncorrect = nan(numTrials, 1);
 respTime= nan(numTrials ,1);
-
+RestrictKeysForKbCheck([]);
+RestrictKeysForKbCheck([37, 38, 39, 40])
 
 %initialize variable struct for rating function
 p.mx = xCenter;

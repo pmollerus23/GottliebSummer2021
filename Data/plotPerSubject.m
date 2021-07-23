@@ -60,7 +60,7 @@ for i = 1:length(SC)
     
     titleHead = 'Participant';
     SCstr = num2str(SC(i));
-    titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, No Feedback/Feedback = O/X)'}, {' '}, );
+    titleStr = strcat(titleHead, {' '}, SCstr, {' '}, {'(Regular/Speeded = Blue/Red, No Feedback/Feedback = O/X)'}, {' '});
     suptitle(titleStr);
                %  polarPlotsRT(d, SC(i));
                     %          polarPlotsPC(d, SC(i));
