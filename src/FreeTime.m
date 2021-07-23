@@ -116,6 +116,7 @@ while j <= numTrials
     end
     
     %Clearing and initializing keyboard config for trial(i)
+    
     [secs, ~,~] = KbWait;
     
     [pressed, firstPress] = KbQueueCheck(deviceIndices);

@@ -59,7 +59,6 @@ if strcmp(elstate,'on')
                 feedback = false;
                 confidence = true;
                 numTrials = 6;
-                SetUpTrialData;
                 
                 if strcmp(elstate, 'on')
                     % Mark events, messages, etc. in dataviwer trial
@@ -75,6 +74,8 @@ if strcmp(elstate,'on')
                 
                 
                 end
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 preSlides;
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -82,8 +83,11 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
                 end
                 
-                
+                SetUpTrialData;
                 Practice;
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
+
                 P1Practice = true;
                 Screen('DrawTexture', window, s9, [], windowRect);
                             Screen('Flip', window);
@@ -168,12 +172,17 @@ if strcmp(elstate,'on')
                     
                     
                 end
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 preSlides;
-                
+                SetUpTrialData;
+
                 
                 WaitSecs(0.1);
                 Practice;
                 P1Practice = true;
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 Screen('DrawTexture', window, s9, [], windowRect);
                 KbWait;
                 WaitSecs(0.25);
@@ -224,8 +233,8 @@ if strcmp(elstate,'on')
                 feedback = true;
                 confidence = false;
                 numTrials = 6;
-                SetUpTrialData;
-                
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 P2instr;
                 
                 WaitSecs(0.1);
@@ -252,9 +261,12 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
                 
                 
-            end
+                end
+                SetUpTrialData;
                 FreeTime;
                 P2Practice = true;
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
@@ -305,8 +317,8 @@ if strcmp(elstate,'on')
                 feedback = true;
                 confidence = false;
                 numTrials = 6;
-                SetUpTrialData;
-                
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 P2instr;
                 
                 
@@ -332,9 +344,13 @@ if strcmp(elstate,'on')
                 WaitSecs(0.001);
                 
                 
-            end
+                end
+                SetUpTrialData;
+
                 FreeTime;
                 P2Practice = true;
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey)
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
