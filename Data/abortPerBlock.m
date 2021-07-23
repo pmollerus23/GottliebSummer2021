@@ -31,26 +31,29 @@ ff = d(:,1);
 for i = 3:10
    indecies = find(blkNum == i& abort == 1)
    abortPlot = length(indecies)/30
-               pointForTrial = 'gx- ';
+   indecies2 = (find(blkNum == i));
+              % pointForTrial = 'gx- ';
 
-   if length(indecies) > 0
-   if ff(indecies(1)) == 1 && TrSp(indecies(1)) == 1
+  % if length(indecies) > 0
+   if ff(indecies2(1)) == 1 && TrSp(indecies2(1)) == 1
        pointForTrial = 'bo-';
-           elseif  ff(indecies(1)) == 1 && TrSp(indecies(1)) == 2
+           elseif  ff(indecies2(1)) == 1 && TrSp(indecies2(1)) == 2
        
            pointForTrial = 'ro-';
-           elseif  ff(indecies(1)) == 2 && TrSp(indecies(1)) == 1
+           elseif  ff(indecies2(1)) == 2 && TrSp(indecies2(1)) == 1
        
            pointForTrial = 'bx-';
-           elseif  ff(indecies(1)) == 2 && TrSp(indecies(1)) == 2
+           elseif  ff(indecies2(1)) == 2 && TrSp(indecies2(1)) == 2
        
            pointForTrial = 'rx-';
 
     
+   %end
    end
-   end
-   plot(i, abortPlot, pointForTrial); hold on
+   plot(i-2, abortPlot, pointForTrial); hold on
 end
+xlabel('Block Number (1-8)')
+    ylabel('Percent Trials Aborted');
 
 
 

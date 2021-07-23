@@ -51,7 +51,7 @@ RT = d(:, 15);
     polarj(theta, rho2, pft2); hold on 
     polarj(theta, rho3, pft3); hold on 
     polarj(theta, rho4, pft4); hold on 
-    pbaspect([1 1 1])
+    pbaspect([1000 1000 1000])
 
     
     title('PC and Location of Target')

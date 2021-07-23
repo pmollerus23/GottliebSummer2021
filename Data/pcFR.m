@@ -38,7 +38,8 @@ for i = 3:10
 
    plot(x, locFR, pointForTrial); hold on
 
-
+xlabel('Trial Number')
+    ylabel('Fatigue Rating');
 
 
 end
