@@ -45,6 +45,8 @@ Eyelink('command','calibration_area_proportion = 0.5 0.5');
 %weather or not their response was correct. this loop
 %handles trial abortions and retries aborted at the end.
 %========================================================================
+pressed = 0;
+firstPress = 0;
 fixation_pos = crossPos;
 while j <= numTrials
     
@@ -115,6 +117,8 @@ while j <= numTrials
         WaitSecs(0.001);
     end
     
+    clear pressed;
+    clear firstPress;
     %Clearing and initializing keyboard config for trial(i)
     
     [secs, ~,~] = KbWait;

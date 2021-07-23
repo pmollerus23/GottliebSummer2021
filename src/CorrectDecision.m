@@ -1,8 +1,26 @@
 if Press(upKey) > 0 || Press(downKey)>0
                     %code to tell user how many points they gained
-                    rewardAmtText = num2str(trialData(j, 5));
+                    if trialData(j, 5) == 1
+                       rewardAmtText = '10'; 
+                    end
+                    if trialData(j, 5) == 2
+                        rewardAmtText = '14';
+                    end
+                     if trialData(j, 5) == 3
+                        rewardAmtText = '18';
+                     end
+                     if trialData(j, 5) == 4
+                        rewardAmtText = '22';
+                     end
+                     if trialData(j, 5) == 5
+                        rewardAmtText = '26';
+                     end
+                     if trialData(j, 5) == 6
+                        rewardAmtText = '30';
+                    end
+                    
                     if easy== true
-                        rewardAmtText = 1;
+                        rewardAmtText = '10';
                     end
                     plus = '+';
                     responseText = [plus ' ' rewardAmtText];
