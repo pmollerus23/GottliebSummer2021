@@ -41,12 +41,9 @@ end
     
     WaitSecs(1);
     
-    %     Screen('DrawTexture', window, dispImageCross, [], crossPos);
-    %     Screen('Flip', window);
+  
     
-    
-    
-    % while isEyeInside
+   
     %Conditional for trial speed (including fixation cross signal
     %color: 1 is slow (2s, blue cross) 2 is fast (800ms, red cross)
     if speed == 1
