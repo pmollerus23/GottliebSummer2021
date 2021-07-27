@@ -75,7 +75,7 @@ if strcmp(elstate,'on')
                 
                 end
                 RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+                RestrictKeysForKbCheck(upKey);
                 preSlides;
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
