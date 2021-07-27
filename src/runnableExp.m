@@ -28,7 +28,7 @@ if strcmp(elstate,'on')
     
     
     order1 = [1 2 3 7 8 7 8 5 6 5 6 4];
-    order2 = [1];
+    order2 = [7];
     
     if trialChoice == 0 
         selection = order1;
@@ -41,7 +41,7 @@ if strcmp(elstate,'on')
     blockNum = 2;
     practiceNum = 0;
     
-    for o = 1:12
+    for o = 1:1
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -99,7 +99,7 @@ if strcmp(elstate,'on')
             speed = 1;
             feedback = false;
             confidence = true;
-            numTrials = 42;
+            numTrials = 6;
             
             SetUpTrialData;
             
@@ -153,7 +153,7 @@ if strcmp(elstate,'on')
                 DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
                 
                 
-                
+              
                 Screen('Flip', window);
                 
                 if strcmp(elstate, 'on')
@@ -189,7 +189,7 @@ if strcmp(elstate,'on')
             end
             speed = 2;
             feedback = false;
-            numTrials = 42;
+            numTrials = 6;
             confidence = true;
             
             SetUpTrialData;
@@ -263,6 +263,11 @@ if strcmp(elstate,'on')
                 
                 end
                 SetUpTrialData;
+                
+                KbQueueRelease(deviceIndices);
+                KbQueueCreate(deviceIndices);
+                KbQueueStart(deviceIndices);
+                
                 FreeTime;
                 P2Practice = true;
                 RestrictKeysForKbCheck([]);
@@ -275,7 +280,7 @@ if strcmp(elstate,'on')
             
             speed = 1;
             feedback = false;
-            numTrials = 30;
+            numTrials = 6;
             confidence = false;
             
             SetUpTrialData;
@@ -318,7 +323,7 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 6;
                 RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+                RestrictKeysForKbCheck(upKey);
                 P2instr;
                 
                 
@@ -359,7 +364,7 @@ if strcmp(elstate,'on')
             
             speed = 2;
             feedback = false;
-            numTrials = 30;
+            numTrials = 6;
             confidence = false;
             
             SetUpTrialData
@@ -401,7 +406,8 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 6;
                 SetUpTrialData;
-                
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey);
                 P2instr;
            
                 
@@ -430,6 +436,8 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                P2Practice = true;
+               RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey);
                Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
@@ -439,7 +447,7 @@ if strcmp(elstate,'on')
             
             speed = 1;
             feedback = true;
-            numTrials = 30;
+            numTrials = 6;
             confidence = false;
             
             SetUpTrialData
@@ -482,7 +490,8 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 6;
                 SetUpTrialData;
-                
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey);
                 P2instr;
                 
                 DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
@@ -508,6 +517,8 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                 P2Practice = true;
+                RestrictKeysForKbCheck([]);
+                RestrictKeysForKbCheck(upKey);
                 Screen('DrawTexture', window, sc19, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
@@ -516,7 +527,7 @@ if strcmp(elstate,'on')
             
             speed = 2;
             feedback = true;
-            numTrials = 30;
+            numTrials = 6;
             confidence = false;
             
             SetUpTrialData
