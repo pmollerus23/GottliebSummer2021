@@ -48,6 +48,7 @@ Eyelink('command','calibration_area_proportion = 0.5 0.5');
 pressed = 0;
 firstPress = 0;
 fixation_pos = crossPos;
+%listenChar(2);
 while j <= numTrials
     
     %% 5. Mark events, messages, etc. in dataviwer trial
@@ -121,9 +122,17 @@ while j <= numTrials
     clear firstPress;
     %Clearing and initializing keyboard config for trial(i)
     
-    [secs, ~,~] = KbWait;
+  
     
-    [pressed, firstPress] = KbQueueCheck(deviceIndices);
+%     [pressed, lastPress, firstRelease, firstPress] = KbQueueCheck(deviceIndices);
+%     if ~isempty(find(firstPress >0))
+%         disp(sprintf('Most recent = %d', find(firstPress > 0)));
+%     else
+%         disp('EMPTY')
+%     end
+%     
+    [secs, firstPress,~] = KbWait;
+    
     WaitSecs(0.25);
     
     %Storing response interval time
@@ -133,6 +142,9 @@ while j <= numTrials
         rewardChoice(j,1) = 1;
     elseif (firstPress(leftKey) > 0 &&  trialData(j, 4)==2) || (firstPress(rightKey) > 0 &&  trialData(j, 4)==1)
         rewardChoice(j,1) = 2;
+        
+    elseif firstPress(upKey) > 0 || firstPress(downKey) > 0
+        AbortFree;
     end
     
     
@@ -313,14 +325,19 @@ while j <= numTrials
                         end
                     end
                 end
-                [pressed, Press] = KbQueueCheck(deviceIndices);
-                
-                %check for key press during search task if key is
-                %pressed loop breakes
-                if Press(downKey)>0 || Press(upKey)>0
+               % [pressed, Press] = KbQueueCheck(deviceIndices);
+                 
+                [bp,~,Press] = KbCheck(deviceIndices);
+                if bp == 1
                     respTime(j,1) = GetSecs-start1;
                     break
-                end
+                end 
+                %check for key press during search task if key is
+                %pressed loop breakes
+%                 if Press(downKey)>0 || Press(upKey)>0
+%                     respTime(j,1) = GetSecs-start1;
+%                     break
+%                 end
                 
             end
             
@@ -417,13 +434,11 @@ while j <= numTrials
                     end
                 end
                 
-                [pressed, Press] = KbQueueCheck(deviceIndices);
-                %if key is pressed during search, the loop breaks and
-                %records reaction time
-                if Press(downKey)>0 || Press(upKey)>0
+                [bp,~,Press] = KbCheck(deviceIndices);
+                if bp == 1
                     respTime(j,1) = GetSecs-start1;
                     break
-                end
+                end 
             end
             
             if Press(downKey)>0 || Press(upKey)>0
@@ -463,6 +478,7 @@ while j <= numTrials
     
     j = j + 1;
 end
+%listenChar(0);
 
 if confidence == true
     DrawFormattedText(window, responseText, 'What percent do you think you got correct?',screenYpixels * 0.25, black);

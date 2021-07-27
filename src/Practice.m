@@ -301,10 +301,8 @@ while j <= numTrials
                 end
             end
             
-            [pressed, Press] = KbQueueCheck(deviceIndices);
-            %if key is pressed during search, the loop breaks and
-            %records reaction time
-            if Press(downKey)>0 || Press(upKey)>0
+            [bp,~,Press] = KbCheck(deviceIndices);
+            if bp == 1
                 respTime(j,1) = GetSecs-start1;
                 break
             end
