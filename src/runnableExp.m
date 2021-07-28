@@ -52,6 +52,32 @@ if strcmp(elstate,'on')
     practiceNum = 0;
     
     %Main loop that iterates through each block in chosen sequence
+    
+    %P1 or P2 practice variables correspond to practice completion at the
+    %start of each of the two parts of the task. FALSE means practice has
+    %been completed
+    
+    %Speed corresponds to the speed of each block. 1 means SLOW, 2 means
+    %FAST
+    
+    %Feedback corresponds to whether or not feedback is given in that block
+    %FALSE means no feedback, TRUE means feedback
+    
+    %Confidence corresponds to whether confidence ratings are given during
+    %that block TRUE means they are, FALSE means they aren't
+    %numTrials corresponds to the number of trials set for each block. For
+    %full tasks, practice periods before each half of the task have 6
+    %TRIALS
+    %
+    %
+    %SELECTION PRESETS:
+    %%%1 = NO FEEDBACK, SLOW, CONFIDENCE RATINGS
+    %%%2 = NO FEEDBACK, FAST, CONFIDENCE RATINGS
+    %%%5 = FEEDBACK, SLOW, NO CONFIDENCE RATINGS
+    %%%6 = FEEDBACK, FAST, NO CONFIDENCE RATINGS
+    %%%7 = FEEDBACK, SLOW, CONFIDENCE RATINGS
+    %%%8 = FEEDBACK, FAST, CONFIDENCE RATINGS
+   
     for o = 1:1
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
