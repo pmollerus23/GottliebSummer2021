@@ -24,7 +24,7 @@ elseif j == 1 && speed == 2
         WaitSecs(0.001);
     end
     
-    trialText = 'Choose Reward Amount';
+    trialText = 'Reward Amount';
     WaitSecs(2);
 end
 

@@ -1,8 +1,3 @@
-Screen('DrawTexture', window, sc10, [], windowRect);
-Screen('Flip', window);
-KbWait;
-WaitSecs(0.25);
-
 Screen('DrawTexture', window, sc11, [], windowRect);
 Screen('Flip', window);
 KbWait;
@@ -39,6 +34,11 @@ KbWait;
 WaitSecs(0.25);
 
 Screen('DrawTexture', window, sc18, [], windowRect);
+Screen('Flip', window);
+KbWait;
+WaitSecs(0.25);
+
+Screen('DrawTexture', window, sc19, [], windowRect);
 Screen('Flip', window);
 KbWait;
 WaitSecs(0.25);

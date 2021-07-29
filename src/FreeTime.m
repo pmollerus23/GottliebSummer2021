@@ -249,7 +249,7 @@ while j <= numTrials
                 WaitSecs(0.001);
             end
             
-            ArrayEt;
+            ArrayET;
             %enters if statment if key is pressed and fixatin is held, or
             %if there is no button press
             if nofixtimeflag==0
@@ -302,7 +302,7 @@ while j <= numTrials
             
             
             
-            ArrayEt;
+            ArrayET;
             %enters if statement if there was a key press
             if nofixtimeflag == 0
                 %set to zero, when "CorrectDecesion" executes there will be

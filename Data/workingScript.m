@@ -52,5 +52,5 @@ cleaned.free.PM.data(indecies,:) = [];
 clean = cleaned;
 save('clean')
 
-
+plotPerSubject(all.cleaned.data, all.cleaned.practiceData, 2);
 

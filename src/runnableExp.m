@@ -33,7 +33,7 @@ if strcmp(elstate,'on')
     
     %Setting vector for sequence of blocks
     order1 = [1 2 3 7 8 7 8 5 6 5 6 4];
-    order2 = [7];
+    order2 = [1 2 3 7 8 5 6 4];
     
     %GUI order selection
     if trialChoice == 0 
@@ -78,7 +78,7 @@ if strcmp(elstate,'on')
     %%%7 = FEEDBACK, SLOW, CONFIDENCE RATINGS
     %%%8 = FEEDBACK, FAST, CONFIDENCE RATINGS
    
-    for o = 1:1
+    for o = 1:12
             
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -111,8 +111,8 @@ if strcmp(elstate,'on')
                 
                 
                 end
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 preSlides;
                 if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
@@ -122,11 +122,11 @@ if strcmp(elstate,'on')
                 
                 SetUpTrialData;
                 Practice;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
 
                 P1Practice = true;
-                Screen('DrawTexture', window, s9, [], windowRect);
+                Screen('DrawTexture', window, sc10, [], windowRect);
                             Screen('Flip', window);
 
                 KbWait;
@@ -136,15 +136,16 @@ if strcmp(elstate,'on')
             speed = 1;
             feedback = false;
             confidence = true;
-            numTrials = 6;
+            numTrials = 42;
             
+      
             SetUpTrialData;
             
             DrawFormattedText(window, 'Regular No Feedback block now starting','center' , yCenter, black);
             DrawFormattedText(window, 'Press arrow keys to continue...','center' , yCenter + 75, black);
             Screen('Flip', window);
             WaitSecs(1);
-            if strcmp(elstate, 'on')
+             if strcmp(elstate, 'on')
                 % Mark events, messages, etc. in dataviwer trial
                 Eyelink('Message', 'P1 Regular No Feedback block signal shown');
                 WaitSecs(0.001);
@@ -210,8 +211,8 @@ if strcmp(elstate,'on')
                     
                     
                 end
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 preSlides;
                 SetUpTrialData;
 
@@ -219,15 +220,15 @@ if strcmp(elstate,'on')
                 WaitSecs(0.1);
                 Practice;
                 P1Practice = true;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
-                Screen('DrawTexture', window, s9, [], windowRect);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
+                Screen('DrawTexture', window, sc10, [], windowRect);
                 KbWait;
                 WaitSecs(0.25);
             end
             speed = 2;
             feedback = false;
-            numTrials = 6;
+            numTrials = 42;
             confidence = true;
             
             SetUpTrialData;
@@ -271,8 +272,8 @@ if strcmp(elstate,'on')
                 feedback = true;
                 confidence = false;
                 numTrials = 6;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 P2instr;
                 
                 WaitSecs(0.1);
@@ -308,9 +309,9 @@ if strcmp(elstate,'on')
                 
                 FreeTime;
                 P2Practice = true;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey)
-                Screen('DrawTexture', window, sc19, [], windowRect);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
+                Screen('DrawTexture', window, sc20, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
                 WaitSecs(0.25);
@@ -318,7 +319,7 @@ if strcmp(elstate,'on')
             
             speed = 1;
             feedback = false;
-            numTrials = 6;
+            numTrials = 30;
             confidence = false;
             
             SetUpTrialData;
@@ -360,8 +361,8 @@ if strcmp(elstate,'on')
                 feedback = true;
                 confidence = false;
                 numTrials = 6;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 P2instr;
                 
                 
@@ -392,9 +393,9 @@ if strcmp(elstate,'on')
 
                 FreeTime;
                 P2Practice = true;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
-                Screen('DrawTexture', window, sc19, [], windowRect);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
+                Screen('DrawTexture', window, sc20, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
                 WaitSecs(0.25);
@@ -402,7 +403,7 @@ if strcmp(elstate,'on')
             
             speed = 2;
             feedback = false;
-            numTrials = 6;
+            numTrials = 30;
             confidence = false;
             
             SetUpTrialData
@@ -444,8 +445,8 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 6;
                 SetUpTrialData;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 P2instr;
            
                 
@@ -474,9 +475,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                P2Practice = true;
-               RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
-               Screen('DrawTexture', window, sc19, [], windowRect);
+%                RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
+               Screen('DrawTexture', window, sc20, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
                 WaitSecs(0.25);
@@ -485,7 +486,7 @@ if strcmp(elstate,'on')
             
             speed = 1;
             feedback = true;
-            numTrials = 6;
+            numTrials = 30;
             confidence = false;
             
             SetUpTrialData
@@ -528,8 +529,8 @@ if strcmp(elstate,'on')
                 confidence = false;
                 numTrials = 6;
                 SetUpTrialData;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
                 P2instr;
                 
                 DrawFormattedText(window, 'Practice block now starting','center' , yCenter, black);
@@ -555,9 +556,9 @@ if strcmp(elstate,'on')
             end
                 FreeTime;
                 P2Practice = true;
-                RestrictKeysForKbCheck([]);
-                RestrictKeysForKbCheck(upKey);
-                Screen('DrawTexture', window, sc19, [], windowRect);
+%                 RestrictKeysForKbCheck([]);
+%                 RestrictKeysForKbCheck(upKey);
+                Screen('DrawTexture', window, sc20, [], windowRect);
                 Screen('Flip', window);
                 KbWait;
                 WaitSecs(0.25);
@@ -565,7 +566,7 @@ if strcmp(elstate,'on')
             
             speed = 2;
             feedback = true;
-            numTrials = 6;
+            numTrials = 30;
             confidence = false;
             
             SetUpTrialData

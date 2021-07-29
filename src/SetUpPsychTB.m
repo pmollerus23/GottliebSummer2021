@@ -22,10 +22,10 @@ screen = Screen('Screens');
 screenNumber = max(screen);
  
 %SCREEN SETTING FOR DEBUG/TEST MODE
-%[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
+[window, windowRect] = PsychImaging('OpenWindow', 0, 0.775);
  
 %SCREEN SETTING FOR FULLSCREEN MODE
-[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
+%[window, windowRect]  = PsychImaging('OpenWindow', screenNumber, 0.775 ,  [0 0 1000 1000], 32, 2);
 %...
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 [xCenter, yCenter] = RectCenter(windowRect);
@@ -111,30 +111,30 @@ Screen('TextFont', window, 'Ariel');
 Screen('TextSize', window, 40);
 
 %Reading images for fixation cross types
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\fixCross';
-fileList = dir(fullfile(folder, '/*.png'));
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\fixCross';
+% fileList = dir(fullfile(folder, '/*.png'));
 %...
-imageCross = imread(fullfile(fileList(1).folder, fileList(1).name));
+imageCross = imread('CrossP.png');
 dispImageCross = Screen('MakeTexture', window, imageCross);
 
 %Reading images for T's for search array
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\searchArray\T';
-fileList = dir(fullfile(folder, '/*.png'));
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\searchArray\T';
+% fileList = dir(fullfile(folder, '/*.png'));
 %...
-imageNormalT = imread(fullfile(fileList(2).folder, fileList(2).name));
-imageUPT = imread(fullfile(fileList(1).folder, fileList(1).name));
+imageNormalT = imread('Picture2TT.png');
+imageUPT = imread('Picture2TTUD.png');
 %...
 dispImageUSDT = Screen('MakeTexture', window, imageUPT);
 dispImageT = Screen('MakeTexture', window, imageNormalT);
 
 %Reading images for L's for search array
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\searchArray\L';
-fileList = dir(fullfile(folder, '/*.png'));
-%...
-imageUDL = imread(fullfile(fileList(1).folder, fileList(1).name));
-imageNL = imread(fullfile(fileList(4).folder, fileList(4).name));
-imageSL = imread(fullfile(fileList(3).folder, fileList(3).name));
-imageSWL = imread(fullfile(fileList(2).folder, fileList(2).name));
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\searchArray\L';
+% fileList = dir(fullfile(folder, '/*.png'));
+% %...
+imageUDL = imread('LPictureUD.png');
+imageNL = imread('LPicture.png');
+imageSL = imread('LPictureS.png');
+imageSWL = imread('LPictureSW.png');
 %...
 upsideDownL = Screen('MakeTexture', window, imageUDL);
 normalL = Screen('MakeTexture', window, imageNL);
@@ -142,19 +142,19 @@ sideL = Screen('MakeTexture', window, imageSL);
 sideWL = Screen('MakeTexture', window, imageSWL);
 
 %Reading images for task instruction slides PART ONE
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\p1instructions';
-fileList = dir(fullfile(folder, '/*.png'));
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\p1instructions';
+% fileList = dir(fullfile(folder, '/*.png'));
 
-s1 = imread(fullfile(fileList(10).folder, fileList(10).name));
-s2 = imread(fullfile(fileList(9).folder, fileList(9).name));
-s3 = imread(fullfile(fileList(8).folder, fileList(8).name));
-s4 = imread(fullfile(fileList(7).folder, fileList(7).name));
-s5 = imread(fullfile(fileList(6).folder, fileList(6).name));
-s6 = imread(fullfile(fileList(5).folder, fileList(5).name));
-s7 = imread(fullfile(fileList(4).folder, fileList(4).name));
-s8 = imread(fullfile(fileList(3).folder, fileList(3).name));
-s9 = imread(fullfile(fileList(2).folder, fileList(2).name));
-s10 = imread(fullfile(fileList(1).folder, fileList(1).name));
+s1 = imread('Slide1.PNG');
+s2 = imread('Slide2.PNG');
+s3 = imread('Slide3.PNG');
+s4 = imread('Slide4.PNG');
+s5 = imread('Slide5.PNG');
+s6 = imread('Slide6.PNG');
+s7 = imread('Slide7.PNG');
+s8 = imread('Slide8.PNG');
+s9 = imread('Slide9.PNG');
+s10 = imread('Slide10.PNG');
 %...
 sc1 = Screen('MakeTexture', window, s1);
 sc2 = Screen('MakeTexture', window, s2);
@@ -167,20 +167,20 @@ sc8 = Screen('MakeTexture', window, s8);
 sc9 = Screen('MakeTexture', window, s9);
 sc10 = Screen('MakeTexture', window, s10);
 
-%Reading images for task instruction slides PART TWO
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\p2instructions';
-fileList = dir(fullfile(folder, '/*.png'));
+% %Reading images for task instruction slides PART TWO
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\p2instructions';
+% fileList = dir(fullfile(folder, '/*.png'));
 
-s11 = imread(fullfile(fileList(10).folder, fileList(10).name));
-s12 = imread(fullfile(fileList(9).folder, fileList(9).name));
-s13 = imread(fullfile(fileList(8).folder, fileList(8).name));
-s14 = imread(fullfile(fileList(7).folder, fileList(7).name));
-s15 = imread(fullfile(fileList(6).folder, fileList(6).name));
-s16 = imread(fullfile(fileList(5).folder, fileList(5).name));
-s17 = imread(fullfile(fileList(4).folder, fileList(4).name));
-s18 = imread(fullfile(fileList(3).folder, fileList(3).name));
-s19 = imread(fullfile(fileList(2).folder, fileList(2).name));
-s20 = imread(fullfile(fileList(1).folder, fileList(1).name));
+s11 = imread('Slide11.PNG');
+s12 = imread('Slide12.PNG');
+s13 = imread('Slide13.PNG');
+s14 = imread('Slide14.PNG');
+s15 = imread('Slide15.PNG');
+s16 = imread('Slide16.PNG');
+s17 = imread('Slide17.PNG');
+s18 = imread('Slide18.PNG');
+s19 = imread('Slide19.PNG');
+s20 = imread('Slide20.PNG');
 %...
 sc11 = Screen('MakeTexture', window, s11);
 sc12 = Screen('MakeTexture', window, s12);
@@ -193,17 +193,17 @@ sc18 = Screen('MakeTexture', window, s18);
 sc19 = Screen('MakeTexture', window, s19);
 sc20 = Screen('MakeTexture', window, s20);
 
-%Reading images for each incentive level
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\incentives';
-fileList = dir(fullfile(folder, '/*.png'));
+% %Reading images for each incentive level
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\incentives';
+% fileList = dir(fullfile(folder, '/*.png'));
 %...
-imageIncentive1 = imread(fullfile(fileList(2).folder, fileList(2).name));
-imageIncentive1EASY = imread(fullfile(fileList(1).folder, fileList(1).name));
-imageIncentive2 = imread(fullfile(fileList(3).folder, fileList(3).name));
-imageIncentive3 = imread(fullfile(fileList(4).folder, fileList(4).name));
-imageIncentive4 = imread(fullfile(fileList(5).folder, fileList(5).name));
-imageIncentive5 = imread(fullfile(fileList(6).folder, fileList(6).name));
-imageIncentive6 = imread(fullfile(fileList(7).folder, fileList(7).name));
+imageIncentive1 = imread('Reward11.png');
+imageIncentive1EASY = imread('Reward10.png');
+imageIncentive2 = imread('Reward14.png');
+imageIncentive3 = imread('Reward18.png');
+imageIncentive4 = imread('Reward22.png');
+imageIncentive5 = imread('Reward26.png');
+imageIncentive6 = imread('Reward30.png');
 %...
 disOneIncentive = Screen('MakeTexture', window, imageIncentive1);
 disOneEasyIncentive = Screen('MakeTexture', window, imageIncentive1EASY);
@@ -213,26 +213,26 @@ disFourIncentive = Screen('MakeTexture', window, imageIncentive4);
 disFiveIncentive = Screen('MakeTexture', window, imageIncentive5);
 disSixIncentive = Screen('MakeTexture', window, imageIncentive6);
 
-%Initializing images for BLOCK SIGNAL SLIDES
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\blockSignal';
-fileList = dir(fullfile(folder, '/*.png'));
+% %Initializing images for BLOCK SIGNAL SLIDES
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\blockSignal';
+% fileList = dir(fullfile(folder, '/*.png'));
 %...
-imgRegFB = imread(fullfile(fileList(2).folder, fileList(2).name));
-imgFastFB = imread(fullfile(fileList(4).folder, fileList(4).name));
-imgRegNFB = imread(fullfile(fileList(1).folder, fileList(1).name));
-imgFastNFB = imread(fullfile(fileList(3).folder, fileList(3).name));
+imgRegFB = imread('regFB.PNG');
+imgFastFB = imread('fastFB.PNG');
+imgRegNFB = imread('regNFB.PNG');
+imgFastNFB = imread('fastNFB.PNG');
 %...
 regFB = Screen('MakeTexture', window, imgRegFB);
 fastFB = Screen('MakeTexture', window, imgFastFB);
 regNFB = Screen('MakeTexture', window, imgRegNFB);
 fastNFB = Screen('MakeTexture', window, imgFastNFB);
 
-%Initializing images for BONUS SLIDES
-folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\bonus';
-fileList = dir(fullfile(folder, '/*.png'));
+% %Initializing images for BONUS SLIDES
+% folder = 'C:\Users\jglab\Documents\GitHub\GottliebSummer2021\src\resources\instructions\bonus';
+% fileList = dir(fullfile(folder, '/*.png'));
 %...
-imgP1bonus = imread(fullfile(fileList(2).folder, fileList(2).name));
-imgP2bonus = imread(fullfile(fileList(1).folder, fileList(1).name));
+imgP1bonus = imread('p1Bonus.PNG');
+imgP2bonus = imread('p2Bonus.PNG');
 %...
 p1Bonus = Screen('MakeTexture', window, imgP1bonus);
 p2Bonus = Screen('MakeTexture', window, imgP2bonus);
