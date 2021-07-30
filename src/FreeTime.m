@@ -360,6 +360,8 @@ if countFreeBlocks == 1 && confidence == false && P2Practice == true
     finalTrialData.free.results.fatigueRating = fatigueRating;
     finalTrialData.free.results.keyPress = keyPress;
     finalTrialData.free.trialData.allTrialData = trialData;
+    save('finalTrialData');
+    load('finalTrialData.mat')
 elseif countFreeBlocks ~= 1 && confidence == false && P2Practice == true
     finalTrialData.free.results.responseTimeIncentive = vertcat(finalTrialData.free.results.responseTimeIncentive, respTimeInc);
     finalTrialData.free.results.rewardChoice = vertcat(finalTrialData.free.results.rewardChoice, rewardChoice);
@@ -369,6 +371,8 @@ elseif countFreeBlocks ~= 1 && confidence == false && P2Practice == true
     finalTrialData.free.results.fatigueRating = vertcat(finalTrialData.free.results.fatigueRating, fatigueRating);
     finalTrialData.free.results.keyPress = vertcat(finalTrialData.free.results.keyPress, keyPress);
     finalTrialData.free.trialData.allTrialData = vertcat(finalTrialData.free.trialData.allTrialData, trialData);
+    save('finalTrialData');
+    load('finalTrialData.mat')
 elseif countPracticeBlocks == 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.responseTimeIncentive =respTimeInc;
     practiceTrialData.free.results.rewardChoice = rewardChoice;
@@ -378,6 +382,8 @@ elseif countPracticeBlocks == 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.fatigueRating = fatigueRating;
     practiceTrialData.free.results.keyPress = keyPress;
     practiceTrialData.free.trialData.allTrialData = trialData;
+    save('practiceTrialData');
+    load('practiceTrialData.mat')
 elseif countPracticeBlocks ~= 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.responseTimeIncentive = vertcat(practiceTrialData.free.results.responseTimeIncentive, respTimeInc);
     practiceTrialData.free.results.rewardChoice = vertcat(practiceTrialData.free.results.rewardChoice, rewardChoice);
@@ -387,6 +393,8 @@ elseif countPracticeBlocks ~= 1 && confidence == true && P2Practice == true
     practiceTrialData.free.results.fatigueRating = vertcat(practiceTrialData.free.results.fatigueRating, fatigueRating);
     practiceTrialData.free.results.keyPress = vertcat(practiceTrialData.free.results.keyPress, keyPress);
     practiceTrialData.free.trialData.allTrialData = vertcat(practiceTrialData.free.trialData.allTrialData, trialData);
+    save('practiceTrialData');
+    load('practiceTrialData.mat')
 end
 
 if P2Practice == true

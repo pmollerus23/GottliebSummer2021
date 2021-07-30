@@ -3,10 +3,12 @@ YL = load('YL3data.mat');
 L = load('L4data.mat');
 IR = load('IRnewData.mat');
 ALL = load('allParticipantData.mat');
+PM = load('PM6data.mat');
+CB = load('CB5data.mat');
 
 
-all.cleaned.data = [IR.cleaned.data; OR.cleaned.data; YL.cleaned.data; L.cleaned.data];
-all.cleaned.practiceData = [IR.cleaned.practiceData; OR.cleaned.practiceData; YL.cleaned.practiceData; L.cleaned.practiceData];
+all.cleaned.data = [IR.cleaned.data; OR.cleaned.data; YL.cleaned.data; L.cleaned.data; CB.cleaned.data; PM.cleaned.data];
+all.cleaned.practiceData = [IR.cleaned.practiceData; OR.cleaned.practiceData; YL.cleaned.practiceData; L.cleaned.practiceData; CB.cleaned.practiceData; PM.cleaned.practiceData];
 all.cleaned.dataDescription = [L.cleaned.dataDescription];
 all.cleaned.dataPracDescription = [L.cleaned.dataPracDescription];
 all.cleaned.data = [IR.cleaned.data; ALL.cleaned.dat];

@@ -33,7 +33,7 @@ if strcmp(elstate,'on')
     
     %Setting vector for sequence of blocks
     order1 = [1 2 3 7 8 7 8 5 6 5 6 4];
-    order2 = [1 2 3 7 8 5 6 4];
+    order2 = [1 2 7 8 5 6];
     
     %GUI order selection
     if trialChoice == 0 
@@ -65,7 +65,8 @@ if strcmp(elstate,'on')
     
     %Confidence corresponds to whether confidence ratings are given during
     %that block TRUE means they are, FALSE means they aren't
-    %numTrials corresponds to the number of trials set for each block. For
+    %
+    %corresponds to the number of trials set for each block. For
     %full tasks, practice periods before each half of the task have 6
     %TRIALS
     %
